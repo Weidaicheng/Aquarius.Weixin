@@ -6,12 +6,12 @@ using System;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model.WeixinInterface;
 
-namespace Weixin.Netcore.Core
+namespace Weixin.Netcore.Core.InterfaceCaller
 {
     /// <summary>
     /// 微信接口调用
     /// </summary>
-    public class WeixinInterfaceCaller
+    public class OAuthInterfaceCaller
     {
         #region .ctor
         private readonly IRestClient _restClient;
@@ -20,14 +20,13 @@ namespace Weixin.Netcore.Core
         private const string WeixinUri = "https://api.weixin.qq.com";
         #endregion
 
-        public WeixinInterfaceCaller(IRestClient restClient)
+        public OAuthInterfaceCaller(IRestClient restClient)
         {
             _restClient = restClient;
             _restClient.BaseUrl = new Uri(WeixinUri);
         }
         #endregion
 
-        #region Business Func
         /// <summary>
         /// 获取AccessToken
         /// </summary>
@@ -97,38 +96,5 @@ namespace Weixin.Netcore.Core
 
             return JsonConvert.DeserializeObject<OpenId>(response.Content);
         }
-
-        /// <summary>
-        /// 创建菜单
-        /// </summary>
-        /// <param name="accessToken"></param>
-        /// <param name="menuJson"></param>
-        /// <returns></returns>
-        public string CreateMenu(string accessToken, string menuJson)
-        {
-            if (string.IsNullOrEmpty(accessToken))
-            {
-                throw new ArgumentException("Access Token为空");
-            }
-            if (string.IsNullOrEmpty(menuJson))
-            {
-                throw new ArgumentException("menuJson为空");
-            }
-
-            IRestRequest request = new RestRequest($"cgi-bin/menu/create", Method.POST);
-            request.AddQueryParameter("access_token", accessToken);
-            request.AddParameter("application/json", menuJson, ParameterType.RequestBody);
-
-            IRestResponse response = _restClient.Execute(request);
-
-            var err = JsonConvert.DeserializeObject<Error>(response.Content);
-            if(err.errcode != 0)
-            {
-                throw new WeixinInterfaceException(err.errmsg);
-            }
-
-            return err.errmsg;
-        }
-        #endregion
     }
 }
