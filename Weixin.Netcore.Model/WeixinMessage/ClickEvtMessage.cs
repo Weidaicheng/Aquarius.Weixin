@@ -3,19 +3,19 @@
 namespace Weixin.Netcore.Model.WeixinMessage
 {
     /// <summary>
-    /// 图片消息
+    /// 自定义菜单点击事件消息
     /// </summary>
-    public class ImageMessage : NormalMessage, IMessageReceive
+    public class ClickEvtMessage : EventMessage, IMessageReceive
     {
-        public ImageMessage()
+        public ClickEvtMessage()
         {
-            MsgType = "image";
+            Event = "CLICK";
         }
 
         /// <summary>
-		/// 图片消息内容
-		/// </summary>
-		public string MediaId { get; set; }
+        /// 事件KEY值
+        /// </summary>
+        public string EventKey { get; set; }
 
         public void ConvertEntity(string xml)
         {
@@ -23,8 +23,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
             ToUserName = dic["ToUserName"];
             FromUserName = dic["FromUserName"];
             CreateTime = long.Parse(dic["CreateTime"]);
-            MsgId = long.Parse(dic["MsgId"]);
-            MediaId = dic["MediaId"];
+            EventKey = dic["EventKey"];
         }
     }
 }

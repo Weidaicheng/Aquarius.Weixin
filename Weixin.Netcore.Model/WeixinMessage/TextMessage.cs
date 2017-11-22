@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
     /// <summary>
     /// 文本消息
     /// </summary>
-    public class TextMessage : MessageNormal, IMessageReceive
+    public class TextMessage : NormalMessage, IMessageReceive
     {
         public TextMessage()
         {

@@ -3,11 +3,13 @@
     /// <summary>
     /// 事件消息
     /// </summary>
-    public class MessageEvent : MessageBase
+    public class EventMessage : MessageBase
     {
-        public MessageEvent()
+        public EventMessage()
         {
             MsgType = "event";
         }
+
+        public string Event { get; set; }
     }
 }

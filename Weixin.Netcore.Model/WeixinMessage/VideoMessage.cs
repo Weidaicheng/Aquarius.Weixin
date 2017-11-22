@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
     /// <summary>
     /// 视频消息
     /// </summary>
-    public class VideoMessage : MessageNormal, IMessageReceive
+    public class VideoMessage : NormalMessage, IMessageReceive
     {
         public VideoMessage()
         {

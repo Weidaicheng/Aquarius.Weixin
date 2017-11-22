@@ -3,24 +3,19 @@
 namespace Weixin.Netcore.Model.WeixinMessage
 {
     /// <summary>
-    /// 小视频消息
+    /// 扫码事件消息
     /// </summary>
-    public class ShortVideoMessage : NormalMessage, IMessageReceive
+    public class ScanEvtMessage : EventMessage, IMessageReceive
     {
-        public ShortVideoMessage()
-        {
-            MsgType = "shortvideo";
-        }
+        /// <summary>
+        /// 事件KEY值
+        /// </summary>
+        public string EventKey { get; set; }
 
         /// <summary>
-        /// 视频消息素材Id
+        /// 二维码Ticket，可用来换取二维码图片
         /// </summary>
-        public string MediaId { get; set; }
-
-        /// <summary>
-        /// 视频消息缩略图素材Id
-        /// </summary>
-        public string ThumbMediaId { get; set; }
+        public string Ticket { get; set; }
 
         public void ConvertEntity(string xml)
         {
@@ -28,9 +23,9 @@ namespace Weixin.Netcore.Model.WeixinMessage
             ToUserName = dic["ToUserName"];
             FromUserName = dic["FromUserName"];
             CreateTime = long.Parse(dic["CreateTime"]);
-            MsgId = long.Parse(dic["MsgId"]);
-            MediaId = dic["MediaId"];
-            ThumbMediaId = dic["ThumbMediaId"];
+            Event = dic["Event"];
+            EventKey = dic["EventKey"];
+            Ticket = dic["Ticket"];
         }
     }
 }

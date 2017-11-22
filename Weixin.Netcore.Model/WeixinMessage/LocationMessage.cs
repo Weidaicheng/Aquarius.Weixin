@@ -5,7 +5,7 @@ using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Model.WeixinMessage
 {
-    public class LocationMessage : MessageNormal, IMessageReceive
+    public class LocationMessage : NormalMessage, IMessageReceive
     {
         public LocationMessage()
         {

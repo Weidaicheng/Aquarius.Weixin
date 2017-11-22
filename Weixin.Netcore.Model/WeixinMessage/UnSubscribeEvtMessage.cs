@@ -3,19 +3,14 @@
 namespace Weixin.Netcore.Model.WeixinMessage
 {
     /// <summary>
-    /// 图片消息
+    /// 取消关注事件消息
     /// </summary>
-    public class ImageMessage : NormalMessage, IMessageReceive
+    public class UnSubscribeEvtMessage : EventMessage, IMessageReceive
     {
-        public ImageMessage()
+        public UnSubscribeEvtMessage()
         {
-            MsgType = "image";
+            Event = "unsubscribe";
         }
-
-        /// <summary>
-		/// 图片消息内容
-		/// </summary>
-		public string MediaId { get; set; }
 
         public void ConvertEntity(string xml)
         {
@@ -23,8 +18,6 @@ namespace Weixin.Netcore.Model.WeixinMessage
             ToUserName = dic["ToUserName"];
             FromUserName = dic["FromUserName"];
             CreateTime = long.Parse(dic["CreateTime"]);
-            MsgId = long.Parse(dic["MsgId"]);
-            MediaId = dic["MediaId"];
         }
     }
 }

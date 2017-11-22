@@ -2,7 +2,7 @@
 
 namespace Weixin.Netcore.Model.WeixinMessage
 {
-    public class LinkMessage : MessageNormal, IMessageReceive
+    public class LinkMessage : NormalMessage, IMessageReceive
     {
         public LinkMessage()
         {

@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
     /// <summary>
     /// 语音消息
     /// </summary>
-    public class VoiceMessage : MessageNormal, IMessageReceive
+    public class VoiceMessage : NormalMessage, IMessageReceive
     {
         public VoiceMessage()
         {
