@@ -1,9 +1,9 @@
 ﻿namespace Weixin.Netcore.Model.WeixinMessage
 {
     /// <summary>
-    /// 消息
+    /// 普通消息
     /// </summary>
-    public class MessageM : MessageBase
+    public class MessageNormal : MessageBase
     {
         /// <summary>
         /// 消息Id

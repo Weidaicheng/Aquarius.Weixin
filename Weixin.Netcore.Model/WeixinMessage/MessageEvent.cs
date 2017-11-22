@@ -1,11 +1,11 @@
 ﻿namespace Weixin.Netcore.Model.WeixinMessage
 {
     /// <summary>
-    /// 事件
+    /// 事件消息
     /// </summary>
-    public class MessageE : MessageBase
+    public class MessageEvent : MessageBase
     {
-        public MessageE()
+        public MessageEvent()
         {
             MsgType = "event";
         }

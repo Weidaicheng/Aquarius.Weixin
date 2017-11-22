@@ -1,9 +1,9 @@
 ﻿namespace Weixin.Netcore.Core.Message
 {
     /// <summary>
-    /// 消息处理
+    /// 普通消息处理
     /// </summary>
-    public interface IMMessageHandler : ITextMessageHandler, IImageMessageHandler, 
+    public interface INormalMessageHandler : ITextMessageHandler, IImageMessageHandler, 
         IVoiceMessageHandler, IVideoMessageHandler, IShortVideoMessageHandler, 
         ILocationMessageHandler, ILinkMessageHandler
     { }

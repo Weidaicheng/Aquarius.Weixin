@@ -3,12 +3,12 @@
     /// <summary>
     /// 接收消息
     /// </summary>
-    public interface IMessageReceive<T>
+    public interface IMessageReceive
     {
         /// <summary>
         /// 转化实体
         /// </summary>
         /// <param name="xml"></param>
-        T ConvertEntity(string xml);
+        void ConvertEntity(string xml);
     }
 }

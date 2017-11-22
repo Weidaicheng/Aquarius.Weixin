@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
     /// <summary>
     /// 视频消息
     /// </summary>
-    public class VideoMessage : MessageM, IMessageReceive<VideoMessage>
+    public class VideoMessage : MessageNormal, IMessageReceive
     {
         public VideoMessage()
         {
@@ -33,7 +33,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
         /// </summary>
         public string ThumbMediaId { get; set; }
 
-        public VideoMessage ConvertEntity(string xml)
+        public void ConvertEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
             ToUserName = dic["ToUserName"];
@@ -42,8 +42,6 @@ namespace Weixin.Netcore.Model.WeixinMessage
             MsgId = long.Parse(dic["MsgId"]);
             MediaId = dic["MediaId"];
             ThumbMediaId = dic["ThumbMediaId"];
-
-            return this;
         }
     }
 }

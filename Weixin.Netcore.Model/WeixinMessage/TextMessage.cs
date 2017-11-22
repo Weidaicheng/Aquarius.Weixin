@@ -1,12 +1,11 @@
-﻿using System.Text;
-using Weixin.Netcore.Utility;
+﻿using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Model.WeixinMessage
 {
     /// <summary>
     /// 文本消息
     /// </summary>
-    public class TextMessage : MessageM, IMessageReceive<TextMessage>
+    public class TextMessage : MessageNormal, IMessageReceive
     {
         public TextMessage()
         {
@@ -18,7 +17,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
 		/// </summary>
 		public string Content { get; set; }
 
-        public TextMessage ConvertEntity(string xml)
+        public void ConvertEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
             ToUserName = dic["ToUserName"];
@@ -26,8 +25,6 @@ namespace Weixin.Netcore.Model.WeixinMessage
             CreateTime = long.Parse(dic["CreateTime"]);
             MsgId = long.Parse(dic["MsgId"]);
             Content = dic["Content"];
-
-            return this;
         }
     }
 }

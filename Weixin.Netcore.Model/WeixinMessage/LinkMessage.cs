@@ -2,25 +2,27 @@
 
 namespace Weixin.Netcore.Model.WeixinMessage
 {
-    /// <summary>
-    /// 小视频消息
-    /// </summary>
-    public class ShortVideoMessage : MessageNormal, IMessageReceive
+    public class LinkMessage : MessageNormal, IMessageReceive
     {
-        public ShortVideoMessage()
+        public LinkMessage()
         {
-            MsgType = "shortvideo";
+            MsgType = "link";
         }
 
         /// <summary>
-        /// 视频消息素材Id
+        /// 消息标题
         /// </summary>
-        public string MediaId { get; set; }
+        public string Title { get; set; }
 
         /// <summary>
-        /// 视频消息缩略图素材Id
+        /// 消息描述
         /// </summary>
-        public string ThumbMediaId { get; set; }
+        public string Description { get; set; }
+
+        /// <summary>
+        /// 消息链接
+        /// </summary>
+        public string Url { get; set; }
 
         public void ConvertEntity(string xml)
         {
@@ -29,8 +31,9 @@ namespace Weixin.Netcore.Model.WeixinMessage
             FromUserName = dic["FromUserName"];
             CreateTime = long.Parse(dic["CreateTime"]);
             MsgId = long.Parse(dic["MsgId"]);
-            MediaId = dic["MediaId"];
-            ThumbMediaId = dic["ThumbMediaId"];
+            Title = dic["Title"];
+            Description = dic["Description"];
+            Url = dic["Url"];
         }
     }
 }
