@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is ImageMessage)//图片消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as ImageMessage).MsgId.ToString()))
+                    return "success";
                 return _imageMessageHandler.ImageMessageHandler(message as ImageMessage);
             }
             else

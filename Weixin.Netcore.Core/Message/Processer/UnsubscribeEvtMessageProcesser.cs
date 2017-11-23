@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is UnSubscribeEvtMessage)//取消订阅事件消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as UnSubscribeEvtMessage).FromUserName + (message as UnSubscribeEvtMessage).CreateTime))
+                    return "success";
                 return _unsubscribeEventHandler.UnsubscribeEventHandler(message as UnSubscribeEvtMessage);
             }
             else

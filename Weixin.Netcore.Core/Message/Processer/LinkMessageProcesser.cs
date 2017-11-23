@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is LinkMessage)//链接消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as LinkMessage).MsgId.ToString()))
+                    return "success";
                 return _linkMessageHandlder.LinkMessageHandler(message as LinkMessage);
             }
             else

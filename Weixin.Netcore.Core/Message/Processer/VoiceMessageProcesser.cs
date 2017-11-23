@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is VoiceMessage)//语音消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as VoiceMessage).MsgId.ToString()))
+                    return "success";
                 return _voiceMessageHandlder.VoiceMessageHandler(message as VoiceMessage);
             }
             else

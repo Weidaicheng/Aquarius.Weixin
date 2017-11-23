@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is LocationMessage)//位置消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as LocationMessage).MsgId.ToString()))
+                    return "success";
                 return _locationMessageHandler.LocationMessageHandler(message as LocationMessage);
             }
             else

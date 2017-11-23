@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is ShortVideoMessage)//小视频消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as ShortVideoMessage).MsgId.ToString()))
+                    return "success";
                 return _shortVideoMeessageHandler.ShortVideoMessageHandler(message as ShortVideoMessage);
             }
             else

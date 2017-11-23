@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is TextMessage)//文本消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as TextMessage).MsgId.ToString()))
+                    return "success";
                 return _textMessageHandler.TextMessageHandler(message as TextMessage);
             }
             else

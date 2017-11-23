@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is LocationEvtMessage)//位置上报事件消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as LocationEvtMessage).FromUserName + (message as LocationEvtMessage).CreateTime))
+                    return "success";
                 return _locationEventHandler.LocationEventHandler(message as LocationEvtMessage);
             }
             else

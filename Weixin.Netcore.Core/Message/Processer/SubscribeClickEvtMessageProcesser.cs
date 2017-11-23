@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is ClickEvtMessage)//点击事件消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as SubscribeEvtMessage).FromUserName + (message as SubscribeEvtMessage).CreateTime))
+                    return "success";
                 return _subscribeEventHandler.SubscribeEventHandler(message as SubscribeEvtMessage);
             }
             else

@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is ScanEvtMessage)//扫码事件消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as ScanEvtMessage).FromUserName + (message as ScanEvtMessage).CreateTime))
+                    return "success";
                 return _scanEventHandler.ScanEventHandler(message as ScanEvtMessage);
             }
             else

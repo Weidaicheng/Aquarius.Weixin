@@ -26,6 +26,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is VideoMessage)//视频消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as VideoMessage).MsgId.ToString()))
+                    return "success";
                 return _videoMessageHandler.VideoMessageHandler(message as VideoMessage);
             }
             else

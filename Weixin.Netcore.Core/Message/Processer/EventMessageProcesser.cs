@@ -36,22 +36,32 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is SubscribeEvtMessage)//订阅事件消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as SubscribeEvtMessage).FromUserName + (message as SubscribeEvtMessage).CreateTime))
+                    return "success";
                 return _subscribeEventHandler.SubscribeEventHandler(message as SubscribeEvtMessage);
             }
             else if (message is UnSubscribeEvtMessage)//取消订阅事件消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as UnSubscribeEvtMessage).FromUserName + (message as UnSubscribeEvtMessage).CreateTime))
+                    return "success";
                 return _unsubscribeEventHandler.UnsubscribeEventHandler(message as UnSubscribeEvtMessage);
             }
             else if (message is ScanEvtMessage)//扫码事件消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as ScanEvtMessage).FromUserName + (message as ScanEvtMessage).CreateTime))
+                    return "success";
                 return _scanEventHandler.ScanEventHandler(message as ScanEvtMessage);
             }
             else if (message is LocationEvtMessage)//位置上报事件消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as LocationEvtMessage).FromUserName + (message as LocationEvtMessage).CreateTime))
+                    return "success";
                 return _locationEventHandler.LocationEventHandler(message as LocationEvtMessage);
             }
             else if (message is ClickEvtMessage)//点击事件消息
             {
+                if (!_messageRepetHandler.MessageRepetValid((message as ClickEvtMessage).FromUserName + (message as ClickEvtMessage).CreateTime))
+                    return "success";
                 return _clickEventHandler.ClickEventHandler(message as ClickEvtMessage);
             }
             else
