@@ -11,7 +11,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public VideoMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            var message = new VideoMessage()
+            return new VideoMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -20,13 +20,11 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 MediaId = dic["MediaId"],
                 ThumbMediaId = dic["ThumbMediaId"]
             };
-
-            return message;
         }
 
         public VideoMessage GetEntity(Dictionary<string, string> dic)
         {
-            var message = new VideoMessage()
+            return new VideoMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -35,8 +33,6 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 MediaId = dic["MediaId"],
                 ThumbMediaId = dic["ThumbMediaId"]
             };
-
-            return message;
         }
     }
 }

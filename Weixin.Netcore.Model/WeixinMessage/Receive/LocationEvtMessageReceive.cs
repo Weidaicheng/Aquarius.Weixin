@@ -11,7 +11,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public LocationEvtMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            var message = new LocationEvtMessage()
+            return new LocationEvtMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -20,13 +20,11 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 Longitude = double.Parse(dic["Longitude"]),
                 Precision = double.Parse(dic["Precision"])
             };
-
-            return message;
         }
 
         public LocationEvtMessage GetEntity(Dictionary<string, string> dic)
         {
-            var message = new LocationEvtMessage()
+            return new LocationEvtMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -35,8 +33,6 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 Longitude = double.Parse(dic["Longitude"]),
                 Precision = double.Parse(dic["Precision"])
             };
-
-            return message;
         }
     }
 }

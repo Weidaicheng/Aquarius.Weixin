@@ -11,7 +11,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public ScanEvtMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            var message = new ScanEvtMessage()
+            return new ScanEvtMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -20,13 +20,11 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 EventKey = dic["EventKey"],
                 Ticket = dic["Ticket"]
             };
-
-            return message;
         }
 
         public ScanEvtMessage GetEntity(Dictionary<string, string> dic)
         {
-            var message = new ScanEvtMessage()
+            return new ScanEvtMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -35,8 +33,6 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 EventKey = dic["EventKey"],
                 Ticket = dic["Ticket"]
             };
-
-            return message;
         }
     }
 }

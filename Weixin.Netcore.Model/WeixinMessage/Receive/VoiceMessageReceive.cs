@@ -11,7 +11,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public VoiceMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            var message = new VoiceMessage()
+            return new VoiceMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -21,13 +21,11 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 Format = dic["Format"],
                 Recognition = dic["Recognition"]
             };
-
-            return message;
         }
 
         public VoiceMessage GetEntity(Dictionary<string, string> dic)
         {
-            var message = new VoiceMessage()
+            return new VoiceMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -37,8 +35,6 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 Format = dic["Format"],
                 Recognition = dic["Recognition"]
             };
-
-            return message;
         }
     }
 }

@@ -11,7 +11,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public TextMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            var message = new TextMessage()
+            return new TextMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -19,13 +19,11 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 MsgId = long.Parse(dic["MsgId"]),
                 Content = dic["Content"]
             };
-
-            return message;
         }
 
         public TextMessage GetEntity(Dictionary<string, string> dic)
         {
-            var message = new TextMessage()
+            return new TextMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -33,8 +31,6 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 MsgId = long.Parse(dic["MsgId"]),
                 Content = dic["Content"]
             };
-
-            return message;
         }
     }
 }

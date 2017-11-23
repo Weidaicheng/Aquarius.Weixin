@@ -11,7 +11,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public ImageMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            ImageMessage message = new ImageMessage()
+            return new ImageMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -19,13 +19,11 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 MsgId = long.Parse(dic["MsgId"]),
                 MediaId = dic["MediaId"]
             };
-
-            return message;
         }
 
         public ImageMessage GetEntity(Dictionary<string, string> dic)
         {
-            ImageMessage message = new ImageMessage()
+            return new ImageMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -33,8 +31,6 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 MsgId = long.Parse(dic["MsgId"]),
                 MediaId = dic["MediaId"]
             };
-
-            return message;
         }
     }
 }

@@ -11,26 +11,22 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public SubscribeEvtMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            var message = new SubscribeEvtMessage()
+            return new SubscribeEvtMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
                 CreateTime = long.Parse(dic["CreateTime"])
             };
-
-            return message;
         }
 
         public SubscribeEvtMessage GetEntity(Dictionary<string, string> dic)
         {
-            var message = new SubscribeEvtMessage()
+            return new SubscribeEvtMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
                 CreateTime = long.Parse(dic["CreateTime"])
             };
-
-            return message;
         }
     }
 }
