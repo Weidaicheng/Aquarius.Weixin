@@ -22,11 +22,11 @@ namespace Weixin.Netcore.Core.Message.Processer
             _voiceMessageHandlder = voiceMessageHandler;
         }
 
-        public void ProcessMessage(IMessage message)
+        public string ProcessMessage(IMessage message)
         {
             if (message is VoiceMessage)//语音消息
             {
-                _voiceMessageHandlder.VoiceMessageHandler(message as VoiceMessage);
+                return _voiceMessageHandlder.VoiceMessageHandler(message as VoiceMessage);
             }
             else
             {

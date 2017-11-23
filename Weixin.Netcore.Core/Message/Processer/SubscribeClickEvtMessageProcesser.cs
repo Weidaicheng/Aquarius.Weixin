@@ -22,11 +22,11 @@ namespace Weixin.Netcore.Core.Message.Processer
             _subscribeEventHandler = subscribeEventHandler;
         }
 
-        public void ProcessMessage(IMessage message)
+        public string ProcessMessage(IMessage message)
         {
             if (message is ClickEvtMessage)//点击事件消息
             {
-                _subscribeEventHandler.SubscribeEventHandler(message as SubscribeEvtMessage);
+                return _subscribeEventHandler.SubscribeEventHandler(message as SubscribeEvtMessage);
             }
             else
             {

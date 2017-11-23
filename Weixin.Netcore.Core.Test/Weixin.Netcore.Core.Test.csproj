@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.3.0" />
+    <PackageReference Include="MSTest.TestAdapter" Version="1.1.18" />
+    <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Weixin.Netcore.Cache\Weixin.Netcore.Cache.csproj" />
+    <ProjectReference Include="..\Weixin.Netcore.Core\Weixin.Netcore.Core.csproj" />
+    <ProjectReference Include="..\Weixin.Netcore.Model\Weixin.Netcore.Model.csproj" />
+  </ItemGroup>
+
+</Project>

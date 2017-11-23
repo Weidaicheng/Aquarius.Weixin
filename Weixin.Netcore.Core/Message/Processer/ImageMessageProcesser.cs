@@ -22,11 +22,11 @@ namespace Weixin.Netcore.Core.Message.Processer
             _imageMessageHandler = imageMessageHandler;
         }
 
-        public void ProcessMessage(IMessage message)
+        public string ProcessMessage(IMessage message)
         {
             if (message is ImageMessage)//图片消息
             {
-                _imageMessageHandler.ImageMessageHandler(message as ImageMessage);
+                return _imageMessageHandler.ImageMessageHandler(message as ImageMessage);
             }
             else
             {

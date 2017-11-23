@@ -32,27 +32,27 @@ namespace Weixin.Netcore.Core.Message.Processer
             _clickEventHandler = clickEventHandler;
         }
 
-        public void ProcessMessage(IMessage message)
+        public string ProcessMessage(IMessage message)
         {
             if (message is SubscribeEvtMessage)//订阅事件消息
             {
-                _subscribeEventHandler.SubscribeEventHandler(message as SubscribeEvtMessage);
+                return _subscribeEventHandler.SubscribeEventHandler(message as SubscribeEvtMessage);
             }
             else if (message is UnSubscribeEvtMessage)//取消订阅事件消息
             {
-                _unsubscribeEventHandler.UnsubscribeEventHandler(message as UnSubscribeEvtMessage);
+                return _unsubscribeEventHandler.UnsubscribeEventHandler(message as UnSubscribeEvtMessage);
             }
             else if (message is ScanEvtMessage)//扫码事件消息
             {
-                _scanEventHandler.ScanEventHandler(message as ScanEvtMessage);
+                return _scanEventHandler.ScanEventHandler(message as ScanEvtMessage);
             }
             else if (message is LocationEvtMessage)//位置上报事件消息
             {
-                _locationEventHandler.LocationEventHandler(message as LocationEvtMessage);
+                return _locationEventHandler.LocationEventHandler(message as LocationEvtMessage);
             }
             else if (message is ClickEvtMessage)//点击事件消息
             {
-                _clickEventHandler.ClickEventHandler(message as ClickEvtMessage);
+                return _clickEventHandler.ClickEventHandler(message as ClickEvtMessage);
             }
             else
             {

@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weixin.Netcore.Core", "Weixin.Netcore.Core\Weixin.Netcore.Core.csproj", "{F6CE1896-3A1F-473B-AA85-C945FA92D89A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Core", "Weixin.Netcore.Core\Weixin.Netcore.Core.csproj", "{F6CE1896-3A1F-473B-AA85-C945FA92D89A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weixin.Netcore.Model", "Weixin.Netcore.Model\Weixin.Netcore.Model.csproj", "{E0F20462-CC27-4F9F-96F7-E7C658463395}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Model", "Weixin.Netcore.Model\Weixin.Netcore.Model.csproj", "{E0F20462-CC27-4F9F-96F7-E7C658463395}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weixin.Netcore.Utility", "Weixin.Netcore.Utility\Weixin.Netcore.Utility.csproj", "{D84D6D77-5985-48B0-9601-7947FD168735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Utility", "Weixin.Netcore.Utility\Weixin.Netcore.Utility.csproj", "{D84D6D77-5985-48B0-9601-7947FD168735}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weixin.Netcore.Cache", "Weixin.Netcore.Cache\Weixin.Netcore.Cache.csproj", "{FFE2E386-0BA3-4546-BA4C-FE4D4156031E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Cache", "Weixin.Netcore.Cache\Weixin.Netcore.Cache.csproj", "{FFE2E386-0BA3-4546-BA4C-FE4D4156031E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weixin.Netcore.Core.Test", "Weixin.Netcore.Core.Test\Weixin.Netcore.Core.Test.csproj", "{F5C02989-242D-4F7A-9947-0DF776D721B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{FFE2E386-0BA3-4546-BA4C-FE4D4156031E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFE2E386-0BA3-4546-BA4C-FE4D4156031E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFE2E386-0BA3-4546-BA4C-FE4D4156031E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5C02989-242D-4F7A-9947-0DF776D721B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5C02989-242D-4F7A-9947-0DF776D721B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5C02989-242D-4F7A-9947-0DF776D721B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5C02989-242D-4F7A-9947-0DF776D721B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

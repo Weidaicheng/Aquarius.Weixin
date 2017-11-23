@@ -22,11 +22,11 @@ namespace Weixin.Netcore.Core.Message.Processer
             _shortVideoMeessageHandler = shortVideoMessageHandler;
         }
 
-        public void ProcessMessage(IMessage message)
+        public string ProcessMessage(IMessage message)
         {
             if (message is ShortVideoMessage)//小视频消息
             {
-                _shortVideoMeessageHandler.ShortVideoMessageHandler(message as ShortVideoMessage);
+                return _shortVideoMeessageHandler.ShortVideoMessageHandler(message as ShortVideoMessage);
             }
             else
             {

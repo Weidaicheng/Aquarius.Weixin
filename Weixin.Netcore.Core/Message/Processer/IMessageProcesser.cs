@@ -10,7 +10,8 @@ namespace Weixin.Netcore.Core.Message.Processer
         /// <summary>
         /// 处理消息
         /// </summary>
-        /// <param name="message">消息</param>
-        void ProcessMessage(IMessage message);
+        /// <param name="message"></param>
+        /// <returns></returns>
+        string ProcessMessage(IMessage message);
     }
 }

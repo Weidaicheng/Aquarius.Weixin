@@ -22,11 +22,11 @@ namespace Weixin.Netcore.Core.Message.Processer
             _videoMessageHandler = videoMessageHandler;
         }
 
-        public void ProcessMessage(IMessage message)
+        public string ProcessMessage(IMessage message)
         {
             if (message is VideoMessage)//视频消息
             {
-                _videoMessageHandler.VideoMessageHandler(message as VideoMessage);
+                return _videoMessageHandler.VideoMessageHandler(message as VideoMessage);
             }
             else
             {

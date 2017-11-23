@@ -22,11 +22,11 @@ namespace Weixin.Netcore.Core.Message.Processer
             _scanEventHandler = scanEventHandler;
         }
 
-        public void ProcessMessage(IMessage message)
+        public string ProcessMessage(IMessage message)
         {
             if (message is ScanEvtMessage)//扫码事件消息
             {
-                _scanEventHandler.ScanEventHandler(message as ScanEvtMessage);
+                return _scanEventHandler.ScanEventHandler(message as ScanEvtMessage);
             }
             else
             {

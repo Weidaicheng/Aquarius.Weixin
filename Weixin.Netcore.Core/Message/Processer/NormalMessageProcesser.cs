@@ -37,35 +37,35 @@ namespace Weixin.Netcore.Core.Message.Processer
             _linkMessageHandlder = linkMessageHandler;
         }
 
-        public void ProcessMessage(IMessage message)
+        public string ProcessMessage(IMessage message)
         {
             if (message is TextMessage)//文本消息
             {
-                _textMessageHandler.TextMessageHandler(message as TextMessage);
+                return _textMessageHandler.TextMessageHandler(message as TextMessage);
             }
             else if (message is ImageMessage)//图片消息
             {
-                _imageMessageHandler.ImageMessageHandler(message as ImageMessage);
+                return _imageMessageHandler.ImageMessageHandler(message as ImageMessage);
             }
             else if (message is VoiceMessage)//语音消息
             {
-                _voiceMessageHandlder.VoiceMessageHandler(message as VoiceMessage);
+                return _voiceMessageHandlder.VoiceMessageHandler(message as VoiceMessage);
             }
             else if (message is VideoMessage)//视频消息
             {
-                _videoMessageHandler.VideoMessageHandler(message as VideoMessage);
+                return _videoMessageHandler.VideoMessageHandler(message as VideoMessage);
             }
             else if (message is ShortVideoMessage)//小视频消息
             {
-                _shortVideoMeessageHandler.ShortVideoMessageHandler(message as ShortVideoMessage);
+                return _shortVideoMeessageHandler.ShortVideoMessageHandler(message as ShortVideoMessage);
             }
             else if (message is LocationMessage)//位置消息
             {
-                _locationMessageHandler.LocationMessageHandler(message as LocationMessage);
+                return _locationMessageHandler.LocationMessageHandler(message as LocationMessage);
             }
             else if (message is LinkMessage)//链接消息
             {
-                _linkMessageHandlder.LinkMessageHandler(message as LinkMessage);
+                return _linkMessageHandlder.LinkMessageHandler(message as LinkMessage);
             }
             else
             {

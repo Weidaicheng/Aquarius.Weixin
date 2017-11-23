@@ -22,11 +22,11 @@ namespace Weixin.Netcore.Core.Message.Processer
             _unsubscribeEventHandler = unsubscribeEventHandler;
         }
 
-        public void ProcessMessage(IMessage message)
+        public string ProcessMessage(IMessage message)
         {
             if (message is UnSubscribeEvtMessage)//取消订阅事件消息
             {
-                _unsubscribeEventHandler.UnsubscribeEventHandler(message as UnSubscribeEvtMessage);
+                return _unsubscribeEventHandler.UnsubscribeEventHandler(message as UnSubscribeEvtMessage);
             }
             else
             {

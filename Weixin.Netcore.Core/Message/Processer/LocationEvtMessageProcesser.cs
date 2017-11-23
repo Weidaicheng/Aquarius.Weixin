@@ -22,11 +22,11 @@ namespace Weixin.Netcore.Core.Message.Processer
             _locationEventHandler = locationEventHandler;
         }
 
-        public void ProcessMessage(IMessage message)
+        public string ProcessMessage(IMessage message)
         {
             if (message is LocationEvtMessage)//位置上报事件消息
             {
-                _locationEventHandler.LocationEventHandler(message as LocationEvtMessage);
+                return _locationEventHandler.LocationEventHandler(message as LocationEvtMessage);
             }
             else
             {
