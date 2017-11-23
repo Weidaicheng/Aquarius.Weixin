@@ -20,8 +20,9 @@ namespace Weixin.Netcore.Utility
 		/// <returns></returns>
 		public static long GetTimeStamp()
         {
-            DateTime startTime = TimeZoneInfo.ConvertTime(new DateTime(1970, 1, 1), TimeZoneInfo.Local);
-            return (long)(DateTime.Now - startTime).TotalSeconds;
+            DateTime startUtc = new DateTime(1970, 1, 1);
+            DateTime nowUtc = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Utc);
+            return (long)(nowUtc - startUtc).TotalSeconds;
         }
 
         /// <summary>
