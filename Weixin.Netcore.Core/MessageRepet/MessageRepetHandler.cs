@@ -15,16 +15,11 @@ namespace Weixin.Netcore.Core.MessageRepet
             _cache = cache;
         }
 
-        /// <summary>
-        /// 消息重复性验证
-        /// </summary>
-        /// <param name="key"></param>
-        /// <returns>
-        /// true：消息未重复
-        /// false：消息重复
-        /// </returns>
-        public bool MessageRepetValid(string key)
+        public bool MessageRepetValid(string key, bool isDebug = false)
         {
+            if (isDebug)
+                return true;
+
             var value = _cache.Get(key);
 
             if (string.IsNullOrEmpty(value))
