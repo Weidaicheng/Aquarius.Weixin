@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Weixin.Netcore.Model.WeixinMessage;
 
-namespace Weixin.Netcore.Core.Message
+namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
     /// 上报地理位置事件处理
@@ -10,8 +10,7 @@ namespace Weixin.Netcore.Core.Message
         /// <summary>
         /// 上报地理位置事件处理
         /// </summary>
-        /// <param name="dictionary"></param>
-        /// <param name="result"></param>
-        string LocationEventHandler(Dictionary<string, string> dictionary);
+        /// <param name="message"></param>
+        string LocationEventHandler(LocationEvtMessage message);
     }
 }

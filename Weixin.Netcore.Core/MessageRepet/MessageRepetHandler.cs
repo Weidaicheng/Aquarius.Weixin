@@ -1,12 +1,12 @@
 ﻿using System;
 using Weixin.Netcore.Cache;
 
-namespace Weixin.Netcore.Core.Message
+namespace Weixin.Netcore.Core.MessageRepet
 {
     /// <summary>
     /// 消息重复性处理
     /// </summary>
-    public class MessageRepetHandler
+    public class MessageRepetHandler : IMessageRepetHandler
     {
         private readonly ICache _cache;
 

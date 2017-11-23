@@ -1,4 +1,4 @@
-﻿namespace Weixin.Netcore.Core.Message
+﻿namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
     /// 消息处理

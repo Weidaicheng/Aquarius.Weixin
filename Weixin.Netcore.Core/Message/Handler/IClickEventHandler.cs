@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Weixin.Netcore.Model.WeixinMessage;
 
-namespace Weixin.Netcore.Core.Message
+namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
     /// 自定义菜单点击事件处理
@@ -10,8 +10,8 @@ namespace Weixin.Netcore.Core.Message
         /// <summary>
         /// 自定义菜单点击事件
         /// </summary>
-        /// <param name="xml"></param>
+        /// <param name="message"></param>
         /// <returns></returns>
-        string ClickEventHandler(string xml);
+        string ClickEventHandler(ClickEvtMessage message);
     }
 }

@@ -1,9 +1,9 @@
-﻿namespace Weixin.Netcore.Core.Message
+﻿namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
     /// 事件消息处理
     /// </summary>
     public interface IEventMessageHandler : ISubscribeEventHandler, IUnsubscribeEventHandler, 
-        IScanSubscribeEventHandler, IScanEventHandler, ILocationEventHandler, IClickEventHandler
+        IScanEventHandler, ILocationEventHandler, IClickEventHandler
     { }
 }
