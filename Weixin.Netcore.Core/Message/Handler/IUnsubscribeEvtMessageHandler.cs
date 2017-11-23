@@ -3,14 +3,14 @@
 namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
-    /// 扫描二维码事件处理
+    /// 取消订阅事件处理
     /// </summary>
-    public interface IScanEventHandler : IMessageHandler
+    public interface IUnsubscribeEvtMessageHandler : IMessageHandler
     {
         /// <summary>
-        /// 扫描二维码事件处理
+        /// 取消订阅事件处理
         /// </summary>
         /// <param name="message"></param>
-        string ScanEventHandler(ScanEvtMessage message);
+        string UnsubscribeEventHandler(UnSubscribeEvtMessage message);
     }
 }

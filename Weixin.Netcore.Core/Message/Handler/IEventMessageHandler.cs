@@ -3,7 +3,7 @@
     /// <summary>
     /// 事件消息处理
     /// </summary>
-    public interface IEventMessageHandler : ISubscribeEventHandler, IUnsubscribeEventHandler, 
-        IScanEventHandler, ILocationEventHandler, IClickEventHandler
+    public interface IEventMessageHandler : ISubscribeEvtMessageHandler, IUnsubscribeEvtMessageHandler, 
+        IScanEvtMessageHandler, ILocationEvtMessageHandler, IClickEvtMessageHandler
     { }
 }

@@ -3,15 +3,14 @@
 namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
-    /// 自定义菜单点击事件处理
+    /// 扫描二维码事件处理
     /// </summary>
-    public interface IClickEventHandler : IMessageHandler
+    public interface IScanEvtMessageHandler : IMessageHandler
     {
         /// <summary>
-        /// 自定义菜单点击事件
+        /// 扫描二维码事件处理
         /// </summary>
         /// <param name="message"></param>
-        /// <returns></returns>
-        string ClickEventHandler(ClickEvtMessage message);
+        string ScanEventHandler(ScanEvtMessage message);
     }
 }

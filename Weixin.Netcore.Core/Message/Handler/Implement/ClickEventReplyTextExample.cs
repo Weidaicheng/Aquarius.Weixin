@@ -2,12 +2,12 @@
 using Weixin.Netcore.Model.WeixinMessage.Reply;
 using Weixin.Netcore.Utility;
 
-namespace Weixin.Netcore.Core.Message.Handler
+namespace Weixin.Netcore.Core.Message.Handler.Implement
 {
     /// <summary>
     /// 点击回复文本消息例子
     /// </summary>
-    public class ClickEventReplyTextExample : IClickEventHandler
+    public class ClickEventReplyTextExample : IClickEvtMessageHandler
     {
         private readonly IMessageReply<TextMessage> _messageReply;
 

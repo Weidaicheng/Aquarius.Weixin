@@ -3,14 +3,14 @@
 namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
-    /// 取消订阅事件处理
+    /// 上报地理位置事件处理
     /// </summary>
-    public interface IUnsubscribeEventHandler : IMessageHandler
+    public interface ILocationEvtMessageHandler : IMessageHandler
     {
         /// <summary>
-        /// 取消订阅事件处理
+        /// 上报地理位置事件处理
         /// </summary>
         /// <param name="message"></param>
-        string UnsubscribeEventHandler(UnSubscribeEvtMessage message);
+        string LocationEventHandler(LocationEvtMessage message);
     }
 }
