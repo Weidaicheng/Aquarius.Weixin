@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace Weixin.Netcore.Utility
@@ -11,6 +12,8 @@ namespace Weixin.Netcore.Utility
     /// </summary>
     public static class UtilityHelper
     {
+        private static string pattern = @"(?<=`)[a-zA-Z]+?(?=`)";
+
         /// <summary>
 		/// 获取时间戳
 		/// </summary>
@@ -69,6 +72,38 @@ namespace Weixin.Netcore.Utility
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// 正则替换
+        /// </summary>
+        /// <param name="handleStr"></param>
+        /// <param name="configuration"></param>
+        public static void RegexReplace(ref string handleStr, IEnumerable<KeyValuePair<string, string>> configuration)
+        {
+            Regex regex = new Regex(pattern);
+            MatchCollection matchs = regex.Matches(handleStr);
+            foreach (Match item in matchs)
+            {
+                var value = string.IsNullOrEmpty(configuration.FirstOrDefault(x => x.Key == item.Value).Value) ? "" : configuration.FirstOrDefault(x => x.Key == item.Value).Value;
+                handleStr = handleStr.Replace($"`{item.Value}`", value);
+            }
+        }
+
+        /// <summary>
+        /// 正则替换
+        /// </summary>
+        /// <param name="handleStr"></param>
+        /// <param name="configuration"></param>
+        public static void RegexReplace(ref string handleStr, Dictionary<string, string> configuration)
+        {
+            Regex regex = new Regex(pattern);
+            MatchCollection matchs = regex.Matches(handleStr);
+            foreach (Match item in matchs)
+            {
+                var value = string.IsNullOrEmpty(configuration[item.Value]) ? "" : configuration[item.Value];
+                handleStr = handleStr.Replace($"`{item.Value}`", value);
+            }
         }
     }
 }
