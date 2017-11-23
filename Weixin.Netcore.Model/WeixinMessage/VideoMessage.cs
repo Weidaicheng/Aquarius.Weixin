@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
     /// <summary>
     /// 视频消息
     /// </summary>
-    public class VideoMessage : NormalMessage, IMessageReceive
+    public class VideoMessage : NormalMessage, IMessageReceive, IMessageReply
     {
         public VideoMessage()
         {
@@ -42,6 +42,24 @@ namespace Weixin.Netcore.Model.WeixinMessage
             MsgId = long.Parse(dic["MsgId"]);
             MediaId = dic["MediaId"];
             ThumbMediaId = dic["ThumbMediaId"];
+        }
+
+        public string CreateXml()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"<xml>");
+            sb.Append($"<ToUserName><![CDATA[{ToUserName}]]></ToUserName>");
+            sb.Append($"<FromUserName><![CDATA[{FromUserName}]]></FromUserName>");
+            sb.Append($"<CreateTime>{CreateTime}</CreateTime>");
+            sb.Append($"<MsgType><![CDATA[{MsgType}]]></MsgType>");
+            sb.Append($"<Video>");
+            sb.Append($"<MediaId><![CDATA[{MediaId}]]></MediaId>");
+            sb.Append($"<Title><![CDATA[{Title}]]></Title> ");
+            sb.Append($"<Description><![CDATA[{Description}]]></Description>");
+            sb.Append($"</Video>");
+            sb.Append($"</xml>");
+
+            return sb.ToString();
         }
     }
 }

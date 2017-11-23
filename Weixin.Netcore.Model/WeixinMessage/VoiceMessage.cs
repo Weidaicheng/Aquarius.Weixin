@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
     /// <summary>
     /// 语音消息
     /// </summary>
-    public class VoiceMessage : NormalMessage, IMessageReceive
+    public class VoiceMessage : NormalMessage, IMessageReceive, IMessageReply
     {
         public VoiceMessage()
         {
@@ -38,6 +38,22 @@ namespace Weixin.Netcore.Model.WeixinMessage
             MediaId = dic["MediaId"];
             Format = dic["Format"];
             Recognition = dic["Recognition"];
+        }
+
+        public string CreateXml()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append($"<xml>");
+            sb.Append($"<ToUserName><![CDATA[{ToUserName}]]></ToUserName>");
+            sb.Append($"<FromUserName><![CDATA[{FromUserName}]]></FromUserName>");
+            sb.Append($"<CreateTime>{CreateTime}</CreateTime>");
+            sb.Append($"<MsgType><![CDATA[{MsgType}]]></MsgType>");
+            sb.Append($"<Voice>");
+            sb.Append($"<MediaId><![CDATA[{MediaId}]]></MediaId>");
+            sb.Append($"</Voice>");
+            sb.Append($"</xml>");
+
+            return sb.ToString();
         }
     }
 }
