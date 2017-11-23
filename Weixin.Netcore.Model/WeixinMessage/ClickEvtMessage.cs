@@ -13,6 +13,6 @@
         /// <summary>
         /// 事件KEY值
         /// </summary>
-        public string EventKey { get; set; }
+        public string EventKey { get; internal set; }
     }
 }

@@ -8,11 +8,11 @@
         /// <summary>
         /// 事件KEY值
         /// </summary>
-        public string EventKey { get; set; }
+        public string EventKey { get; internal set; }
 
         /// <summary>
         /// 二维码Ticket，可用来换取二维码图片
         /// </summary>
-        public string Ticket { get; set; }
+        public string Ticket { get; internal set; }
     }
 }

@@ -13,16 +13,16 @@
         /// <summary>
         /// 纬度
         /// </summary>
-        public double Latitude { get; set; }
+        public double Latitude { get; internal set; }
 
         /// <summary>
         /// 经度
         /// </summary>
-        public double Longitude { get; set; }
+        public double Longitude { get; internal set; }
 
         /// <summary>
         /// 精度
         /// </summary>
-        public double Precision { get; set; }
+        public double Precision { get; internal set; }
     }
 }
