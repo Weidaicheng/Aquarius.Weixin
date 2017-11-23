@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Core.Message
     /// <summary>
     /// 小视频消息处理
     /// </summary>
-    public interface IShortVideoMessageHandler
+    public interface IShortVideoMessageHandler : IMessageHandler
     {
         /// <summary>
         /// 小视频消息处理

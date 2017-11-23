@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Core.Message
     /// <summary>
     /// 取消订阅事件处理
     /// </summary>
-    public interface IUnsubscribeEventHandler
+    public interface IUnsubscribeEventHandler : IMessageHandler
     {
         /// <summary>
         /// 取消订阅事件处理

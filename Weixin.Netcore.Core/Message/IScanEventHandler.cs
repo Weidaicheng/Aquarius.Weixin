@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Core.Message
     /// <summary>
     /// 扫描二维码事件处理
     /// </summary>
-    public interface IScanEventHandler
+    public interface IScanEventHandler : IMessageHandler
     {
         /// <summary>
         /// 扫描二维码事件处理

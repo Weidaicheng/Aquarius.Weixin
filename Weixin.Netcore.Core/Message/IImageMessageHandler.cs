@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Core.Message
     /// <summary>
     /// 图片消息处理
     /// </summary>
-    public interface IImageMessageHandler
+    public interface IImageMessageHandler : IMessageHandler
     {
         /// <summary>
         /// 图片消息处理

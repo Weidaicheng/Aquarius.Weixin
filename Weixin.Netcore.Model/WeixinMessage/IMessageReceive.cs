@@ -19,10 +19,10 @@
     public interface IMessageReceive<T>
     {
         /// <summary>
-        /// 转化实体
+        /// 获取实体
         /// </summary>
         /// <param name="xml"></param>
         /// <returns></returns>
-        T ConvertEntity(string xml);
+        T GetEntity(string xml);
     }
 }

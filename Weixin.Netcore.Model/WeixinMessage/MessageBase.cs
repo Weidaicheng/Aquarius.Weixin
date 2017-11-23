@@ -25,6 +25,6 @@
         /// <summary>
         /// 消息类型
         /// </summary>
-        public string MsgType { get; set; }
+        public string MsgType { get; protected set; }
     }
 }

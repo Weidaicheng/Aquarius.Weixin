@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Core.Message
     /// <summary>
     /// 文本消息处理
     /// </summary>
-    public interface ITextMessageHandler
+    public interface ITextMessageHandler : IMessageHandler
     {
         /// <summary>
 		/// 文本消息处理

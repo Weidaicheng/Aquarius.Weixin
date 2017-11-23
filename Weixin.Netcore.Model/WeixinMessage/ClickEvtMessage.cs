@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
     /// <summary>
     /// 自定义菜单点击事件消息
     /// </summary>
-    public class ClickEvtMessage : EventMessage, IMessageReceive
+    public class ClickEvtMessage : EventMessage, IMessageReceive, IMessageReceive<ClickEvtMessage>
     {
         public ClickEvtMessage()
         {
@@ -24,6 +24,17 @@ namespace Weixin.Netcore.Model.WeixinMessage
             FromUserName = dic["FromUserName"];
             CreateTime = long.Parse(dic["CreateTime"]);
             EventKey = dic["EventKey"];
+        }
+
+        public ClickEvtMessage GetEntity(string xml)
+        {
+            var dic = UtilityHelper.Xml2Dictionary(xml);
+            ToUserName = dic["ToUserName"];
+            FromUserName = dic["FromUserName"];
+            CreateTime = long.Parse(dic["CreateTime"]);
+            EventKey = dic["EventKey"];
+
+            return this;
         }
     }
 }

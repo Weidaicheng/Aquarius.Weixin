@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Core.Message
     /// <summary>
     /// 链接消息处理
     /// </summary>
-    public interface ILinkMessageHandler
+    public interface ILinkMessageHandler : IMessageHandler
     {
         /// <summary>
         /// 链接消息处理

@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Core.Message
     /// <summary>
     /// 语音消息处理
     /// </summary>
-    public interface IVoiceMessageHandler
+    public interface IVoiceMessageHandler : IMessageHandler
     {
         /// <summary>
         /// 语音消息处理

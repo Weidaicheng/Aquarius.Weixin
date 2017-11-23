@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Core.Message
     /// <summary>
     /// 订阅事件处理
     /// </summary>
-    public interface ISubscribeEventHandler
+    public interface ISubscribeEventHandler : IMessageHandler
     {
         /// <summary>
 		/// 订阅事件处理
