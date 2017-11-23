@@ -1,4 +1,5 @@
-﻿using Weixin.Netcore.Utility;
+﻿using System.Collections.Generic;
+using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Model.WeixinMessage.Receive
 {
@@ -10,6 +11,22 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public LinkMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
+            var message = new LinkMessage()
+            {
+                ToUserName = dic["ToUserName"],
+                FromUserName = dic["FromUserName"],
+                CreateTime = long.Parse(dic["CreateTime"]),
+                MsgId = long.Parse(dic["MsgId"]),
+                Title = dic["Title"],
+                Description = dic["Description"],
+                Url = dic["Url"]
+            };
+
+            return message;
+        }
+
+        public LinkMessage GetEntity(Dictionary<string, string> dic)
+        {
             var message = new LinkMessage()
             {
                 ToUserName = dic["ToUserName"],

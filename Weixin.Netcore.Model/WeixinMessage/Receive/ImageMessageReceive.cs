@@ -1,4 +1,5 @@
-﻿using Weixin.Netcore.Utility;
+﻿using System.Collections.Generic;
+using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Model.WeixinMessage.Receive
 {
@@ -10,6 +11,20 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public ImageMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
+            ImageMessage message = new ImageMessage()
+            {
+                ToUserName = dic["ToUserName"],
+                FromUserName = dic["FromUserName"],
+                CreateTime = long.Parse(dic["CreateTime"]),
+                MsgId = long.Parse(dic["MsgId"]),
+                MediaId = dic["MediaId"]
+            };
+
+            return message;
+        }
+
+        public ImageMessage GetEntity(Dictionary<string, string> dic)
+        {
             ImageMessage message = new ImageMessage()
             {
                 ToUserName = dic["ToUserName"],

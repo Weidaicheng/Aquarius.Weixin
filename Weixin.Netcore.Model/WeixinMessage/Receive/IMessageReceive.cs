@@ -1,4 +1,6 @@
-﻿namespace Weixin.Netcore.Model.WeixinMessage.Receive
+﻿using System.Collections.Generic;
+
+namespace Weixin.Netcore.Model.WeixinMessage.Receive
 {
     /// <summary>
     /// 接收消息
@@ -19,5 +21,12 @@
         /// <param name="xml"></param>
         /// <returns></returns>
         T GetEntity(string xml);
+
+        /// <summary>
+        /// 获取实体
+        /// </summary>
+        /// <param name="dic"></param>
+        /// <returns></returns>
+        T GetEntity(Dictionary<string, string> dic);
     }
 }

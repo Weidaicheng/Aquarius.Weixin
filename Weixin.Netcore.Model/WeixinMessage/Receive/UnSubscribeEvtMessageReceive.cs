@@ -1,4 +1,5 @@
-﻿using Weixin.Netcore.Utility;
+﻿using System.Collections.Generic;
+using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Model.WeixinMessage.Receive
 {
@@ -10,6 +11,18 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public UnSubscribeEvtMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
+            var message = new UnSubscribeEvtMessage()
+            {
+                ToUserName = dic["ToUserName"],
+                FromUserName = dic["FromUserName"],
+                CreateTime = long.Parse(dic["CreateTime"])
+            };
+
+            return message;
+        }
+
+        public UnSubscribeEvtMessage GetEntity(Dictionary<string, string> dic)
+        {
             var message = new UnSubscribeEvtMessage()
             {
                 ToUserName = dic["ToUserName"],

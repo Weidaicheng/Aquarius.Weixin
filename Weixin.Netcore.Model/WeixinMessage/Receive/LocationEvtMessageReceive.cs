@@ -1,4 +1,5 @@
-﻿using Weixin.Netcore.Utility;
+﻿using System.Collections.Generic;
+using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Model.WeixinMessage.Receive
 {
@@ -10,6 +11,21 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public LocationEvtMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
+            var message = new LocationEvtMessage()
+            {
+                ToUserName = dic["ToUserName"],
+                FromUserName = dic["FromUserName"],
+                CreateTime = long.Parse(dic["CreateTime"]),
+                Latitude = double.Parse(dic["Latitude"]),
+                Longitude = double.Parse(dic["Longitude"]),
+                Precision = double.Parse(dic["Precision"])
+            };
+
+            return message;
+        }
+
+        public LocationEvtMessage GetEntity(Dictionary<string, string> dic)
+        {
             var message = new LocationEvtMessage()
             {
                 ToUserName = dic["ToUserName"],

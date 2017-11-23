@@ -1,4 +1,5 @@
-﻿using Weixin.Netcore.Utility;
+﻿using System.Collections.Generic;
+using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Model.WeixinMessage.Receive
 {
@@ -20,6 +21,20 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
                 ThumbMediaId = dic["ThumbMediaId"]
             };
 
+            return message;
+        }
+
+        public VideoMessage GetEntity(Dictionary<string, string> dic)
+        {
+            var message = new VideoMessage()
+            {
+                ToUserName = dic["ToUserName"],
+                FromUserName = dic["FromUserName"],
+                CreateTime = long.Parse(dic["CreateTime"]),
+                MsgId = long.Parse(dic["MsgId"]),
+                MediaId = dic["MediaId"],
+                ThumbMediaId = dic["ThumbMediaId"]
+            };
 
             return message;
         }

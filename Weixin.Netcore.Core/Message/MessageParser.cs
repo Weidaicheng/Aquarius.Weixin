@@ -30,54 +30,54 @@ namespace Weixin.Netcore.Core.Message
             {
                 case "text":
                     messageReceive = new TextMessageReceive();
-                    message = (messageReceive as IMessageReceive<TextMessage>).GetEntity(xml);
+                    message = (messageReceive as IMessageReceive<TextMessage>).GetEntity(dic);
                     break;
                 case "image":
                     messageReceive = new ImageMessageReceive();
-                    message = (messageReceive as IMessageReceive<ImageMessage>).GetEntity(xml);
+                    message = (messageReceive as IMessageReceive<ImageMessage>).GetEntity(dic);
                     break;
                 case "voice":
                     messageReceive = new VoiceMessageReceive();
-                    message = (messageReceive as IMessageReceive<VoiceMessage>).GetEntity(xml);
+                    message = (messageReceive as IMessageReceive<VoiceMessage>).GetEntity(dic);
                     break;
                 case "video":
                     messageReceive = new VideoMessageReceive();
-                    message = (messageReceive as IMessageReceive<VideoMessage>).GetEntity(xml);
+                    message = (messageReceive as IMessageReceive<VideoMessage>).GetEntity(dic);
                     break;
                 case "shortvideo":
                     messageReceive = new ShortVideoMessageReceive();
-                    message = (messageReceive as IMessageReceive<ShortVideoMessage>).GetEntity(xml);
+                    message = (messageReceive as IMessageReceive<ShortVideoMessage>).GetEntity(dic);
                     break;
                 case "location":
                     messageReceive = new LocationMessageReceive();
-                    message = (messageReceive as IMessageReceive<LocationMessage>).GetEntity(xml);
+                    message = (messageReceive as IMessageReceive<LocationMessage>).GetEntity(dic);
                     break;
                 case "link":
                     messageReceive = new LinkMessageReceive();
-                    message = (messageReceive as IMessageReceive<LinkMessage>).GetEntity(xml);
+                    message = (messageReceive as IMessageReceive<LinkMessage>).GetEntity(dic);
                     break;
                 case "event":
                     switch (dic["Event"].ToLower())
                     {
                         case "subscribe":
                             messageReceive = new SubscribeEvtMessageReceive();
-                            message = (messageReceive as IMessageReceive<SubscribeEvtMessage>).GetEntity(xml);
+                            message = (messageReceive as IMessageReceive<SubscribeEvtMessage>).GetEntity(dic);
                             break;
                         case "unsubscribe":
                             messageReceive = new UnSubscribeEvtMessageReceive();
-                            message = (messageReceive as IMessageReceive<UnSubscribeEvtMessage>).GetEntity(xml);
+                            message = (messageReceive as IMessageReceive<UnSubscribeEvtMessage>).GetEntity(dic);
                             break;
                         case "scan":
                             messageReceive = new ScanEvtMessageReceive();
-                            message = (messageReceive as IMessageReceive<ScanEvtMessage>).GetEntity(xml);
+                            message = (messageReceive as IMessageReceive<ScanEvtMessage>).GetEntity(dic);
                             break;
                         case "location":
                             messageReceive = new LocationEvtMessageReceive();
-                            message = (messageReceive as IMessageReceive<LocationEvtMessage>).GetEntity(xml);
+                            message = (messageReceive as IMessageReceive<LocationEvtMessage>).GetEntity(dic);
                             break;
                         case "click":
                             messageReceive = new ClickEvtMessageReceive();
-                            message = (messageReceive as IMessageReceive<ClickEvtMessage>).GetEntity(xml);
+                            message = (messageReceive as IMessageReceive<ClickEvtMessage>).GetEntity(dic);
                             break;
                         default:
                             break;

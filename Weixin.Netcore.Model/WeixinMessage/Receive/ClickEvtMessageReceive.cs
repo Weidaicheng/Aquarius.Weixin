@@ -1,4 +1,5 @@
-﻿using Weixin.Netcore.Utility;
+﻿using System.Collections.Generic;
+using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Model.WeixinMessage.Receive
 {
@@ -10,6 +11,19 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
         public ClickEvtMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
+            var message = new ClickEvtMessage()
+            {
+                ToUserName = dic["ToUserName"],
+                FromUserName = dic["FromUserName"],
+                CreateTime = long.Parse(dic["CreateTime"]),
+                EventKey = dic["EventKey"]
+            };
+
+            return message;
+        }
+
+        public ClickEvtMessage GetEntity(Dictionary<string, string> dic)
+        {
             var message = new ClickEvtMessage()
             {
                 ToUserName = dic["ToUserName"],
