@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Utility", "W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Cache", "Weixin.Netcore.Cache\Weixin.Netcore.Cache.csproj", "{FFE2E386-0BA3-4546-BA4C-FE4D4156031E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weixin.Netcore.Core.Test", "Weixin.Netcore.Core.Test\Weixin.Netcore.Core.Test.csproj", "{F5C02989-242D-4F7A-9947-0DF776D721B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Weixin.Netcore.Core.Test", "Weixin.Netcore.Test\Weixin.Netcore.Test.csproj", "{F5C02989-242D-4F7A-9947-0DF776D721B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
