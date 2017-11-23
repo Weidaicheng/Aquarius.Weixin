@@ -1,8 +1,9 @@
-﻿using Weixin.Netcore.Utility;
-
-namespace Weixin.Netcore.Model.WeixinMessage
+﻿namespace Weixin.Netcore.Model.WeixinMessage
 {
-    public class LinkMessage : NormalMessage, IMessageReceive
+    /// <summary>
+    /// 链接消息
+    /// </summary>
+    public class LinkMessage : NormalMessage
     {
         public LinkMessage()
         {
@@ -23,17 +24,5 @@ namespace Weixin.Netcore.Model.WeixinMessage
         /// 消息链接
         /// </summary>
         public string Url { get; set; }
-
-        public void ConvertEntity(string xml)
-        {
-            var dic = UtilityHelper.Xml2Dictionary(xml);
-            ToUserName = dic["ToUserName"];
-            FromUserName = dic["FromUserName"];
-            CreateTime = long.Parse(dic["CreateTime"]);
-            MsgId = long.Parse(dic["MsgId"]);
-            Title = dic["Title"];
-            Description = dic["Description"];
-            Url = dic["Url"];
-        }
     }
 }

@@ -1,22 +1,17 @@
-﻿namespace Weixin.Netcore.Model.WeixinMessage
+﻿namespace Weixin.Netcore.Model.WeixinMessage.Receive
 {
     /// <summary>
     /// 接收消息
     /// </summary>
     public interface IMessageReceive
     {
-        /// <summary>
-        /// 转化实体
-        /// </summary>
-        /// <param name="xml"></param>
-        void ConvertEntity(string xml);
     }
 
     /// <summary>
     /// 接收消息-泛型
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IMessageReceive<T>
+    public interface IMessageReceive<T> : IMessageReceive
     {
         /// <summary>
         /// 获取实体

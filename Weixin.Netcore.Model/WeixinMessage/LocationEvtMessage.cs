@@ -1,11 +1,9 @@
-﻿using Weixin.Netcore.Utility;
-
-namespace Weixin.Netcore.Model.WeixinMessage
+﻿namespace Weixin.Netcore.Model.WeixinMessage
 {
     /// <summary>
     /// 地理位置上报事件消息
     /// </summary>
-    public class LocationEvtMessage : EventMessage, IMessageReceive
+    public class LocationEvtMessage : EventMessage
     {
         public LocationEvtMessage()
         {
@@ -26,16 +24,5 @@ namespace Weixin.Netcore.Model.WeixinMessage
         /// 精度
         /// </summary>
         public double Precision { get; set; }
-
-        public void ConvertEntity(string xml)
-        {
-            var dic = UtilityHelper.Xml2Dictionary(xml);
-            ToUserName = dic["ToUserName"];
-            FromUserName = dic["FromUserName"];
-            CreateTime = long.Parse(dic["CreateTime"]);
-            Latitude = double.Parse(dic["Latitude"]);
-            Longitude = double.Parse(dic["Longitude"]);
-            Precision = double.Parse(dic["Precision"]);
-        }
     }
 }

@@ -1,11 +1,9 @@
-﻿using Weixin.Netcore.Utility;
-
-namespace Weixin.Netcore.Model.WeixinMessage
+﻿namespace Weixin.Netcore.Model.WeixinMessage
 {
     /// <summary>
     /// 扫码事件消息
     /// </summary>
-    public class ScanEvtMessage : EventMessage, IMessageReceive
+    public class ScanEvtMessage : EventMessage
     {
         /// <summary>
         /// 事件KEY值
@@ -16,16 +14,5 @@ namespace Weixin.Netcore.Model.WeixinMessage
         /// 二维码Ticket，可用来换取二维码图片
         /// </summary>
         public string Ticket { get; set; }
-
-        public void ConvertEntity(string xml)
-        {
-            var dic = UtilityHelper.Xml2Dictionary(xml);
-            ToUserName = dic["ToUserName"];
-            FromUserName = dic["FromUserName"];
-            CreateTime = long.Parse(dic["CreateTime"]);
-            Event = dic["Event"];
-            EventKey = dic["EventKey"];
-            Ticket = dic["Ticket"];
-        }
     }
 }

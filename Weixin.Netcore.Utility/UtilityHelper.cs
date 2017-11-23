@@ -12,7 +12,7 @@ namespace Weixin.Netcore.Utility
     /// </summary>
     public static class UtilityHelper
     {
-        private static string pattern = @"(?<=`)[a-zA-Z]+?(?=`)";
+        //private static string pattern = @"(?<=`)[a-zA-Z]+?(?=`)";
 
         /// <summary>
 		/// 获取时间戳
@@ -79,7 +79,7 @@ namespace Weixin.Netcore.Utility
         /// </summary>
         /// <param name="handleStr"></param>
         /// <param name="configuration"></param>
-        public static void RegexReplace(ref string handleStr, IEnumerable<KeyValuePair<string, string>> configuration)
+        public static void RegexReplace(ref string handleStr, string pattern, IEnumerable<KeyValuePair<string, string>> configuration)
         {
             Regex regex = new Regex(pattern);
             MatchCollection matchs = regex.Matches(handleStr);
@@ -95,7 +95,7 @@ namespace Weixin.Netcore.Utility
         /// </summary>
         /// <param name="handleStr"></param>
         /// <param name="configuration"></param>
-        public static void RegexReplace(ref string handleStr, Dictionary<string, string> configuration)
+        public static void RegexReplace(ref string handleStr, string pattern, Dictionary<string, string> configuration)
         {
             Regex regex = new Regex(pattern);
             MatchCollection matchs = regex.Matches(handleStr);

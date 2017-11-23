@@ -10,6 +10,6 @@
             MsgType = "event";
         }
 
-        public string Event { get; protected set; }
+        public string Event { get; set; }
     }
 }

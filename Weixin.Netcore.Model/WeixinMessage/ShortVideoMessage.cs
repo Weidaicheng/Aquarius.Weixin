@@ -1,11 +1,9 @@
-﻿using Weixin.Netcore.Utility;
-
-namespace Weixin.Netcore.Model.WeixinMessage
+﻿namespace Weixin.Netcore.Model.WeixinMessage
 {
     /// <summary>
     /// 小视频消息
     /// </summary>
-    public class ShortVideoMessage : NormalMessage, IMessageReceive
+    public class ShortVideoMessage : NormalMessage
     {
         public ShortVideoMessage()
         {
@@ -21,16 +19,5 @@ namespace Weixin.Netcore.Model.WeixinMessage
         /// 视频消息缩略图素材Id
         /// </summary>
         public string ThumbMediaId { get; set; }
-
-        public void ConvertEntity(string xml)
-        {
-            var dic = UtilityHelper.Xml2Dictionary(xml);
-            ToUserName = dic["ToUserName"];
-            FromUserName = dic["FromUserName"];
-            CreateTime = long.Parse(dic["CreateTime"]);
-            MsgId = long.Parse(dic["MsgId"]);
-            MediaId = dic["MediaId"];
-            ThumbMediaId = dic["ThumbMediaId"];
-        }
     }
 }
