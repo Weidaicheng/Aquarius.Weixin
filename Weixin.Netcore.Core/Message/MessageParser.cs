@@ -15,7 +15,7 @@ namespace Weixin.Netcore.Core.Message
         /// </summary>
         /// <param name="xml"></param>
         /// <returns></returns>
-        public IMessage ParseMessage(string xml)
+        public static IMessage ParseMessage(string xml)
         {
             if (string.IsNullOrEmpty(xml))
             {

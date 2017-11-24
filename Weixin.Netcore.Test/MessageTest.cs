@@ -25,8 +25,7 @@ namespace Weixin.Netcore.Core.Test
                         <EventKey><![CDATA[TestKey]]></EventKey>
                         </xml>";
 
-            MessageParser messageParser = new MessageParser();
-            IMessage message = messageParser.ParseMessage(xml);
+            IMessage message = MessageParser.ParseMessage(xml);
             IMessageRepetHandler messageRepetHandler = new MessageRepetHandler(null);
             IMessageReply<TextMessage> messageReply = new TextMessageReply();
             IClickEvtMessageHandler clickEvtMessageHandler = new ClickEventReplyTextExample(messageReply);
