@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
     /// <summary>
     /// 小视频消息接收
     /// </summary>
-    public class ShortVideoMessageReceive : IMessageReceive<ShortVideoMessage>
+    public class ShortVideoMessageReceive : IMessageReceive<ShortVideoMessage>, IMessageReceive
     {
         public ShortVideoMessage GetEntity(string xml)
         {

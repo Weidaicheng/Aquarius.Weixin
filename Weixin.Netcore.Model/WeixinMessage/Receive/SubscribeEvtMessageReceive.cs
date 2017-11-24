@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
     /// <summary>
     /// 关注事件消息接收
     /// </summary>
-    public class SubscribeEvtMessageReceive : IMessageReceive<SubscribeEvtMessage>
+    public class SubscribeEvtMessageReceive : IMessageReceive<SubscribeEvtMessage>, IMessageReceive
     {
         public SubscribeEvtMessage GetEntity(string xml)
         {

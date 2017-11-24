@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Reply
     /// <summary>
     /// 视频消息回复
     /// </summary>
-    public class VideoMessageReply : IMessageReply<VideoMessage>
+    public class VideoMessageReply : IMessageReply<VideoMessage>, IMessageReply
     {
         public string CreateXml(VideoMessage entity)
         {

@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
     /// <summary>
     /// 扫码事件接收
     /// </summary>
-    public class ScanEvtMessageReceive : IMessageReceive<ScanEvtMessage>
+    public class ScanEvtMessageReceive : IMessageReceive<ScanEvtMessage>, IMessageReceive
     {
         public ScanEvtMessage GetEntity(string xml)
         {

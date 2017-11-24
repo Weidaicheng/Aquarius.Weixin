@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
     /// <summary>
     /// 链接消息接收
     /// </summary>
-    public class LinkMessageReceive : IMessageReceive<LinkMessage>
+    public class LinkMessageReceive : IMessageReceive<LinkMessage>, IMessageReceive
     {
         public LinkMessage GetEntity(string xml)
         {

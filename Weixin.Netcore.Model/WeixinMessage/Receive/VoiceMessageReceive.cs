@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
     /// <summary>
     /// 语音消息接收
     /// </summary>
-    public class VoiceMessageReceive : IMessageReceive<VoiceMessage>
+    public class VoiceMessageReceive : IMessageReceive<VoiceMessage>, IMessageReceive
     {
         public VoiceMessage GetEntity(string xml)
         {

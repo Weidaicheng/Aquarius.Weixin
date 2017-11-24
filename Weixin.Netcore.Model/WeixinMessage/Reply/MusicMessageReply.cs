@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Reply
     /// <summary>
     /// 音乐消息回复
     /// </summary>
-    public class MusicMessageReply : IMessageReply<MusicMessage>
+    public class MusicMessageReply : IMessageReply<MusicMessage>, IMessageReply
     {
         public string CreateXml(MusicMessage entity)
         {
