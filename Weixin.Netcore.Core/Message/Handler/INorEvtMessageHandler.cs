@@ -3,6 +3,6 @@
     /// <summary>
     /// 消息/事件处理
     /// </summary>
-    public interface IAllMessageHandler : INormalMessageHandler, IEventMessageHandler
+    public interface INorEvtMessageHandler : INormalMessageHandler, IEventMessageHandler
     { }
 }
