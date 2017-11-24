@@ -3,7 +3,7 @@
     /// <summary>
     /// 图片消息
     /// </summary>
-    public class ImageMessage : NormalMessage
+    public class ImageMessage : NormalMessage, IMessage
     {
         public ImageMessage()
         {

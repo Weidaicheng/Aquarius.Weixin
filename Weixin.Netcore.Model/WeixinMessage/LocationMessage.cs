@@ -1,6 +1,6 @@
 ﻿namespace Weixin.Netcore.Model.WeixinMessage
 {
-    public class LocationMessage : NormalMessage
+    public class LocationMessage : NormalMessage, IMessage
     {
         public LocationMessage()
         {

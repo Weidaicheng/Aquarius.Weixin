@@ -3,7 +3,7 @@
     /// <summary>
     /// 普通消息
     /// </summary>
-    public class NormalMessage : MessageBase
+    public abstract class NormalMessage : MessageBase, IMessage
     {
         /// <summary>
         /// 消息Id

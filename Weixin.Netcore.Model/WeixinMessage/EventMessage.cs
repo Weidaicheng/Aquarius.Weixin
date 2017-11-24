@@ -3,7 +3,7 @@
     /// <summary>
     /// 事件消息
     /// </summary>
-    public class EventMessage : MessageBase
+    public abstract class EventMessage : MessageBase, IMessage
     {
         public EventMessage()
         {

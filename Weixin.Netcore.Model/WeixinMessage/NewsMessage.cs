@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Model.WeixinMessage
     /// <summary>
     /// 图文消息
     /// </summary>
-    public class NewsMessage : MessageBase
+    public class NewsMessage : MessageBase, IMessage
     {
         public NewsMessage()
         {

@@ -3,7 +3,7 @@
     /// <summary>
     /// 消息基类
     /// </summary>
-    public class MessageBase : IMessage
+    public abstract class MessageBase : IMessage
     {
         /// <summary>
 		/// 接收到的消息：AppId

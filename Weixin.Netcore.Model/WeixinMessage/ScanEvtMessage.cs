@@ -3,7 +3,7 @@
     /// <summary>
     /// 扫码事件消息
     /// </summary>
-    public class ScanEvtMessage : EventMessage
+    public class ScanEvtMessage : EventMessage, IMessage
     {
         /// <summary>
         /// 事件KEY值

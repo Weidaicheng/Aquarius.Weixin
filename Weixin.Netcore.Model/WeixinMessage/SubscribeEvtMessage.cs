@@ -3,7 +3,7 @@
     /// <summary>
     /// 关注事件消息
     /// </summary>
-    public class SubscribeEvtMessage : EventMessage
+    public class SubscribeEvtMessage : EventMessage, IMessage
     {
         public SubscribeEvtMessage()
         {
