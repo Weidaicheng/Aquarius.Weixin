@@ -43,14 +43,8 @@ namespace Weixin.Netcore.Web
                 return new RedisCache(redisServerHost, redisServerPort, redisPassword);
             });
 
-            //MessageProcesser
-            services.AddScoped<IMessageProcesser, ClickEvtMessageProcesser>();
-
             //MessageRepetHandler
             services.AddScoped<IMessageRepetHandler, MessageRepetHandler>();
-
-            //MessageHandler
-            services.AddScoped<IClickEvtMessageHandler, ClickEventReplyTextExtension>();
 
             //MessageReply
             services.AddScoped<IMessageReply<TextMessage>, TextMessageReply>();
@@ -59,6 +53,16 @@ namespace Weixin.Netcore.Web
             services.AddScoped<IMessageReply<VoiceMessage>, VoiceMessageReply>();
             services.AddScoped<IMessageReply<VideoMessage>, VideoMessageReply>();
             services.AddScoped<IMessageReply<NewsMessage>, NewsMessageReply>();
+
+            //MessageProcesser
+            //根据需要相应的消息类型配置
+            services.AddScoped<IMessageProcesser, ClickEvtMessageProcesser>();
+
+            //MessageHandler
+            //在Weixin.Netcore.Extensions项目中
+            //namespace：Weixin.Netcore.Extensions.Message.Handler
+            //根据需要添加各种消息消息处理类
+            services.AddScoped<IClickEvtMessageHandler, ClickEventReplyTextExtension>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
