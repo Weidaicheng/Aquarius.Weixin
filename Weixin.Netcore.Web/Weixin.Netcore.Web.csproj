@@ -19,6 +19,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Weixin.Netcore.Cache\Weixin.Netcore.Cache.csproj" />
     <ProjectReference Include="..\Weixin.Netcore.Core\Weixin.Netcore.Core.csproj" />
+    <ProjectReference Include="..\Weixin.Netcore.Extensions\Weixin.Netcore.Extensions.csproj" />
     <ProjectReference Include="..\Weixin.Netcore.Model\Weixin.Netcore.Model.csproj" />
     <ProjectReference Include="..\Weixin.Netcore.Utility\Weixin.Netcore.Utility.csproj" />
   </ItemGroup>

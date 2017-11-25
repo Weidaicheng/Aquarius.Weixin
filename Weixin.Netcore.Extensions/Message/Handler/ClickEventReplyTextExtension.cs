@@ -1,17 +1,18 @@
-﻿using Weixin.Netcore.Model.WeixinMessage;
+﻿using Weixin.Netcore.Core.Message.Handler;
+using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Model.WeixinMessage.Reply;
 using Weixin.Netcore.Utility;
 
-namespace Weixin.Netcore.Core.Message.Handler.Implement
+namespace Weixin.Netcore.Extensions.Message.Handler
 {
     /// <summary>
-    /// 点击回复文本消息例子
+    /// 点击回复文本消息扩展
     /// </summary>
-    public class ClickEventReplyTextExample : IClickEvtMessageHandler
+    public class ClickEventReplyTextExtension : IClickEvtMessageHandler
     {
         private readonly IMessageReply<TextMessage> _messageReply;
 
-        public ClickEventReplyTextExample(IMessageReply<TextMessage> messageReply)
+        public ClickEventReplyTextExtension(IMessageReply<TextMessage> messageReply)
         {
             _messageReply = messageReply;
         }

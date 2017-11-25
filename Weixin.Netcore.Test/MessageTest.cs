@@ -2,9 +2,9 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Weixin.Netcore.Core.Message;
 using Weixin.Netcore.Core.Message.Handler;
-using Weixin.Netcore.Core.Message.Handler.Implement;
 using Weixin.Netcore.Core.Message.Processer;
 using Weixin.Netcore.Core.MessageRepet;
+using Weixin.Netcore.Extensions.Message.Handler;
 using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Model.WeixinMessage.Reply;
 
@@ -28,7 +28,7 @@ namespace Weixin.Netcore.Core.Test
             IMessage message = MessageParser.ParseMessage(xml);
             IMessageRepetHandler messageRepetHandler = new MessageRepetHandler(null);
             IMessageReply<TextMessage> messageReply = new TextMessageReply();
-            IClickEvtMessageHandler clickEvtMessageHandler = new ClickEventReplyTextExample(messageReply);
+            IClickEvtMessageHandler clickEvtMessageHandler = new ClickEventReplyTextExtension(messageReply);
             IMessageProcesser processer = new ClickEvtMessageProcesser(messageRepetHandler, clickEvtMessageHandler);
             Console.WriteLine(processer.ProcessMessage(message));
         }

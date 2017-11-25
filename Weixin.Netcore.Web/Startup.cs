@@ -10,10 +10,10 @@ using RestSharp;
 using Weixin.Netcore.Core.MessageRepet;
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.Message.Handler;
-using Weixin.Netcore.Core.Message.Handler.Implement;
 using Weixin.Netcore.Model.WeixinMessage.Reply;
 using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Core.Message.Processer;
+using Weixin.Netcore.Extensions.Message.Handler;
 
 namespace Weixin.Netcore.Web
 {
@@ -50,7 +50,7 @@ namespace Weixin.Netcore.Web
             services.AddScoped<IMessageRepetHandler, MessageRepetHandler>();
 
             //MessageHandler
-            services.AddScoped<IClickEvtMessageHandler, ClickEventReplyTextExample>();
+            services.AddScoped<IClickEvtMessageHandler, ClickEventReplyTextExtension>();
 
             //MessageReply
             services.AddScoped<IMessageReply<TextMessage>, TextMessageReply>();
