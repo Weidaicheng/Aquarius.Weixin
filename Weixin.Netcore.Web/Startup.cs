@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -55,7 +51,7 @@ namespace Weixin.Netcore.Web
             services.AddScoped<IMessageReply<NewsMessage>, NewsMessageReply>();
 
             //MessageProcesser
-            //根据需要相应的消息类型配置
+            //根据需要添加相应的消息类型配置
             services.AddScoped<IMessageProcesser, ClickEvtMessageProcesser>();
 
             //MessageHandler
