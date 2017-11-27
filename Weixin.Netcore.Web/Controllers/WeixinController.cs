@@ -50,7 +50,7 @@ namespace Weixin.Netcore.Web.Controllers
             }
             else//消息处理
             {
-                if(UtilityHelper.CheckSignature(signature, timestamp, nonce, _configuration["token"], true))
+                if(UtilityHelper.CheckSignature(signature, timestamp, nonce, _configuration["token"]))
                 {
                     using (var sr = new StreamReader(Request.Body))
                     {
