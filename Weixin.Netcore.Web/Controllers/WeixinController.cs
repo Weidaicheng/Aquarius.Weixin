@@ -31,7 +31,7 @@ namespace Weixin.Netcore.Web.Controllers
         }
         #endregion
 
-        public IActionResult Index(string signature, string timestamp, string nonce, string echostr)
+        public async Task<IActionResult> Index(string signature, string timestamp, string nonce, string echostr)
         {
             if(bool.Parse(_configuration["IsValidNow"]))//服务器配置
             {
@@ -54,7 +54,7 @@ namespace Weixin.Netcore.Web.Controllers
                 {
                     using (var sr = new StreamReader(Request.Body))
                     {
-                        string data = sr.ReadToEnd();
+                        string data = await sr.ReadToEndAsync();
                         _logger.LogInformation(data);
 
                         IMessage message = MessageParser.ParseMessage(data);
