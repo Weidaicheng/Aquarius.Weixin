@@ -11,14 +11,14 @@ namespace Weixin.Netcore.Core.Message.Processer
     public class ShortVideoMessageProcesser : IMessageProcesser
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
-
+        private readonly IMessageRepetValidUsage _messageRepetValidUsage;
         private readonly IShortVideoMessageHandler _shortVideoMeessageHandler;
 
         public ShortVideoMessageProcesser(IMessageRepetHandler messageRepetHandler,
-            IShortVideoMessageHandler shortVideoMessageHandler)
+            IMessageRepetValidUsage messageRepetValidUsage, IShortVideoMessageHandler shortVideoMessageHandler)
         {
             _messageRepetHandler = messageRepetHandler;
-
+            _messageRepetValidUsage = messageRepetValidUsage;
             _shortVideoMeessageHandler = shortVideoMessageHandler;
         }
 
@@ -26,7 +26,7 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is ShortVideoMessage)//小视频消息
             {
-                if (!_messageRepetHandler.MessageRepetValid((message as ShortVideoMessage).MsgId.ToString()))
+                if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as ShortVideoMessage).MsgId.ToString()))
                     return "success";
                 return _shortVideoMeessageHandler.ShortVideoMessageHandler(message as ShortVideoMessage);
             }

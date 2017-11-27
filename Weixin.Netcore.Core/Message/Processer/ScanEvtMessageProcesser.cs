@@ -11,14 +11,14 @@ namespace Weixin.Netcore.Core.Message.Processer
     public class ScanEvtMessageProcesser : IMessageProcesser
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
-
+        private readonly IMessageRepetValidUsage _messageRepetValidUsage;
         private readonly IScanEvtMessageHandler _scanEventHandler;
 
         public ScanEvtMessageProcesser(IMessageRepetHandler messageRepetHandler,
-            IScanEvtMessageHandler scanEventHandler)
+            IMessageRepetValidUsage messageRepetValidUsage, IScanEvtMessageHandler scanEventHandler)
         {
             _messageRepetHandler = messageRepetHandler;
-
+            _messageRepetValidUsage = messageRepetValidUsage;
             _scanEventHandler = scanEventHandler;
         }
 
@@ -26,7 +26,7 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is ScanEvtMessage)//扫码事件消息
             {
-                if (!_messageRepetHandler.MessageRepetValid((message as ScanEvtMessage).FromUserName + (message as ScanEvtMessage).CreateTime))
+                if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as ScanEvtMessage).FromUserName + (message as ScanEvtMessage).CreateTime))
                     return "success";
                 return _scanEventHandler.ScanEventHandler(message as ScanEvtMessage);
             }

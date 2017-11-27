@@ -11,14 +11,14 @@ namespace Weixin.Netcore.Core.Message.Processer
     public class SubscribeClickEvtMessageProcesser : IMessageProcesser
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
-
+        private readonly IMessageRepetValidUsage _messageRepetValidUsage;
         private readonly ISubscribeEvtMessageHandler _subscribeEventHandler;
 
         public SubscribeClickEvtMessageProcesser(IMessageRepetHandler messageRepetHandler, 
-            ISubscribeEvtMessageHandler subscribeEventHandler)
+            IMessageRepetValidUsage messageRepetValidUsage, ISubscribeEvtMessageHandler subscribeEventHandler)
         {
             _messageRepetHandler = messageRepetHandler;
-            
+            _messageRepetValidUsage = messageRepetValidUsage;
             _subscribeEventHandler = subscribeEventHandler;
         }
 
@@ -26,7 +26,7 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is ClickEvtMessage)//点击事件消息
             {
-                if (!_messageRepetHandler.MessageRepetValid((message as SubscribeEvtMessage).FromUserName + (message as SubscribeEvtMessage).CreateTime))
+                if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as SubscribeEvtMessage).FromUserName + (message as SubscribeEvtMessage).CreateTime))
                     return "success";
                 return _subscribeEventHandler.SubscribeEventHandler(message as SubscribeEvtMessage);
             }

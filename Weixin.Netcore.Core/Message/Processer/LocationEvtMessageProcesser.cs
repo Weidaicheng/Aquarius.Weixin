@@ -11,14 +11,14 @@ namespace Weixin.Netcore.Core.Message.Processer
     public class LocationEvtMessageProcesser : IMessageProcesser
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
-
+        private readonly IMessageRepetValidUsage _messageRepetValidUsage;
         private readonly ILocationEvtMessageHandler _locationEventHandler;
 
         public LocationEvtMessageProcesser(IMessageRepetHandler messageRepetHandler,
-            ILocationEvtMessageHandler locationEventHandler)
+            IMessageRepetValidUsage messageRepetValidUsage, ILocationEvtMessageHandler locationEventHandler)
         {
             _messageRepetHandler = messageRepetHandler;
-
+            _messageRepetValidUsage = messageRepetValidUsage;
             _locationEventHandler = locationEventHandler;
         }
 
@@ -26,7 +26,7 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is LocationEvtMessage)//位置上报事件消息
             {
-                if (!_messageRepetHandler.MessageRepetValid((message as LocationEvtMessage).FromUserName + (message as LocationEvtMessage).CreateTime))
+                if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as LocationEvtMessage).FromUserName + (message as LocationEvtMessage).CreateTime))
                     return "success";
                 return _locationEventHandler.LocationEventHandler(message as LocationEvtMessage);
             }

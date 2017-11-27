@@ -10,6 +10,7 @@ using Weixin.Netcore.Model.WeixinMessage.Reply;
 using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Core.Message.Processer;
 using Weixin.Netcore.Extensions.Message.Handler;
+using Weixin.Netcore.Core.Debug;
 
 namespace Weixin.Netcore.Web
 {
@@ -42,6 +43,12 @@ namespace Weixin.Netcore.Web
             //MessageRepetHandler
             services.AddScoped<IMessageRepetHandler, MessageRepetHandler>();
 
+            //调试模式
+            services.AddScoped<IDebugMode, DebugMode>(provider =>
+            {
+                return new DebugMode(true);
+            });
+
             //MessageReply
             services.AddScoped<IMessageReply<TextMessage>, TextMessageReply>();
             services.AddScoped<IMessageReply<ImageMessage>, ImageMessageReply>();
@@ -53,6 +60,12 @@ namespace Weixin.Netcore.Web
             //MessageProcesser
             //根据需要添加相应的消息类型配置
             services.AddScoped<IMessageProcesser, ClickEvtMessageProcesser>();
+
+            //启用消息重复验证
+            services.AddScoped<IMessageRepetValidUsage, MessageRepetValidUsage>(provider =>
+            {
+                return new MessageRepetValidUsage(true);
+            });
 
             //MessageHandler
             //在Weixin.Netcore.Extensions项目中

@@ -11,14 +11,14 @@ namespace Weixin.Netcore.Core.Message.Processer
     public class UnsubscribeEvtMessageProcesser : IMessageProcesser
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
-
+        private readonly IMessageRepetValidUsage _messageRepetValidUsage;
         private readonly IUnsubscribeEvtMessageHandler _unsubscribeEventHandler;
 
         public UnsubscribeEvtMessageProcesser(IMessageRepetHandler messageRepetHandler,
-            IUnsubscribeEvtMessageHandler unsubscribeEventHandler)
+            IMessageRepetValidUsage messageRepetValidUsage, IUnsubscribeEvtMessageHandler unsubscribeEventHandler)
         {
             _messageRepetHandler = messageRepetHandler;
-
+            _messageRepetValidUsage = messageRepetValidUsage;
             _unsubscribeEventHandler = unsubscribeEventHandler;
         }
 
@@ -26,7 +26,7 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is UnSubscribeEvtMessage)//取消订阅事件消息
             {
-                if (!_messageRepetHandler.MessageRepetValid((message as UnSubscribeEvtMessage).FromUserName + (message as UnSubscribeEvtMessage).CreateTime))
+                if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as UnSubscribeEvtMessage).FromUserName + (message as UnSubscribeEvtMessage).CreateTime))
                     return "success";
                 return _unsubscribeEventHandler.UnsubscribeEventHandler(message as UnSubscribeEvtMessage);
             }

@@ -11,14 +11,14 @@ namespace Weixin.Netcore.Core.Message.Processer
     public class LinkMessageProcesser : IMessageProcesser
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
-
+        private readonly IMessageRepetValidUsage _messageRepetValidUsage;
         private readonly ILinkMessageHandler _linkMessageHandlder;
 
         public LinkMessageProcesser(IMessageRepetHandler messageRepetHandler,
-            ILinkMessageHandler linkMessageHandler)
+            IMessageRepetValidUsage messageRepetValidUsage, ILinkMessageHandler linkMessageHandler)
         {
             _messageRepetHandler = messageRepetHandler;
-
+            _messageRepetValidUsage = messageRepetValidUsage;
             _linkMessageHandlder = linkMessageHandler;
         }
 
@@ -26,7 +26,7 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is LinkMessage)//链接消息
             {
-                if (!_messageRepetHandler.MessageRepetValid((message as LinkMessage).MsgId.ToString()))
+                if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as LinkMessage).MsgId.ToString()))
                     return "success";
                 return _linkMessageHandlder.LinkMessageHandler(message as LinkMessage);
             }

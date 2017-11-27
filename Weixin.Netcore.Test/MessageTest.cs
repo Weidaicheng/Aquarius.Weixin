@@ -1,5 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Weixin.Netcore.Cache;
+using Weixin.Netcore.Core.Debug;
 using Weixin.Netcore.Core.Message;
 using Weixin.Netcore.Core.Message.Handler;
 using Weixin.Netcore.Core.Message.Processer;
@@ -26,11 +28,22 @@ namespace Weixin.Netcore.Core.Test
                         </xml>";
 
             IMessage message = MessageParser.ParseMessage(xml);
-            IMessageRepetHandler messageRepetHandler = new MessageRepetHandler(null);
+            IDebugMode debugMode = new DebugMode(true);
+            ICache cache = new RedisCache("127.0.0.1", 6379, "123456");
+            IMessageRepetHandler messageRepetHandler = new MessageRepetHandler(cache, debugMode);
             IMessageReply<TextMessage> messageReply = new TextMessageReply();
             IClickEvtMessageHandler clickEvtMessageHandler = new ClickEventReplyTextExtension(messageReply);
-            IMessageProcesser processer = new ClickEvtMessageProcesser(messageRepetHandler, clickEvtMessageHandler);
+            IMessageRepetValidUsage messageRepetValidUsage = new MessageRepetValidUsage(true);
+            IMessageProcesser processer = new ClickEvtMessageProcesser(messageRepetHandler, clickEvtMessageHandler, messageRepetValidUsage);
             Console.WriteLine(processer.ProcessMessage(message));
+        }
+
+        [TestMethod]
+        public void MessageRepetTest()
+        {
+            IDebugMode debugMode = new DebugMode(true);
+            IMessageRepetHandler messageRepetHandler = new MessageRepetHandler(null, debugMode);
+            Assert.IsTrue(messageRepetHandler.MessageRepetValid("key"));
         }
     }
 }

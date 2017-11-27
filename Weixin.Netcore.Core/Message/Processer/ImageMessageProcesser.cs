@@ -11,14 +11,14 @@ namespace Weixin.Netcore.Core.Message.Processer
     public class ImageMessageProcesser : IMessageProcesser
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
-
+        private readonly IMessageRepetValidUsage _messageRepetValidUsage;
         private readonly IImageMessageHandler _imageMessageHandler;
 
         public ImageMessageProcesser(IMessageRepetHandler messageRepetHandler,
-            IImageMessageHandler imageMessageHandler)
+            IMessageRepetValidUsage messageRepetValidUsage, IImageMessageHandler imageMessageHandler)
         {
             _messageRepetHandler = messageRepetHandler;
-
+            _messageRepetValidUsage = messageRepetValidUsage;
             _imageMessageHandler = imageMessageHandler;
         }
 
@@ -26,7 +26,7 @@ namespace Weixin.Netcore.Core.Message.Processer
         {
             if (message is ImageMessage)//图片消息
             {
-                if (!_messageRepetHandler.MessageRepetValid((message as ImageMessage).MsgId.ToString()))
+                if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as ImageMessage).MsgId.ToString()))
                     return "success";
                 return _imageMessageHandler.ImageMessageHandler(message as ImageMessage);
             }
