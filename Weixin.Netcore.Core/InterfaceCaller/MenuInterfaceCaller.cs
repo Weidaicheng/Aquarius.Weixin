@@ -55,5 +55,31 @@ namespace Weixin.Netcore.Core.InterfaceCaller
 
             return err.errmsg;
         }
+
+        /// <summary>
+        /// 删除菜单
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public string DeleteMenu(string accessToken)
+        {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
+            IRestRequest request = new RestRequest($"cgi-bin/menu/delete", Method.POST);
+            request.AddQueryParameter("access_token", accessToken);
+
+            IRestResponse response = _restClient.Execute(request);
+
+            var err = JsonConvert.DeserializeObject<Error>(response.Content);
+            if (err.errcode != 0)
+            {
+                throw new WeixinInterfaceException(err.errmsg);
+            }
+
+            return err.errmsg;
+        }
     }
 }
