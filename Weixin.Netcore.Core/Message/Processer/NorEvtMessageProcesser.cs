@@ -8,7 +8,7 @@ namespace Weixin.Netcore.Core.Message.Processer
     /// <summary>
     /// 消息处理器（所有消息）
     /// </summary>
-    public class MessageProcesser : IMessageProcesser
+    public class NorEvtMessageProcesser : IMessageProcesser
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
         private readonly IMessageRepetValidUsage _messageRepetValidUsage;
@@ -25,7 +25,7 @@ namespace Weixin.Netcore.Core.Message.Processer
         private readonly ILocationEvtMessageHandler _locationEventHandler;
         private readonly IClickEvtMessageHandler _clickEventHandler;
 
-        public MessageProcesser(IMessageRepetHandler messageRepetHandler,
+        public NorEvtMessageProcesser(IMessageRepetHandler messageRepetHandler,
             IMessageRepetValidUsage messageRepetValidUsage,
             ITextMessageHandler textMessageHandler, IImageMessageHandler imageMessageHandler,
             IVoiceMessageHandler voiceMessageHandler, IVideoMessageHandler videoMessageHandler,

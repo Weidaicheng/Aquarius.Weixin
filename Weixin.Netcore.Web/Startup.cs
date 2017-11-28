@@ -14,6 +14,7 @@ using Weixin.Netcore.Core.Debug;
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Weixin.Netcore.Core.Message.Handler.NotImplement;
 
 namespace Weixin.Netcore.Web
 {
@@ -62,7 +63,7 @@ namespace Weixin.Netcore.Web
 
             //MessageProcesser
             //根据需要添加相应的消息类型配置
-            builder.RegisterType<ClickEvtMessageProcesser>().As<IMessageProcesser>();
+            builder.RegisterType<NorEvtMessageProcesser>().As<IMessageProcesser>();
 
             //启用消息重复验证
             builder.Register(context => new MessageRepetValidUsage(true)).As<IMessageRepetValidUsage>();
@@ -70,8 +71,19 @@ namespace Weixin.Netcore.Web
             //MessageHandler
             //在Weixin.Netcore.Extensions项目中
             //namespace：Weixin.Netcore.Extensions.Message.Handler
-            //根据需要添加各种消息消息处理类
-            builder.RegisterType<ClickEventReplyTextExtension>().As<IClickEvtMessageHandler>();
+            //根据需要替换各种消息消息处理类
+            builder.RegisterType<ClickEvtMessageHandlerNotImp>().As<IClickEvtMessageHandler>();
+            builder.RegisterType<EchoTextExtension>().As<ITextMessageHandler>();
+            builder.RegisterType<ImageMessageHandlerNotImp>().As<IImageMessageHandler>();
+            builder.RegisterType<VoiceMessageHandlerNotImp>().As<IVoiceMessageHandler>();
+            builder.RegisterType<VideoMessageHandlerNotImp>().As<IVideoMessageHandler>();
+            builder.RegisterType<ShortVideoMessageHandlerNotImp>().As<IShortVideoMessageHandler>();
+            builder.RegisterType<LocationMessageHandlerNotImp>().As<ILocationMessageHandler>();
+            builder.RegisterType<LinkMessageHandlerNotImp>().As<ILinkMessageHandler>();
+            builder.RegisterType<SubscribeEvtMessageHandlerNotImp>().As<ISubscribeEvtMessageHandler>();
+            builder.RegisterType<UnsubscribeEvtMessageHandlerNotImp>().As<IUnsubscribeEvtMessageHandler>();
+            builder.RegisterType<ScanEvtMessageHandlerNotImp>().As<IScanEvtMessageHandler>();
+            builder.RegisterType<LocationEvtMessageHandlerNotImp>().As<ILocationEvtMessageHandler>();
 
             builder.Populate(services);
             var container = builder.Build();

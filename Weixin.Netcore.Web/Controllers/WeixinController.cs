@@ -52,14 +52,22 @@ namespace Weixin.Netcore.Web.Controllers
             {
                 if(UtilityHelper.CheckSignature(signature, timestamp, nonce, _configuration["token"]))
                 {
-                    using (var sr = new StreamReader(Request.Body))
+                    try
                     {
-                        string data = await sr.ReadToEndAsync();
-                        _logger.LogInformation(data);
+                        using (var sr = new StreamReader(Request.Body))
+                        {
+                            string data = await sr.ReadToEndAsync();
+                            _logger.LogInformation(data);
 
-                        IMessage message = MessageParser.ParseMessage(data);
-                        string reply = _processer.ProcessMessage(message);
-                        return Content(reply);
+                            IMessage message = MessageParser.ParseMessage(data);
+                            string reply = _processer.ProcessMessage(message);
+                            return Content(reply);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "消息处理出错");
+                        return Content("success");
                     }
                 }
                 else//消息真实性验证失败
