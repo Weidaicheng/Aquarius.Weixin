@@ -30,14 +30,16 @@ namespace Weixin.Netcore.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            //InMemory缓存
             services.AddMemoryCache();
-            services.AddDistributedRedisCache(opt =>
-            {
-                string redisHost = Configuration["RedisHost"];
-                int redisPort = int.Parse(Configuration["RedisPort"] ?? "6379");
-                string redisPasswd = Configuration["RedisPasswd"];
-                opt.Configuration = $"{redisHost}:{redisPort}{(string.IsNullOrEmpty(redisPasswd) ? string.Empty : string.Concat(",password=", redisPasswd))}";
-            });
+            //Redis缓存
+            //services.AddDistributedRedisCache(opt =>
+            //{
+            //    string redisHost = Configuration["RedisHost"];
+            //    int redisPort = int.Parse(Configuration["RedisPort"] ?? "6379");
+            //    string redisPasswd = Configuration["RedisPasswd"];
+            //    opt.Configuration = $"{redisHost}:{redisPort}{(string.IsNullOrEmpty(redisPasswd) ? string.Empty : string.Concat(",password=", redisPasswd))}";
+            //});
             services.AddMvc();
 
             //Add Autofac
@@ -47,7 +49,10 @@ namespace Weixin.Netcore.Web
             builder.RegisterType<RestClient>().As<IRestClient>();
 
             //Cache
+            //使用InMemory缓存
             builder.RegisterType<InMemoryCache>().As<ICache>();
+            //使用Redis缓存
+            //builder.RegisterType<RedisCache>().As<ICache>();
 
             //MessageRepetHandler
             builder.RegisterType<MessageRepetHandler>().As<IMessageRepetHandler>();
