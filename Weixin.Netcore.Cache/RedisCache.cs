@@ -1,4 +1,5 @@
-﻿using StackExchange.Redis;
+﻿using Microsoft.Extensions.Caching.Distributed;
+using StackExchange.Redis;
 using System;
 using Weixin.Netcore.Cache.Exceptions;
 
@@ -10,46 +11,27 @@ namespace Weixin.Netcore.Cache
     public class RedisCache : ICache
     {
         #region .ctor
-        private static IDatabase _database;
-        private static ConnectionMultiplexer _connection;
+        private readonly IDistributedCache _distributedCache;
 
-        public RedisCache(string serverHostr, int serverPort, string password = null)
+        public RedisCache(IDistributedCache distributedCache)
         {
-            _connection = ConnectionMultiplexer.Connect($"{serverHostr}:{serverPort}{(string.IsNullOrEmpty(password) ? string.Empty : string.Concat(",password=", password))}");
-            _database = Connection.GetDatabase();
+            _distributedCache = distributedCache;
         }
         #endregion
 
-        public static ConnectionMultiplexer Connection
-        {
-            get
-            {
-                if (_connection == null)
-                {
-                    throw new RedisConnectionNullException("Redis连接为null");
-                }
-                if (!_connection.IsConnected)
-                {
-                    throw new RedisNotConnectException("Redis未连接");
-                }
-
-                return _connection;
-            }
-        }
-
         public string Get(string key)
         {
-            return _database.StringGet(key);
+            return _distributedCache.GetString(key);
         }
 
         public void Set(string key, string value)
         {
-            _database.StringSet(key, value);
+            _distributedCache.SetString(key, value);
         }
 
         public void Set(string key, string value, TimeSpan ts)
         {
-            _database.StringSet(key, value, ts);
+            _distributedCache.SetString(key, value, new DistributedCacheEntryOptions() { AbsoluteExpirationRelativeToNow = ts});
         }
     }
 }

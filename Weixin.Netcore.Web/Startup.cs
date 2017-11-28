@@ -31,6 +31,13 @@ namespace Weixin.Netcore.Web
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
             services.AddMemoryCache();
+            services.AddDistributedRedisCache(opt =>
+            {
+                string redisHost = Configuration["RedisHost"];
+                int redisPort = int.Parse(Configuration["RedisPort"] ?? "6379");
+                string redisPasswd = Configuration["RedisPasswd"];
+                opt.Configuration = $"{redisHost}:{redisPort}{(string.IsNullOrEmpty(redisPasswd) ? string.Empty : string.Concat(",password=", redisPasswd))}";
+            });
             services.AddMvc();
 
             //Add Autofac
@@ -40,13 +47,7 @@ namespace Weixin.Netcore.Web
             builder.RegisterType<RestClient>().As<IRestClient>();
 
             //Cache
-            builder.Register(context =>
-            {
-                string redisServerHost = Configuration["RedisHost"];
-                int redisServerPort = string.IsNullOrEmpty(Configuration["RedisPort"]) ? 6379 : int.Parse(Configuration["RedisPort"]);
-                string redisPassword = string.IsNullOrEmpty(Configuration["RedisPasswd"]) ? string.Empty : Configuration["RedisPasswd"];
-                return new RedisCache(redisServerHost, redisServerPort, redisPassword);
-            }).As<ICache>();
+            builder.RegisterType<InMemoryCache>().As<ICache>();
 
             //MessageRepetHandler
             builder.RegisterType<MessageRepetHandler>().As<IMessageRepetHandler>();
