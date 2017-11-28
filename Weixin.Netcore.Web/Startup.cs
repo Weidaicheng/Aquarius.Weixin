@@ -72,7 +72,7 @@ namespace Weixin.Netcore.Web
             //在Weixin.Netcore.Extensions项目中
             //namespace：Weixin.Netcore.Extensions.Message.Handler
             //根据需要替换各种消息消息处理类
-            builder.RegisterType<ClickEvtMessageHandlerNotImp>().As<IClickEvtMessageHandler>();
+            builder.RegisterType<ClickEventReplyTextExtension>().As<IClickEvtMessageHandler>();
             builder.RegisterType<EchoTextExtension>().As<ITextMessageHandler>();
             builder.RegisterType<ImageMessageHandlerNotImp>().As<IImageMessageHandler>();
             builder.RegisterType<VoiceMessageHandlerNotImp>().As<IVoiceMessageHandler>();
