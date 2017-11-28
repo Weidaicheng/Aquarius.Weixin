@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -18,6 +20,15 @@ namespace Weixin.Netcore.Core.Test
             cache.Set("city", "nanjing", TimeSpan.FromSeconds(5));
             Thread.Sleep(5000);
             Console.WriteLine(cache.Get("date"));
+        }
+
+        [TestMethod]
+        public void InMemoryCacheTest()
+        {
+            ICache cache = new InMemoryCache(new MemoryCache(new MemoryCacheOptions()));
+            cache.Set("city", "nanjing", TimeSpan.FromSeconds(5));
+            Thread.Sleep(5000);
+            Console.WriteLine(cache.Get("city"));
         }
     }
 }
