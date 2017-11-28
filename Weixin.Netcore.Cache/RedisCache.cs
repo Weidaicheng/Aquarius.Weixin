@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
-using StackExchange.Redis;
 using System;
-using Weixin.Netcore.Cache.Exceptions;
 
 namespace Weixin.Netcore.Cache
 {

@@ -16,10 +16,10 @@ namespace Weixin.Netcore.Core.Test
         [TestMethod]
         public void RedisCacheTest()
         {
-            ICache cache = new RedisCache("127.0.0.1", 6379, "123456");
+            ICache cache = new RedisCache(new Microsoft.Extensions.Caching.Redis.RedisCache(new Microsoft.Extensions.Caching.Redis.RedisCacheOptions() { Configuration = "127.0.0.1:6379,password=123456" }));
             cache.Set("city", "nanjing", TimeSpan.FromSeconds(5));
             Thread.Sleep(5000);
-            Console.WriteLine(cache.Get("date"));
+            Console.WriteLine(cache.Get("city"));
         }
 
         [TestMethod]

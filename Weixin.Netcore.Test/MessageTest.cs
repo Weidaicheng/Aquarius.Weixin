@@ -29,7 +29,7 @@ namespace Weixin.Netcore.Core.Test
 
             IMessage message = MessageParser.ParseMessage(xml);
             IDebugMode debugMode = new DebugMode(true);
-            ICache cache = new RedisCache("127.0.0.1", 6379, "123456");
+            ICache cache = new RedisCache(new Microsoft.Extensions.Caching.Redis.RedisCache(new Microsoft.Extensions.Caching.Redis.RedisCacheOptions() { Configuration = "127.0.0.1:6379,password=123456" }));
             IMessageRepetHandler messageRepetHandler = new MessageRepetHandler(cache, debugMode);
             IMessageReply<TextMessage> messageReply = new TextMessageReply();
             IClickEvtMessageHandler clickEvtMessageHandler = new ClickEventReplyTextExtension(messageReply);
