@@ -16,10 +16,5 @@ namespace Weixin.Netcore.Model
         /// AppSecret
         /// </summary>
         public string AppSecret { get; set; }
-
-        /// <summary>
-        /// 认证类型
-        /// </summary>
-        public AuthType AuthType { get; set; }
     }
 }

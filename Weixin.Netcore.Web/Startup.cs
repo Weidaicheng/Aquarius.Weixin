@@ -74,8 +74,7 @@ namespace Weixin.Netcore.Web
             builder.Register(context => new BaseSettings()
             {
                 AppId = Configuration["AppId"],
-                AppSecret = Configuration["AppSecret"],
-                AuthType = int.Parse(Configuration["AuthType"]) == 0 ? AuthType.OpenId : AuthType.UnionId
+                AppSecret = Configuration["AppSecret"]
             }).As<BaseSettings>();
             //调试模式
             builder.Register(context => new DebugMode(false)).As<IDebugMode>();
@@ -91,7 +90,7 @@ namespace Weixin.Netcore.Web
 
             #region 认证
             //认证
-            builder.RegisterType<Authorization>().As<IAuthorization>();
+            builder.RegisterType<OpenIdAuthorization>().As<IOpenIdAuthorization>();
             #endregion
 
             #region 容器
