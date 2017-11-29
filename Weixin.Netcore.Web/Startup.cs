@@ -15,6 +15,9 @@ using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Weixin.Netcore.Core.Message.Handler.NotImplement;
+using Weixin.Netcore.Model;
+using Weixin.Netcore.Core.Maintain;
+using Weixin.Netcore.Core.InterfaceCaller;
 
 namespace Weixin.Netcore.Web
 {
@@ -57,8 +60,18 @@ namespace Weixin.Netcore.Web
             //MessageRepetHandler
             builder.RegisterType<MessageRepetHandler>().As<IMessageRepetHandler>();
 
+            //微信设置
+            builder.RegisterType<WeixinSetting>().As<WeixinSetting>();
+
             //调试模式
             builder.Register(context => new DebugMode(false)).As<IDebugMode>();
+
+            //容器
+            builder.RegisterType<AccessTokenContainer>().As<AccessTokenContainer>();
+
+            //接口调用
+            builder.RegisterType<OAuthInterfaceCaller>().As<OAuthInterfaceCaller>();
+            builder.RegisterType<MenuInterfaceCaller>().As<MenuInterfaceCaller>();
 
             //MessageReply
             builder.RegisterType<TextMessageReply>().As<IMessageReply<TextMessage>>();

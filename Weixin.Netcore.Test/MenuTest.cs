@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Weixin.Netcore.Core.InterfaceCaller;
+using Weixin.Netcore.Model;
 using Weixin.Netcore.Model.WeixinInterface;
 using Weixin.Netcore.Model.WeixinMenu;
 using Weixin.Netcore.Model.WeixinMenu.Button;
@@ -17,8 +18,13 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void CreateMenuTest()
         {
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient());
-            var accessToken = oAuthInterface.GetAccessToken("wx6eff55d0d76e210f", "60ab768429e8fc6b86abaa9cfd1c6565");
+            WeixinSetting weixinSetting = new WeixinSetting()
+            {
+                AppId = "wx6eff55d0d76e210f",
+                AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
+            };
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            var accessToken = oAuthInterface.GetAccessToken();
             string menu = @"
  {
      ""button"":[
@@ -50,8 +56,13 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void GetMenuTest()
         {
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient());
-            var accessToken = oAuthInterface.GetAccessToken("wx6eff55d0d76e210f", "60ab768429e8fc6b86abaa9cfd1c6565");
+            WeixinSetting weixinSetting = new WeixinSetting()
+            {
+                AppId = "wx6eff55d0d76e210f",
+                AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
+            };
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            var accessToken = oAuthInterface.GetAccessToken();
             MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
             Console.WriteLine(menuInterfaceCaller.GetMenu(accessToken.access_token));
         }
@@ -59,8 +70,13 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void CreateConditionalMenuTest()
         {
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient());
-            var accessToken = oAuthInterface.GetAccessToken("wx6eff55d0d76e210f", "60ab768429e8fc6b86abaa9cfd1c6565");
+            WeixinSetting weixinSetting = new WeixinSetting()
+            {
+                AppId = "wx6eff55d0d76e210f",
+                AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
+            };
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            var accessToken = oAuthInterface.GetAccessToken();
             MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
             IConditionalMenu conditionalMenu = new ConditionalMenu();
             conditionalMenu.button.Add(new SingleClickButton("Man")
@@ -78,8 +94,13 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void TryMatchConditionalMenuTest()
         {
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient());
-            var accessToken = oAuthInterface.GetAccessToken("wx6eff55d0d76e210f", "60ab768429e8fc6b86abaa9cfd1c6565");
+            WeixinSetting weixinSetting = new WeixinSetting()
+            {
+                AppId = "wx6eff55d0d76e210f",
+                AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
+            };
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            var accessToken = oAuthInterface.GetAccessToken();
             MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
             Console.WriteLine(menuInterfaceCaller.TryMatchConditionalMenu(accessToken.access_token, "oGV7Kv0bgXvAUabe8sDopmKlzPNE"));
         }
@@ -87,8 +108,13 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void DeleteConditionalMenuTest()
         {
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient());
-            var accessToken = oAuthInterface.GetAccessToken("wx6eff55d0d76e210f", "60ab768429e8fc6b86abaa9cfd1c6565");
+            WeixinSetting weixinSetting = new WeixinSetting()
+            {
+                AppId = "wx6eff55d0d76e210f",
+                AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
+            };
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            var accessToken = oAuthInterface.GetAccessToken();
             MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
             var menuId = new MenuId()
             {
