@@ -42,5 +42,14 @@ namespace Weixin.Netcore.Test
             MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
             Console.WriteLine(menuInterfaceCaller.CreateMenu(accessToken.access_token, menu));
         }
+
+        [TestMethod]
+        public void GetMenuTest()
+        {
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient());
+            var accessToken = oAuthInterface.GetAccessToken("wx6eff55d0d76e210f", "60ab768429e8fc6b86abaa9cfd1c6565");
+            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
+            Console.WriteLine(menuInterfaceCaller.GetMenu(accessToken.access_token));
+        }
     }
 }

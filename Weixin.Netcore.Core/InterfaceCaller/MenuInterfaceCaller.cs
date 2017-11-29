@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model.WeixinInterface;
+using Weixin.Netcore.Model.WeixinMenu;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
 {
@@ -54,6 +55,26 @@ namespace Weixin.Netcore.Core.InterfaceCaller
             }
 
             return err.errmsg;
+        }
+
+        /// <summary>
+        /// 查询菜单
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public string GetMenu(string accessToken)
+        {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
+            IRestRequest request = new RestRequest($"cgi-bin/menu/get", Method.POST);
+            request.AddQueryParameter("access_token", accessToken);
+
+            IRestResponse response = _restClient.Execute(request);
+
+            return response.Content;
         }
 
         /// <summary>
