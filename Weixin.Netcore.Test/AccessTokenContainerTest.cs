@@ -19,7 +19,7 @@ namespace Weixin.Netcore.Test
         {
             ICache cache = new InMemoryCache(new MemoryCache(new MemoryCacheOptions()));
             //ICache cache = new RedisCache(new Microsoft.Extensions.Caching.Redis.RedisCache(new Microsoft.Extensions.Caching.Redis.RedisCacheOptions() { Configuration = "127.0.0.1:6379,password=123456" }));
-            WeixinSetting weixinSetting = new WeixinSetting()
+            BaseSettings weixinSetting = new BaseSettings()
             {
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"

@@ -3,6 +3,7 @@ using RestSharp;
 using System;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model;
+using Weixin.Netcore.Model.Enums;
 using Weixin.Netcore.Model.WeixinInterface;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
@@ -14,13 +15,13 @@ namespace Weixin.Netcore.Core.InterfaceCaller
     {
         #region .ctor
         private readonly IRestClient _restClient;
-        private readonly WeixinSetting _weixinSetting;
+        private readonly BaseSettings _weixinSetting;
 
         #region const
         private const string WeixinUri = "https://api.weixin.qq.com";
         #endregion
 
-        public OAuthInterfaceCaller(IRestClient restClient, WeixinSetting weixinSetting)
+        public OAuthInterfaceCaller(IRestClient restClient, BaseSettings weixinSetting)
         {
             _restClient = restClient;
             _restClient.BaseUrl = new Uri(WeixinUri);
@@ -29,7 +30,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         #endregion
 
         /// <summary>
-        /// 获取AccessToken
+        /// 获取普通AccessToken
         /// </summary>
         /// <returns></returns>
         internal AccessToken GetAccessToken()
@@ -41,7 +42,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
 
             IRestResponse response = _restClient.Execute(request);
 
-            if (!response.Content.Contains("access_token"))
+            if (response.Content.Contains("errcode"))
             {
                 var err = JsonConvert.DeserializeObject<Error>(response.Content);
                 throw new WeixinInterfaceException(err.errmsg);
@@ -55,7 +56,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        public OpenId GetOpenId(string code)
+        internal OpenId GetOpenId(string code)
         {
             if(string.IsNullOrEmpty(code))
             {
@@ -70,13 +71,111 @@ namespace Weixin.Netcore.Core.InterfaceCaller
 
             IRestResponse response = _restClient.Execute(request);
 
-            if (!response.Content.Contains("openid"))
+            if (response.Content.Contains("errcode"))
             {
                 var err = JsonConvert.DeserializeObject<Error>(response.Content);
                 throw new WeixinInterfaceException(err.errmsg);
             }
 
             return JsonConvert.DeserializeObject<OpenId>(response.Content);
+        }
+
+        /// <summary>
+        /// 刷新网页授权access_token
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        internal OpenId RefreshToken(string refreshToken)
+        {
+            if (string.IsNullOrEmpty(refreshToken))
+            {
+                throw new ArgumentException("Refresh Token为空");
+            }
+
+            IRestRequest request = new RestRequest("sns/oauth2/refresh_token", Method.GET);
+            request.AddQueryParameter("appid", _weixinSetting.AppId);
+            request.AddQueryParameter("grent_type", "refresh_token");
+            request.AddQueryParameter("refresh_token", refreshToken);
+
+            IRestResponse response = _restClient.Execute(request);
+
+            if (response.Content.Contains("errcode"))
+            {
+                var err = JsonConvert.DeserializeObject<Error>(response.Content);
+                throw new WeixinInterfaceException(err.errmsg);
+            }
+
+            return JsonConvert.DeserializeObject<OpenId>(response.Content);
+        }
+
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <param name="accessToken">网页授权Token</param>
+        /// <param name="openId"></param>
+        /// <param name="lang">语言</param>
+        /// <returns></returns>
+        internal UserInfo GetUserInfo(string accessToken, string openId, Language lang)
+        {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+            if (string.IsNullOrEmpty(openId))
+            {
+                throw new ArgumentException("OpenId为空");
+            }
+
+            IRestRequest request = new RestRequest("sns/oauth2/userinfo", Method.GET);
+            request.AddQueryParameter("access_token", accessToken);
+            request.AddQueryParameter("openid", openId);
+            request.AddQueryParameter("lang", lang.ToString());
+
+            IRestResponse response = _restClient.Execute(request);
+
+            if (response.Content.Contains("errcode"))
+            {
+                var err = JsonConvert.DeserializeObject<Error>(response.Content);
+                throw new WeixinInterfaceException(err.errmsg);
+            }
+
+            return JsonConvert.DeserializeObject<UserInfo>(response.Content);
+        }
+
+        /// <summary>
+        /// 检查网页授权AccessToken是否有效
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <param name="errMsg">错误消息</param>
+        /// <returns></returns>
+        internal bool CheckToken(string accessToken, string openId, out string errMsg)
+        {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+            if(string.IsNullOrEmpty(openId))
+            {
+                throw new ArgumentException("OpenId为空");
+            }
+
+            IRestRequest request = new RestRequest("sns/auth", Method.GET);
+            request.AddQueryParameter("access_token", accessToken);
+            request.AddQueryParameter("openid", openId);
+
+            IRestResponse response = _restClient.Execute(request);
+
+            var err = JsonConvert.DeserializeObject<Error>(response.Content);
+            errMsg = err.errmsg;
+            if (err.errcode == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

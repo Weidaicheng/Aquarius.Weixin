@@ -18,6 +18,8 @@ using Weixin.Netcore.Core.Message.Handler.NotImplement;
 using Weixin.Netcore.Model;
 using Weixin.Netcore.Core.MaintainContainer;
 using Weixin.Netcore.Core.InterfaceCaller;
+using Weixin.Netcore.Model.Enums;
+using Weixin.Netcore.Core.Authorization;
 
 namespace Weixin.Netcore.Web
 {
@@ -69,11 +71,12 @@ namespace Weixin.Netcore.Web
 
             #region 基础设置
             //微信设置
-            builder.Register(context => new WeixinSetting()
+            builder.Register(context => new BaseSettings()
             {
                 AppId = Configuration["AppId"],
-                AppSecret = Configuration["AppSecret"]
-            }).As<WeixinSetting>();
+                AppSecret = Configuration["AppSecret"],
+                AuthType = int.Parse(Configuration["AuthType"]) == 0 ? AuthType.OpenId : AuthType.UnionId
+            }).As<BaseSettings>();
             //调试模式
             builder.Register(context => new DebugMode(false)).As<IDebugMode>();
             //启用消息重复验证
@@ -86,9 +89,16 @@ namespace Weixin.Netcore.Web
             builder.RegisterType<MenuInterfaceCaller>().As<MenuInterfaceCaller>();
             #endregion
 
+            #region 认证
+            //认证
+            builder.RegisterType<Authorization>().As<IAuthorization>();
+            #endregion
+
             #region 容器
             //维护容器
             builder.RegisterType<AccessTokenContainer>().As<AccessTokenContainer>();
+            //认证容器
+            builder.RegisterType<AuthorizationContainer>().As<AuthorizationContainer>();
             #endregion
 
             #region 消息

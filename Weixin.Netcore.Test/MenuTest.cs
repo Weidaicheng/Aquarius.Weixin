@@ -21,7 +21,7 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void CreateMenuTest()
         {
-            WeixinSetting weixinSetting = new WeixinSetting()
+            BaseSettings weixinSetting = new BaseSettings()
             {
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
@@ -61,7 +61,7 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void GetMenuTest()
         {
-            WeixinSetting weixinSetting = new WeixinSetting()
+            BaseSettings weixinSetting = new BaseSettings()
             {
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
@@ -77,7 +77,7 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void CreateConditionalMenuTest()
         {
-            WeixinSetting weixinSetting = new WeixinSetting()
+            BaseSettings weixinSetting = new BaseSettings()
             {
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
@@ -103,7 +103,7 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void TryMatchConditionalMenuTest()
         {
-            WeixinSetting weixinSetting = new WeixinSetting()
+            BaseSettings weixinSetting = new BaseSettings()
             {
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
@@ -119,7 +119,7 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void DeleteConditionalMenuTest()
         {
-            WeixinSetting weixinSetting = new WeixinSetting()
+            BaseSettings weixinSetting = new BaseSettings()
             {
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
