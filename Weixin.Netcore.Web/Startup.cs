@@ -61,7 +61,11 @@ namespace Weixin.Netcore.Web
             builder.RegisterType<MessageRepetHandler>().As<IMessageRepetHandler>();
 
             //微信设置
-            builder.RegisterType<WeixinSetting>().As<WeixinSetting>();
+            builder.Register(context => new WeixinSetting()
+            {
+                AppId = Configuration["AppId"],
+                AppSecret = Configuration["AppSecret"]
+            }).As<WeixinSetting>();
 
             //调试模式
             builder.Register(context => new DebugMode(false)).As<IDebugMode>();
