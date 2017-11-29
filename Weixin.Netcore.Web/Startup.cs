@@ -19,7 +19,6 @@ using Weixin.Netcore.Model;
 using Weixin.Netcore.Core.MaintainContainer;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Model.Enums;
-using Weixin.Netcore.Core.Authorization;
 
 namespace Weixin.Netcore.Web
 {
@@ -86,11 +85,6 @@ namespace Weixin.Netcore.Web
             //接口调用
             builder.RegisterType<OAuthInterfaceCaller>().As<OAuthInterfaceCaller>();
             builder.RegisterType<MenuInterfaceCaller>().As<MenuInterfaceCaller>();
-            #endregion
-
-            #region 认证
-            //认证
-            builder.RegisterType<OpenIdAuthorization>().As<IOpenIdAuthorization>();
             #endregion
 
             #region 容器

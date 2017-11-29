@@ -7,7 +7,7 @@ namespace Weixin.Netcore.Core.MaintainContainer
     /// <summary>
     /// Access Token容器
     /// </summary>
-    public class AccessTokenContainer : IAccessTokenContainer
+    public class AccessTokenContainer
     {
         private readonly ICache _cache;
         private readonly OAuthInterfaceCaller _oAuthInterfaceCaller;
