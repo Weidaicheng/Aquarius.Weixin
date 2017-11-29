@@ -2,7 +2,7 @@
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.InterfaceCaller;
 
-namespace Weixin.Netcore.Core.Maintain
+namespace Weixin.Netcore.Core.MaintainContainer
 {
     /// <summary>
     /// Access Token容器

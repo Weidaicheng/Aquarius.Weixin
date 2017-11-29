@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Text;
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.InterfaceCaller;
-using Weixin.Netcore.Core.Maintain;
+using Weixin.Netcore.Core.MaintainContainer;
 using Weixin.Netcore.Model;
 using Weixin.Netcore.Model.WeixinInterface;
 using Weixin.Netcore.Model.WeixinMenu;
