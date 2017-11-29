@@ -32,7 +32,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// 获取AccessToken
         /// </summary>
         /// <returns></returns>
-        public AccessToken GetAccessToken()
+        internal AccessToken GetAccessToken()
         {
             IRestRequest request = new RestRequest("cgi-bin/token", Method.GET);
             request.AddQueryParameter("grant_type", "client_credential");
