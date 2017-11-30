@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Core.Message;
 using Weixin.Netcore.Core.Message.Processer;
+using Weixin.Netcore.Core.Middleware;
 
 namespace Weixin.Netcore.Web.Controllers
 {
@@ -22,24 +23,27 @@ namespace Weixin.Netcore.Web.Controllers
         private readonly IConfiguration _configuration;
         private readonly ILogger<WeixinController> _logger;
         private readonly IMessageProcesser _processer;
+        private readonly IMessageMiddleware _messageMiddleware;
 
-        public WeixinController(IConfiguration configuration, ILogger<WeixinController> logger, IMessageProcesser processer)
+        public WeixinController(IConfiguration configuration, ILogger<WeixinController> logger,
+            IMessageProcesser processer, IMessageMiddleware messageMiddleware)
         {
             _configuration = configuration;
             _logger = logger;
             _processer = processer;
+            _messageMiddleware = messageMiddleware;
         }
         #endregion
 
         public async Task<IActionResult> Index(string signature, string timestamp, string nonce, string echostr)
         {
-            if(bool.Parse(_configuration["IsValidNow"]))//服务器配置
+            if (bool.Parse(_configuration["IsValidNow"]))//服务器配置
             {
-                if(string.IsNullOrEmpty(echostr))
+                if (string.IsNullOrEmpty(echostr))
                 {
                     return Content("echostr为空");
                 }
-                if(UtilityHelper.CheckSignature(signature, timestamp, nonce, _configuration["token"]))
+                if (UtilityHelper.VerifySignature(signature, timestamp, nonce, _configuration["Token"]))
                 {
                     return Content(echostr);
                 }
@@ -50,28 +54,28 @@ namespace Weixin.Netcore.Web.Controllers
             }
             else//消息处理
             {
-                if(UtilityHelper.CheckSignature(signature, timestamp, nonce, _configuration["token"]))
+                try
                 {
-                    try
+                    using (var sr = new StreamReader(Request.Body))
                     {
-                        using (var sr = new StreamReader(Request.Body))
-                        {
-                            string data = await sr.ReadToEndAsync();
-                            _logger.LogInformation(data);
+                        string data = await sr.ReadToEndAsync();
+                        _logger.LogInformation(data);
 
-                            IMessage message = MessageParser.ParseMessage(data);
-                            string reply = _processer.ProcessMessage(message);
-                            return Content(reply);
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError(ex, "消息处理出错");
-                        return Content("success");
+                        //接收消息中间处理
+                        data = _messageMiddleware.ReceiveMessageMiddle(signature, timestamp, nonce, data);
+
+                        IMessage message = MessageParser.ParseMessage(data);
+                        string reply = _processer.ProcessMessage(message);
+
+                        //回复消息中间处理
+                        reply = _messageMiddleware.ReplyMessageMiddle(reply);
+
+                        return Content(reply);
                     }
                 }
-                else//消息真实性验证失败
+                catch (Exception ex)
                 {
+                    _logger.LogError(ex, "消息处理出错");
                     return Content("success");
                 }
             }

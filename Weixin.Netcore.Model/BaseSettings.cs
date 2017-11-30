@@ -16,5 +16,15 @@ namespace Weixin.Netcore.Model
         /// AppSecret
         /// </summary>
         public string AppSecret { get; set; }
+
+        /// <summary>
+        /// Token
+        /// </summary>
+        public string Token { get; set; }
+
+        /// <summary>
+        /// AES Key
+        /// </summary>
+        public string EncodingAESKey { get; set; }
     }
 }

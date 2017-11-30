@@ -19,6 +19,7 @@ using Weixin.Netcore.Model;
 using Weixin.Netcore.Core.MaintainContainer;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Model.Enums;
+using Weixin.Netcore.Core.Middleware;
 
 namespace Weixin.Netcore.Web
 {
@@ -73,7 +74,9 @@ namespace Weixin.Netcore.Web
             builder.Register(context => new BaseSettings()
             {
                 AppId = Configuration["AppId"],
-                AppSecret = Configuration["AppSecret"]
+                AppSecret = Configuration["AppSecret"],
+                Token = Configuration["Token"],
+                EncodingAESKey = Configuration["EncodingAESKey"]
             }).As<BaseSettings>();
             //调试模式
             builder.Register(context => new DebugMode(false)).As<IDebugMode>();
@@ -92,6 +95,11 @@ namespace Weixin.Netcore.Web
             builder.RegisterType<AccessTokenContainer>().As<AccessTokenContainer>();
             //认证容器
             builder.RegisterType<AuthorizationContainer>().As<AuthorizationContainer>();
+            #endregion
+
+            #region 中间件
+            //消息中间件
+            builder.RegisterType<MessageMiddlePlain>().As<IMessageMiddleware>();
             #endregion
 
             #region 消息
