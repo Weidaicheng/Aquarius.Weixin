@@ -3,7 +3,7 @@
     /// <summary>
     /// 拍照或图片选择按钮
     /// </summary>
-    public class SinglePicPhotoOrAlbumButton : SingleButton, IButton
+    public class SinglePicPhotoOrAlbumButton : SingleButton
     {
         public SinglePicPhotoOrAlbumButton(string name) : base(name)
         {

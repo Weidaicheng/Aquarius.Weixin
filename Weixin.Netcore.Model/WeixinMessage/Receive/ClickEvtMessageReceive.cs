@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
     /// <summary>
     /// 自定义菜单消息点击事件接收
     /// </summary>
-    public class ClickEvtMessageReceive : IMessageReceive<ClickEvtMessage>, IMessageReceive
+    public class ClickEvtMessageReceive : IMessageReceive<ClickEvtMessage>
     {
         public ClickEvtMessage GetEntity(string xml)
         {

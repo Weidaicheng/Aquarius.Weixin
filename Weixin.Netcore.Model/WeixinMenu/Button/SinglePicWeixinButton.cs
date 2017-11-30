@@ -3,7 +3,7 @@
     /// <summary>
     /// 调起微信相册按钮
     /// </summary>
-    public class SinglePicWeixinButton : SingleButton, IButton
+    public class SinglePicWeixinButton : SingleButton
     {
         public SinglePicWeixinButton(string name) : base(name)
         {

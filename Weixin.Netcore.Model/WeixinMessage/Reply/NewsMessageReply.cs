@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Reply
     /// <summary>
     /// 图文消息回复
     /// </summary>
-    public class NewsMessageReply : IMessageReply<NewsMessage>, IMessageReply
+    public class NewsMessageReply : IMessageReply<NewsMessage>
     {
         public string CreateXml(NewsMessage entity)
         {

@@ -3,7 +3,7 @@
     /// <summary>
     /// Click按钮
     /// </summary>
-    public class SingleClickButton : SingleButton, IButton
+    public class SingleClickButton : SingleButton
     {
         public SingleClickButton(string name) : base(name)
         {

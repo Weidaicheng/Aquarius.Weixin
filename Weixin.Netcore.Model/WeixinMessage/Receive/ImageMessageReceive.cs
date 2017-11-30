@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
     /// <summary>
     /// 图片消息接收
     /// </summary>
-    public class ImageMessageReceive : IMessageReceive<ImageMessage>, IMessageReceive
+    public class ImageMessageReceive : IMessageReceive<ImageMessage>
     {
         public ImageMessage GetEntity(string xml)
         {

@@ -3,7 +3,7 @@
     /// <summary>
     /// 单击按钮
     /// </summary>
-    public abstract class SingleButton : ButtonBase, IButton
+    public abstract class SingleButton : ButtonBase
     {
         public SingleButton(string name) : base(name)
         {

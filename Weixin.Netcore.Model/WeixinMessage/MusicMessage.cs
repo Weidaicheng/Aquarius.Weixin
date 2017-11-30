@@ -3,7 +3,7 @@
     /// <summary>
     /// 音乐消息
     /// </summary>
-    public class MusicMessage : MessageBase, IMessage
+    public class MusicMessage : MessageBase
     {
         public MusicMessage()
         {

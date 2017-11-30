@@ -3,7 +3,7 @@
     /// <summary>
     /// 小程序按钮
     /// </summary>
-    public class SingleProgramButton : SingleButton, IButton
+    public class SingleProgramButton : SingleButton
     {
         public SingleProgramButton(string name) : base(name)
         {

@@ -3,7 +3,7 @@
     /// <summary>
     /// 取消关注事件消息
     /// </summary>
-    public class UnSubscribeEvtMessage : EventMessage, IMessage
+    public class UnSubscribeEvtMessage : EventMessage
     {
         public UnSubscribeEvtMessage()
         {

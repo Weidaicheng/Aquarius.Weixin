@@ -3,7 +3,7 @@
     /// <summary>
     /// 自定义菜单点击事件消息
     /// </summary>
-    public class ClickEvtMessage : EventMessage, IMessage
+    public class ClickEvtMessage : EventMessage
     {
         public ClickEvtMessage()
         {

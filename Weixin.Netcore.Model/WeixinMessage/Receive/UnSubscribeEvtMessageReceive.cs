@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
     /// <summary>
     /// 取消关注事件消息接收
     /// </summary>
-    public class UnSubscribeEvtMessageReceive : IMessageReceive<UnSubscribeEvtMessage>, IMessageReceive
+    public class UnSubscribeEvtMessageReceive : IMessageReceive<UnSubscribeEvtMessage>
     {
         public UnSubscribeEvtMessage GetEntity(string xml)
         {

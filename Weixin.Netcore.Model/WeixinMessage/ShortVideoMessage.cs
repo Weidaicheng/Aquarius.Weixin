@@ -3,7 +3,7 @@
     /// <summary>
     /// 小视频消息
     /// </summary>
-    public class ShortVideoMessage : NormalMessage, IMessage
+    public class ShortVideoMessage : NormalMessage
     {
         public ShortVideoMessage()
         {

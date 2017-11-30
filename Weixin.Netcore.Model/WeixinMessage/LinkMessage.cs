@@ -3,7 +3,7 @@
     /// <summary>
     /// 链接消息
     /// </summary>
-    public class LinkMessage : NormalMessage, IMessage
+    public class LinkMessage : NormalMessage
     {
         public LinkMessage()
         {

@@ -3,7 +3,7 @@
     /// <summary>
     /// 地理位置上报事件消息
     /// </summary>
-    public class LocationEvtMessage : EventMessage, IMessage
+    public class LocationEvtMessage : EventMessage
     {
         public LocationEvtMessage()
         {

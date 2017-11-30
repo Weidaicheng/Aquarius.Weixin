@@ -3,7 +3,7 @@
     /// <summary>
     /// 语音消息
     /// </summary>
-    public class VoiceMessage : NormalMessage, IMessage
+    public class VoiceMessage : NormalMessage
     {
         public VoiceMessage()
         {

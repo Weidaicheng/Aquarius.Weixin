@@ -3,7 +3,7 @@
     /// <summary>
     /// 调起系统相机按钮
     /// </summary>
-    public class SinglePicSysPhotoButton : SingleButton, IButton
+    public class SinglePicSysPhotoButton : SingleButton
     {
         public SinglePicSysPhotoButton(string name) : base(name)
         {

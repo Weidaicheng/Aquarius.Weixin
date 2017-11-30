@@ -1,6 +1,4 @@
-﻿using Weixin.Netcore.Model.WeixinMessage;
-
-namespace Weixin.Netcore.Core.Message.Handler
+﻿namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
     /// 事件消息处理

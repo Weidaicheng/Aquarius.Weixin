@@ -6,7 +6,7 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
     /// <summary>
     /// 位置消息接收
     /// </summary>
-    public class LocationMessageReceive : IMessageReceive<LocationMessage>, IMessageReceive
+    public class LocationMessageReceive : IMessageReceive<LocationMessage>
     {
         public LocationMessage GetEntity(string xml)
         {

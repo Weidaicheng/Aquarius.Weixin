@@ -5,7 +5,7 @@ namespace Weixin.Netcore.Model.WeixinMenu.Button
     /// <summary>
     /// 子菜单按钮
     /// </summary>
-    public class SubButton : ButtonBase, IButton
+    public class SubButton : ButtonBase
     {
         public SubButton(string name) : base(name)
         {

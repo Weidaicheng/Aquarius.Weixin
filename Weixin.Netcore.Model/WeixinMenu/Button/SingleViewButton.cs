@@ -3,7 +3,7 @@
     /// <summary>
     /// View按钮
     /// </summary>
-    public class SingleViewButton : SingleButton, IButton
+    public class SingleViewButton : SingleButton
     {
         public SingleViewButton(string name) : base(name)
         {

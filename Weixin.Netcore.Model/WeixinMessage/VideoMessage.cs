@@ -3,7 +3,7 @@
     /// <summary>
     /// 视频消息
     /// </summary>
-    public class VideoMessage : NormalMessage, IMessage
+    public class VideoMessage : NormalMessage
     {
         public VideoMessage()
         {
