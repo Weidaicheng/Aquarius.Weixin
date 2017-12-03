@@ -35,34 +35,32 @@ namespace Weixin.Netcore.Web.Controllers
         }
         #endregion
 
-        public async Task<IActionResult> Index(string signature, string timestamp, string nonce, string echostr)
+        public async Task<IActionResult> Index(string signature, string timestamp, string nonce, string echostr, string encrypt_type, string msg_signature)
         {
-            if (bool.Parse(_configuration["IsValidNow"]))//服务器配置
+            try
             {
-                if (string.IsNullOrEmpty(echostr))
+                if(!string.IsNullOrEmpty(echostr))
                 {
-                    return Content("echostr为空");
-                }
-                if (UtilityHelper.VerifySignature(signature, timestamp, nonce, _configuration["Token"]))
-                {
-                    return Content(echostr);
+                    //服务器认证
+                    if (UtilityHelper.VerifySignature(timestamp, nonce, _configuration["Token"], signature))
+                    {
+                        return Content(echostr);
+                    }
+                    else
+                    {
+                        return Content("success");
+                    }
                 }
                 else
                 {
-                    return Content("success");
-                }
-            }
-            else//消息处理
-            {
-                try
-                {
+                    //消息接收
                     using (var sr = new StreamReader(Request.Body))
                     {
                         string data = await sr.ReadToEndAsync();
                         _logger.LogInformation(data);
 
                         //接收消息中间处理
-                        data = _messageMiddleware.ReceiveMessageMiddle(signature, timestamp, nonce, data);
+                        data = _messageMiddleware.ReceiveMessageMiddle(signature, msg_signature, timestamp, nonce, data);
 
                         IMessage message = MessageParser.ParseMessage(data);
                         string reply = _processer.ProcessMessage(message);
@@ -73,11 +71,11 @@ namespace Weixin.Netcore.Web.Controllers
                         return Content(reply);
                     }
                 }
-                catch (Exception ex)
-                {
-                    _logger.LogError(ex, "消息处理出错");
-                    return Content("success");
-                }
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError("Error", ex);
+                return Content("success");
             }
         }
     }

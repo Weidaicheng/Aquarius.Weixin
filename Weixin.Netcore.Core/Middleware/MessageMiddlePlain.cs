@@ -16,10 +16,10 @@ namespace Weixin.Netcore.Core.Middleware
             _baseSettings = baseSettings;
         }
 
-        public string ReceiveMessageMiddle(string signature, string timestamp, string nonce, string data)
+        public string ReceiveMessageMiddle(string signature, string msgSignature, string timestamp, string nonce, string data)
         {
             //验证签名
-            if (!UtilityHelper.VerifySignature(signature, timestamp, nonce, _baseSettings.Token))
+            if (!UtilityHelper.VerifySignature(timestamp, nonce, _baseSettings.Token, signature))
             {
                 throw new SignatureInValidException("签名非法");
             }

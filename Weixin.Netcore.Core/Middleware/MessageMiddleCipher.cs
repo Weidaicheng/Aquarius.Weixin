@@ -18,7 +18,7 @@ namespace Weixin.Netcore.Core.Middleware
             _baseSettings = baseSettings;
         }
 
-        public string ReceiveMessageMiddle(string signature, string timestamp, string nonce, string data)
+        public string ReceiveMessageMiddle(string signature, string msgSignature, string timestamp, string nonce, string data)
         {
             XmlDocument doc = new XmlDocument();
             XmlNode root;
@@ -28,9 +28,14 @@ namespace Weixin.Netcore.Core.Middleware
             encryptedMsg = root["Encrypt"].InnerText;
 
             //验证签名
-            if (!UtilityHelper.VerifySignature(_baseSettings.Token, timestamp, nonce, encryptedMsg, signature))
+            if(!UtilityHelper.VerifySignature(timestamp, nonce, _baseSettings.Token, signature))
             {
                 throw new SignatureInValidException("签名非法");
+            }
+
+            if (!UtilityHelper.VerifySignature(timestamp, nonce, _baseSettings.Token, encryptedMsg, msgSignature))
+            {
+                throw new SignatureInValidException("消息签名非法");
             }
 
             //解密
@@ -47,7 +52,7 @@ namespace Weixin.Netcore.Core.Middleware
             string replyMsgEncrypted = CryptographyHelper.AESEncrypt(replyMsg, _baseSettings.EncodingAESKey, _baseSettings.AppId);
             string timestamp = UtilityHelper.GetTimeStamp().ToString();
             string nonce = UtilityHelper.GenerateNonce();
-            string signature = UtilityHelper.GenarateSinature(_baseSettings.Token, timestamp, nonce, replyMsgEncrypted);
+            string signature = UtilityHelper.GenarateMsgSinature(_baseSettings.Token, timestamp, nonce, replyMsgEncrypted);
 
             StringBuilder sb = new StringBuilder();
             sb.Append($"<xml>");
