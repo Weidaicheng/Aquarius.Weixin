@@ -33,7 +33,7 @@ namespace Weixin.Netcore.Core.Middleware
                 throw new SignatureInValidException("签名非法");
             }
 
-            if (!UtilityHelper.VerifySignature(timestamp, nonce, _baseSettings.Token, encryptedMsg, msgSignature))
+            if (!UtilityHelper.VerifyMsgSignature(timestamp, nonce, _baseSettings.Token, encryptedMsg, msgSignature))
             {
                 throw new SignatureInValidException("消息签名非法");
             }

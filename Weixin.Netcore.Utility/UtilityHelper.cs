@@ -81,7 +81,7 @@ namespace Weixin.Netcore.Utility
         /// <param name="msgEncrypted"></param>
         /// <param name="msgSignature"></param>
         /// <returns></returns>
-        public static bool VerifySignature(string timestamp, string nonce, string token, string msgEncrypted, string msgSignature)
+        public static bool VerifyMsgSignature(string timestamp, string nonce, string token, string msgEncrypted, string msgSignature)
         {
             string hash = GenarateMsgSinature(timestamp, nonce, token, msgEncrypted);
             return hash == msgSignature;
