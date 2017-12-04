@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model.UserManage;
 using Weixin.Netcore.Model;
+using Weixin.Netcore.Model.Enums;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
 {
@@ -36,6 +37,15 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns>Tag Id</returns>
         public int CreateTag(string accessToken, string tagName)
         {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+            if (string.IsNullOrEmpty(tagName))
+            {
+                throw new ArgumentException("标签名为空");
+            }
+
             IRestRequest request = new RestRequest("cgi-bin/tags/create", Method.POST);
             request.AddQueryParameter("access_token", accessToken);
             request.AddJsonBody(new Tag()
@@ -65,6 +75,11 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns></returns>
         public Tags GetTags(string accessToken)
         {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
             IRestRequest request = new RestRequest("cgi-bin/tags/get", Method.POST);
             request.AddQueryParameter("access_token", accessToken);
 
@@ -88,6 +103,15 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns></returns>
         public string UpdateTag(string accessToken, int tagId, string newTagName)
         {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+            if (string.IsNullOrEmpty(newTagName))
+            {
+                throw new ArgumentException("标签名为空");
+            }
+
             IRestRequest request = new RestRequest("cgi-bin/tags/update", Method.POST);
             request.AddQueryParameter("access_token", accessToken);
             request.AddJsonBody(new Tag()
@@ -118,6 +142,11 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns></returns>
         public string DeleteTag(string accessToken, int tagId)
         {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
             IRestRequest request = new RestRequest("cgi-bin/tags/delete", Method.POST);
             request.AddQueryParameter("access_token", accessToken);
             request.AddJsonBody(new Tag()
@@ -148,6 +177,11 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns></returns>
         public UserList GetTagFans(string accessToken, int tagId, string nextOpenId = null)
         {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
             IRestRequest request = new RestRequest("cgi-bin/user/tag/get", Method.POST);
             request.AddQueryParameter("access_token", accessToken);
             request.AddJsonBody(new
@@ -178,6 +212,11 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns></returns>
         public string Tagging(string accessToken, int tagId, params string[] openIds)
         {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
             IRestRequest request = new RestRequest("cgi-bin/tags/members/batchtagging", Method.POST);
             request.AddQueryParameter("access_token", accessToken);
             request.AddJsonBody(new
@@ -206,6 +245,11 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns></returns>
         public string UnTagging(string accessToken, int tagId, params string[] openIds)
         {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
             IRestRequest request = new RestRequest("cgi-bin/tags/members/batchtagging", Method.POST);
             request.AddQueryParameter("access_token", accessToken);
             request.AddJsonBody(new
@@ -233,6 +277,15 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns></returns>
         public IEnumerable<int> GetUserTags(string accessToken, string openId)
         {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+            if (string.IsNullOrEmpty(openId))
+            {
+                throw new ArgumentException("OpenId为空");
+            }
+
             IRestRequest request = new RestRequest("cgi-bin/tags/getidlist", Method.POST);
             request.AddQueryParameter("access_token", accessToken);
             request.AddJsonBody(new
@@ -260,6 +313,11 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns></returns>
         public UserList GetUserList(string accessToken, string nextOpenId = null)
         {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
             IRestRequest request = new RestRequest("cgi-bin/user/get", Method.GET);
             request.AddQueryParameter("access_token", accessToken);
             if(!string.IsNullOrEmpty(nextOpenId))
@@ -287,6 +345,19 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns></returns>
         public string Remark(string accessToken, string openId, string remark)
         {
+            if(string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+            if(string.IsNullOrEmpty(openId))
+            {
+                throw new ArgumentException("OpenId为空");
+            }
+            if(string.IsNullOrEmpty(remark))
+            {
+                throw new ArgumentException("备注为空");
+            }
+
             IRestRequest request = new RestRequest("cgi-bin/user/info/updateremark", Method.POST);
             request.AddQueryParameter("access_token", accessToken);
             request.AddJsonBody(new
@@ -304,6 +375,71 @@ namespace Weixin.Netcore.Core.InterfaceCaller
             }
 
             return err.errmsg;
+        }
+
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <param name="lang"></param>
+        /// <returns></returns>
+        public UserInfo GetUserInfo(string accessToken, string openId, Language lang)
+        {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+            if (string.IsNullOrEmpty(openId))
+            {
+                throw new ArgumentException("OpenId为空");
+            }
+
+            IRestRequest request = new RestRequest("cgi-bin/user/info", Method.GET);
+            request.AddQueryParameter("access_token", accessToken);
+            request.AddQueryParameter("openid", openId);
+            request.AddQueryParameter("lang", lang.ToString());
+
+            IRestResponse response = _restClient.Execute(request);
+
+            if (response.Content.Contains("errcode"))
+            {
+                var err = JsonConvert.DeserializeObject<Error>(response.Content);
+                throw new WeixinInterfaceException(err.errmsg);
+            }
+
+            return JsonConvert.DeserializeObject<UserInfo>(response.Content);
+        }
+
+        /// <summary>
+        /// 批量获取用户信息
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="userList"></param>
+        /// <returns></returns>
+        public UserInfoList BatchGetUserInfo(string accessToken, BatchUserInfoArg[] userList)
+        {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
+            IRestRequest request = new RestRequest("cgi-bin/user/info", Method.GET);
+            request.AddQueryParameter("access_token", accessToken);
+            request.AddJsonBody(new
+            {
+                user_list = userList
+            });
+
+            IRestResponse response = _restClient.Execute(request);
+
+            if (response.Content.Contains("errcode"))
+            {
+                var err = JsonConvert.DeserializeObject<Error>(response.Content);
+                throw new WeixinInterfaceException(err.errmsg);
+            }
+
+            return JsonConvert.DeserializeObject<UserInfoList>(response.Content);
         }
         #endregion
     }
