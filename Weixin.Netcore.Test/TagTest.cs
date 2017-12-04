@@ -195,5 +195,22 @@ namespace Weixin.Netcore.Test
             var userInfo = tagManageInterfaceCaller.GetUserInfo(accessToken, "oGV7Kv0bgXvAUabe8sDopmKlzPNE", Model.Enums.Language.zh_CN);
             Console.WriteLine(JsonConvert.SerializeObject(userInfo));
         }
+
+        [TestMethod]
+        public void GetBlackListTest()
+        {
+            ICache cache = new InMemoryCache(new MemoryCache(new MemoryCacheOptions()));
+            BaseSettings weixinSetting = new BaseSettings()
+            {
+                AppId = "wx6eff55d0d76e210f",
+                AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
+            };
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
+            string accessToken = container.GetAccessToken();
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            var blackList = tagManageInterfaceCaller.GetBlackList(accessToken);
+            Console.WriteLine(JsonConvert.SerializeObject(blackList));
+        }
     }
 }

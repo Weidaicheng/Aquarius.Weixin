@@ -442,5 +442,100 @@ namespace Weixin.Netcore.Core.InterfaceCaller
             return JsonConvert.DeserializeObject<UserInfoList>(response.Content);
         }
         #endregion
+
+        #region 黑名单管理
+        /// <summary>
+        /// 获取黑名单
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="beginOpenId"></param>
+        /// <returns></returns>
+        public BlackList GetBlackList(string accessToken, string beginOpenId = null)
+        {
+            if(string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
+            IRestRequest request = new RestRequest("cgi-bin/tags/members/getblacklist", Method.POST);
+            request.AddQueryParameter("access_token", accessToken);
+            request.AddJsonBody(new
+            {
+                begin_openid = beginOpenId
+            });
+
+            IRestResponse response = _restClient.Execute(request);
+
+            if (response.Content.Contains("errcode"))
+            {
+                var err = JsonConvert.DeserializeObject<Error>(response.Content);
+                throw new WeixinInterfaceException(err.errmsg);
+            }
+
+            return JsonConvert.DeserializeObject<BlackList>(response.Content);
+        }
+
+        /// <summary>
+        /// 拉黑用户
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openIds"></param>
+        /// <returns></returns>
+        public string BlackUser(string accessToken, params string[] openIds)
+        {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
+            IRestRequest request = new RestRequest("cgi-bin/tags/members/batchblacklist", Method.POST);
+            request.AddQueryParameter("access_token", accessToken);
+            request.AddJsonBody(new
+            {
+                openid_list = openIds
+            });
+
+            IRestResponse response = _restClient.Execute(request);
+
+            Error err = JsonConvert.DeserializeObject<Error>(response.Content);
+            if (err.errcode != 0)
+            {
+                throw new WeixinInterfaceException(err.errmsg);
+            }
+
+            return err.errmsg;
+        }
+
+        /// <summary>
+        /// 取消拉黑用户
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openIds"></param>
+        /// <returns></returns>
+        public string UnBlackUser(string accessToken, params string[] openIds)
+        {
+            if (string.IsNullOrEmpty(accessToken))
+            {
+                throw new ArgumentException("Access Token为空");
+            }
+
+            IRestRequest request = new RestRequest("cgi-bin/tags/members/batchunblacklist", Method.POST);
+            request.AddQueryParameter("access_token", accessToken);
+            request.AddJsonBody(new
+            {
+                openid_list = openIds
+            });
+
+            IRestResponse response = _restClient.Execute(request);
+
+            Error err = JsonConvert.DeserializeObject<Error>(response.Content);
+            if (err.errcode != 0)
+            {
+                throw new WeixinInterfaceException(err.errmsg);
+            }
+
+            return err.errmsg;
+        }
+        #endregion
     }
 }
