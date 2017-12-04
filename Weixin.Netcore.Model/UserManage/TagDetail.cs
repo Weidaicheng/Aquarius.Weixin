@@ -1,4 +1,4 @@
-﻿namespace Weixin.Netcore.Model.UserTag
+﻿namespace Weixin.Netcore.Model.UserManage
 {
     /// <summary>
     /// 标签详情

@@ -1,9 +1,9 @@
-﻿namespace Weixin.Netcore.Model.UserTag
+﻿namespace Weixin.Netcore.Model.UserManage
 {
     /// <summary>
-    /// 标签下粉丝
+    /// 用户列表
     /// </summary>
-    public class TagFans
+    public class UserList
     {
         public int count { get; set; }
         public OpenIds data { get; set; }

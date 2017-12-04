@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Weixin.Netcore.Core.Exceptions;
-using Weixin.Netcore.Model.UserTag;
+using Weixin.Netcore.Model.UserManage;
 using Weixin.Netcore.Model.WeixinInterface;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
@@ -147,7 +147,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <param name="tagId"></param>
         /// <param name="nextOpenId"></param>
         /// <returns></returns>
-        public TagFans GetTagFans(string accessToken, int tagId, string nextOpenId = null)
+        public UserList GetTagFans(string accessToken, int tagId, string nextOpenId = null)
         {
             IRestRequest request = new RestRequest("cgi-bin/user/tag/get", Method.POST);
             request.AddQueryParameter("access_token", accessToken);
@@ -165,7 +165,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
                 throw new WeixinInterfaceException(err.errmsg);
             }
 
-            return JsonConvert.DeserializeObject<TagFans>(response.Content);
+            return JsonConvert.DeserializeObject<UserList>(response.Content);
         }
         #endregion
 
