@@ -1,4 +1,4 @@
-﻿namespace Weixin.Netcore.Model.WeixinInterface
+﻿namespace Weixin.Netcore.Model
 {
     /// <summary>
     /// 微信错误返回

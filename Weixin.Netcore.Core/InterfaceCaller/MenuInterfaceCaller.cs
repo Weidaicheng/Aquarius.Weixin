@@ -1,11 +1,8 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Weixin.Netcore.Core.Exceptions;
-using Weixin.Netcore.Model.OAuth;
-using Weixin.Netcore.Model.WeixinInterface;
+using Weixin.Netcore.Model;
 using Weixin.Netcore.Model.WeixinMenu;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
