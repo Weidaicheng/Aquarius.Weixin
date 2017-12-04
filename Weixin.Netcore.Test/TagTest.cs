@@ -77,7 +77,7 @@ namespace Weixin.Netcore.Test
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
             UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
-            Console.WriteLine(tagManageInterfaceCaller.Tagging(accessToken, 100, "oGV7Kv0bgXvAUabe8sDopmKlzPNE", "oGV7Kv5pT6m1P5zHDU3sHg4FT1JA"));
+            Console.WriteLine(tagManageInterfaceCaller.Tagging(accessToken, 2, "oGV7Kv0bgXvAUabe8sDopmKlzPNE", "oGV7Kv5pT6m1P5zHDU3sHg4FT1JA"));
         }
 
         [TestMethod]
@@ -109,7 +109,7 @@ namespace Weixin.Netcore.Test
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
             UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
-            var tagFans = tagManageInterfaceCaller.GetTagFans(accessToken, 100);
+            var tagFans = tagManageInterfaceCaller.GetTagFans(accessToken, 101);
             Console.WriteLine(JsonConvert.SerializeObject(tagFans));
         }
 

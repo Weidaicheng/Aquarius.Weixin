@@ -9,9 +9,4 @@
         public OpenIds data { get; set; }
         public string next_openid { get; set; }
     }
-
-    public class OpenIds
-    {
-        public string[] openid { get; set; }
-    }
 }

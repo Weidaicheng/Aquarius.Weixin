@@ -1,10 +1,10 @@
 ﻿namespace Weixin.Netcore.Model.UserManage
 {
     /// <summary>
-    /// 标签列表
+    /// OpenId列表
     /// </summary>
-    public class TagIds
+    public class OpenIds
     {
-        public int[] tagid_list { get; set; }
+        public string[] openid { get; set; }
     }
 }

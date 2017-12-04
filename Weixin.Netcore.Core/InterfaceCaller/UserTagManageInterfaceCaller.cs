@@ -6,6 +6,7 @@ using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model.UserManage;
 using Weixin.Netcore.Model;
 using Weixin.Netcore.Model.Enums;
+using Weixin.Netcore.Model.Argument;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
 {
@@ -301,12 +302,11 @@ namespace Weixin.Netcore.Core.InterfaceCaller
                 throw new WeixinInterfaceException(err.errmsg);
             }
 
-            var tagIds = JsonConvert.DeserializeObject<TagIds>(response.Content);
-            return tagIds.tagid_list;
+            return JsonConvert.DeserializeObject<int[]>(response.Content.Replace("\"tagid_list\":", "").Replace("{", "").Replace("}", ""));
         }
 
         /// <summary>
-        /// 获取用户列表
+        /// 获取已关注用户列表
         /// </summary>
         /// <param name="accessToken"></param>
         /// <param name="nextOpenId"></param>
@@ -417,7 +417,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <param name="accessToken"></param>
         /// <param name="userList"></param>
         /// <returns></returns>
-        public UserInfoList BatchGetUserInfo(string accessToken, BatchUserInfoArg[] userList)
+        public UserInfoList BatchGetUserInfo(string accessToken, BatchGetUserInfoArg[] userList)
         {
             if (string.IsNullOrEmpty(accessToken))
             {
