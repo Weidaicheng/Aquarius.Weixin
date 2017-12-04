@@ -145,5 +145,38 @@ namespace Weixin.Netcore.Test
             UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
             Console.WriteLine(tagManageInterfaceCaller.DeleteTag(accessToken, 100));
         }
+
+        [TestMethod]
+        public void GetUserListTest()
+        {
+            ICache cache = new InMemoryCache(new MemoryCache(new MemoryCacheOptions()));
+            BaseSettings weixinSetting = new BaseSettings()
+            {
+                AppId = "wx6eff55d0d76e210f",
+                AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
+            };
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
+            string accessToken = container.GetAccessToken();
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            var userList = tagManageInterfaceCaller.GetUserList(accessToken);
+            Console.WriteLine(JsonConvert.SerializeObject(userList));
+        }
+
+        [TestMethod]
+        public void RemarkTest()
+        {
+            ICache cache = new InMemoryCache(new MemoryCache(new MemoryCacheOptions()));
+            BaseSettings weixinSetting = new BaseSettings()
+            {
+                AppId = "wx6eff55d0d76e210f",
+                AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
+            };
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
+            string accessToken = container.GetAccessToken();
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            Console.WriteLine(tagManageInterfaceCaller.Remark(accessToken, "oGV7Kv0bgXvAUabe8sDopmKlzPNE", "备注"));
+        }
     }
 }

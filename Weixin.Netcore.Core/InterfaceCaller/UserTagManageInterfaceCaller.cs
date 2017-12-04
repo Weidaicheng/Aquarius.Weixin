@@ -2,7 +2,6 @@
 using RestSharp;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model.UserManage;
 using Weixin.Netcore.Model.WeixinInterface;
@@ -251,6 +250,60 @@ namespace Weixin.Netcore.Core.InterfaceCaller
 
             var tagIds = JsonConvert.DeserializeObject<TagIds>(response.Content);
             return tagIds.tagid_list;
+        }
+
+        /// <summary>
+        /// 获取用户列表
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="nextOpenId"></param>
+        /// <returns></returns>
+        public UserList GetUserList(string accessToken, string nextOpenId = null)
+        {
+            IRestRequest request = new RestRequest("cgi-bin/user/get", Method.GET);
+            request.AddQueryParameter("access_token", accessToken);
+            if(!string.IsNullOrEmpty(nextOpenId))
+            {
+                request.AddQueryParameter("next_openid", nextOpenId);
+            }
+
+            IRestResponse response = _restClient.Execute(request);
+
+            if (response.Content.Contains("errcode"))
+            {
+                var err = JsonConvert.DeserializeObject<Error>(response.Content);
+                throw new WeixinInterfaceException(err.errmsg);
+            }
+
+            return JsonConvert.DeserializeObject<UserList>(response.Content);
+        }
+
+        /// <summary>
+        /// 设置用户备注
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <param name="remark"></param>
+        /// <returns></returns>
+        public string Remark(string accessToken, string openId, string remark)
+        {
+            IRestRequest request = new RestRequest("cgi-bin/user/info/updateremark", Method.POST);
+            request.AddQueryParameter("access_token", accessToken);
+            request.AddJsonBody(new
+            {
+                openid = openId,
+                remark = remark
+            });
+
+            IRestResponse response = _restClient.Execute(request);
+
+            Error err = JsonConvert.DeserializeObject<Error>(response.Content);
+            if (err.errcode != 0)
+            {
+                throw new WeixinInterfaceException(err.errmsg);
+            }
+
+            return err.errmsg;
         }
         #endregion
     }
