@@ -1,4 +1,4 @@
-﻿namespace Weixin.Netcore.Model.WeixinInterface
+﻿namespace Weixin.Netcore.Model.WeixinMenu
 {
     /// <summary>
     /// 个性化菜单Id

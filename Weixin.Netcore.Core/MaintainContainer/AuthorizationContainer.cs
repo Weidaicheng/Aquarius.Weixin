@@ -3,7 +3,7 @@ using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Model.Enums;
-using Weixin.Netcore.Model.WeixinInterface;
+using Weixin.Netcore.Model.OAuth;
 
 namespace Weixin.Netcore.Core.MaintainContainer
 {

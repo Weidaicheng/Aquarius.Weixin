@@ -4,6 +4,7 @@ using System;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model;
 using Weixin.Netcore.Model.Enums;
+using Weixin.Netcore.Model.OAuth;
 using Weixin.Netcore.Model.WeixinInterface;
 
 namespace Weixin.Netcore.Core.InterfaceCaller

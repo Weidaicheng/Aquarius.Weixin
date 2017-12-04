@@ -8,7 +8,7 @@ using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Core.MaintainContainer;
 using Weixin.Netcore.Model;
-using Weixin.Netcore.Model.WeixinInterface;
+using Weixin.Netcore.Model.OAuth;
 using Weixin.Netcore.Model.WeixinMenu;
 using Weixin.Netcore.Model.WeixinMenu.Button;
 using Weixin.Netcore.Model.WeixinMenu.Conditional;

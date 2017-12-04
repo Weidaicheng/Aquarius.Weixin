@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model.UserManage;
+using Weixin.Netcore.Model.OAuth;
 using Weixin.Netcore.Model.WeixinInterface;
 
 namespace Weixin.Netcore.Core.InterfaceCaller

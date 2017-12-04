@@ -1,4 +1,4 @@
-﻿namespace Weixin.Netcore.Model.WeixinInterface
+﻿namespace Weixin.Netcore.Model.OAuth
 {
     /// <summary>
     /// 用户信息
