@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Web", "Weixi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Extensions", "Weixin.Netcore.Extensions\Weixin.Netcore.Extensions.csproj", "{EA4DA7DD-82F9-48FB-B6C4-93A95AD73395}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tuling.Robot.Service", "Tuling.Robot.Service\Tuling.Robot.Service.csproj", "{E9D83740-8599-4E41-87D2-FA48F0E8AAD4}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{EA4DA7DD-82F9-48FB-B6C4-93A95AD73395}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA4DA7DD-82F9-48FB-B6C4-93A95AD73395}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA4DA7DD-82F9-48FB-B6C4-93A95AD73395}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E9D83740-8599-4E41-87D2-FA48F0E8AAD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E9D83740-8599-4E41-87D2-FA48F0E8AAD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E9D83740-8599-4E41-87D2-FA48F0E8AAD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E9D83740-8599-4E41-87D2-FA48F0E8AAD4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
