@@ -12,10 +12,10 @@ namespace Weixin.Netcore.Core.Message.Processer
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
         private readonly IMessageRepetValidUsage _messageRepetValidUsage;
-        private readonly ILinkMessageHandler _linkMessageHandlder;
+        private readonly LinkMessageHandlerBase _linkMessageHandlder;
 
         public LinkMessageProcesser(IMessageRepetHandler messageRepetHandler,
-            IMessageRepetValidUsage messageRepetValidUsage, ILinkMessageHandler linkMessageHandler)
+            IMessageRepetValidUsage messageRepetValidUsage, LinkMessageHandlerBase linkMessageHandler)
         {
             _messageRepetHandler = messageRepetHandler;
             _messageRepetValidUsage = messageRepetValidUsage;

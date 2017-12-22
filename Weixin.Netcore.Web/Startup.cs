@@ -14,11 +14,9 @@ using Weixin.Netcore.Core.Debug;
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Weixin.Netcore.Core.Message.Handler.NotImplement;
 using Weixin.Netcore.Model;
 using Weixin.Netcore.Core.MaintainContainer;
 using Weixin.Netcore.Core.InterfaceCaller;
-using Weixin.Netcore.Model.Enums;
 using Weixin.Netcore.Core.Middleware;
 
 namespace Weixin.Netcore.Web
@@ -122,18 +120,18 @@ namespace Weixin.Netcore.Web
             //在Weixin.Netcore.Extensions项目中
             //namespace：Weixin.Netcore.Extensions.Message.Handler
             //根据需要替换各种消息消息处理类
-            builder.RegisterType<ClickEventReplyTextExtension>().As<IClickEvtMessageHandler>();
-            builder.RegisterType<EchoTextExtension>().As<ITextMessageHandler>();
-            builder.RegisterType<ImageMessageHandlerNotImp>().As<IImageMessageHandler>();
-            builder.RegisterType<VoiceMessageHandlerNotImp>().As<IVoiceMessageHandler>();
-            builder.RegisterType<VideoMessageHandlerNotImp>().As<IVideoMessageHandler>();
-            builder.RegisterType<ShortVideoMessageHandlerNotImp>().As<IShortVideoMessageHandler>();
-            builder.RegisterType<LocationMessageHandlerNotImp>().As<ILocationMessageHandler>();
-            builder.RegisterType<LinkMessageHandlerNotImp>().As<ILinkMessageHandler>();
-            builder.RegisterType<SubscribeEvtMessageHandlerNotImp>().As<ISubscribeEvtMessageHandler>();
-            builder.RegisterType<UnsubscribeEvtMessageHandlerNotImp>().As<IUnsubscribeEvtMessageHandler>();
-            builder.RegisterType<ScanEvtMessageHandlerNotImp>().As<IScanEvtMessageHandler>();
-            builder.RegisterType<LocationEvtMessageHandlerNotImp>().As<ILocationEvtMessageHandler>();
+            builder.RegisterType<ClickEventReplyTextHandler>().As<ClickEvtMessageHandlerBase>();
+            builder.RegisterType<EchoTextHandler>().As<TextMessageHandlerBase>();
+            builder.RegisterType<ImageMessageHandlerBase>().As<ImageMessageHandlerBase>();
+            builder.RegisterType<VoiceMessageHandlerBase>().As<VoiceMessageHandlerBase>();
+            builder.RegisterType<VideoMessageHandlerBase>().As<VideoMessageHandlerBase>();
+            builder.RegisterType<ShortVideoMessageHandlerBase>().As<ShortVideoMessageHandlerBase>();
+            builder.RegisterType<LocationMessageHandlerBase>().As<LocationMessageHandlerBase>();
+            builder.RegisterType<LinkMessageHandlerBase>().As<LinkMessageHandlerBase>();
+            builder.RegisterType<SubscribeEvtMessageHandlerBase>().As<SubscribeEvtMessageHandlerBase>();
+            builder.RegisterType<UnsubscribeEvtMessageHandlerBase>().As<UnsubscribeEvtMessageHandlerBase>();
+            builder.RegisterType<ScanEvtMessageHandlerBase>().As<ScanEvtMessageHandlerBase>();
+            builder.RegisterType<LocationEvtMessageHandlerBase>().As<LocationEvtMessageHandlerBase>();
             #endregion
             #endregion
 

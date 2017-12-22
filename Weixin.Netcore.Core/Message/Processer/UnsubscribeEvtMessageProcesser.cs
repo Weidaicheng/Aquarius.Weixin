@@ -12,10 +12,10 @@ namespace Weixin.Netcore.Core.Message.Processer
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
         private readonly IMessageRepetValidUsage _messageRepetValidUsage;
-        private readonly IUnsubscribeEvtMessageHandler _unsubscribeEventHandler;
+        private readonly UnsubscribeEvtMessageHandlerBase _unsubscribeEventHandler;
 
         public UnsubscribeEvtMessageProcesser(IMessageRepetHandler messageRepetHandler,
-            IMessageRepetValidUsage messageRepetValidUsage, IUnsubscribeEvtMessageHandler unsubscribeEventHandler)
+            IMessageRepetValidUsage messageRepetValidUsage, UnsubscribeEvtMessageHandlerBase unsubscribeEventHandler)
         {
             _messageRepetHandler = messageRepetHandler;
             _messageRepetValidUsage = messageRepetValidUsage;

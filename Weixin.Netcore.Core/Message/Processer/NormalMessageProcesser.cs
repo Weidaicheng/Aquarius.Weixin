@@ -12,20 +12,20 @@ namespace Weixin.Netcore.Core.Message.Processer
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
         private readonly IMessageRepetValidUsage _messageRepetValidUsage;
-        private readonly ITextMessageHandler _textMessageHandler;
-        private readonly IImageMessageHandler _imageMessageHandler;
-        private readonly IVoiceMessageHandler _voiceMessageHandlder;
-        private readonly IVideoMessageHandler _videoMessageHandler;
-        private readonly IShortVideoMessageHandler _shortVideoMeessageHandler;
-        private readonly ILocationMessageHandler _locationMessageHandler;
-        private readonly ILinkMessageHandler _linkMessageHandlder;
+        private readonly TextMessageHandlerBase _textMessageHandler;
+        private readonly ImageMessageHandlerBase _imageMessageHandler;
+        private readonly VoiceMessageHandlerBase _voiceMessageHandlder;
+        private readonly VideoMessageHandlerBase _videoMessageHandler;
+        private readonly ShortVideoMessageHandlerBase _shortVideoMeessageHandler;
+        private readonly LocationMessageHandlerBase _locationMessageHandler;
+        private readonly LinkMessageHandlerBase _linkMessageHandlder;
 
         public NormalMessageProcesser(IMessageRepetHandler messageRepetHandler,
             IMessageRepetValidUsage messageRepetValidUsage,
-            ITextMessageHandler textMessageHandler, IImageMessageHandler imageMessageHandler,
-            IVoiceMessageHandler voiceMessageHandler, IVideoMessageHandler videoMessageHandler,
-            IShortVideoMessageHandler shortVideoMessageHandler, ILocationMessageHandler locationMessageHandler,
-            ILinkMessageHandler linkMessageHandler)
+            TextMessageHandlerBase textMessageHandler, ImageMessageHandlerBase imageMessageHandler,
+            VoiceMessageHandlerBase voiceMessageHandler, VideoMessageHandlerBase videoMessageHandler,
+            ShortVideoMessageHandlerBase shortVideoMessageHandler, LocationMessageHandlerBase locationMessageHandler,
+            LinkMessageHandlerBase linkMessageHandler)
         {
             _messageRepetHandler = messageRepetHandler;
             _messageRepetValidUsage = messageRepetValidUsage;

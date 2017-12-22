@@ -12,16 +12,16 @@ namespace Weixin.Netcore.Core.Message.Processer
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
         private readonly IMessageRepetValidUsage _messageRepetValidUsage;
-        private readonly ISubscribeEvtMessageHandler _subscribeEventHandler;
-        private readonly IUnsubscribeEvtMessageHandler _unsubscribeEventHandler;
-        private readonly IScanEvtMessageHandler _scanEventHandler;
-        private readonly ILocationEvtMessageHandler _locationEventHandler;
-        private readonly IClickEvtMessageHandler _clickEventHandler;
+        private readonly SubscribeEvtMessageHandlerBase _subscribeEventHandler;
+        private readonly UnsubscribeEvtMessageHandlerBase _unsubscribeEventHandler;
+        private readonly ScanEvtMessageHandlerBase _scanEventHandler;
+        private readonly LocationEvtMessageHandlerBase _locationEventHandler;
+        private readonly ClickEvtMessageHandlerBase _clickEventHandler;
 
         public EventMessageProcesser(IMessageRepetHandler messageRepetHandler,
-            IMessageRepetValidUsage messageRepetValidUsage, ISubscribeEvtMessageHandler subscribeEventHandler,
-            IUnsubscribeEvtMessageHandler unsubscribeEventHandler, IScanEvtMessageHandler scanEventHandler,
-            ILocationEvtMessageHandler locationEventHandler, IClickEvtMessageHandler clickEventHandler)
+            IMessageRepetValidUsage messageRepetValidUsage, SubscribeEvtMessageHandlerBase subscribeEventHandler,
+            UnsubscribeEvtMessageHandlerBase unsubscribeEventHandler, ScanEvtMessageHandlerBase scanEventHandler,
+            LocationEvtMessageHandlerBase locationEventHandler, ClickEvtMessageHandlerBase clickEventHandler)
         {
             _messageRepetHandler = messageRepetHandler;
             _messageRepetValidUsage = messageRepetValidUsage;

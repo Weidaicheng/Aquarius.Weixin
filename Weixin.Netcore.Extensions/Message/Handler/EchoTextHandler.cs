@@ -8,16 +8,16 @@ namespace Weixin.Netcore.Extensions.Message.Handler
     /// <summary>
     /// 文本消息Echo
     /// </summary>
-    public class EchoTextExtension : ITextMessageHandler
+    public class EchoTextHandler : TextMessageHandlerBase
     {
         private readonly IMessageReply<TextMessage> _messageReply;
 
-        public EchoTextExtension(IMessageReply<TextMessage> messageReply)
+        public EchoTextHandler(IMessageReply<TextMessage> messageReply)
         {
             _messageReply = messageReply;
         }
 
-        public string TextMessageHandler(TextMessage message)
+        public override string TextMessageHandler(TextMessage message)
         {
             var textMessage = new TextMessage()
             {

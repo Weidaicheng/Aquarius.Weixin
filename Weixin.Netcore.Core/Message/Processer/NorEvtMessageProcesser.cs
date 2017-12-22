@@ -12,27 +12,27 @@ namespace Weixin.Netcore.Core.Message.Processer
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
         private readonly IMessageRepetValidUsage _messageRepetValidUsage;
-        private readonly ITextMessageHandler _textMessageHandler;
-        private readonly IImageMessageHandler _imageMessageHandler;
-        private readonly IVoiceMessageHandler _voiceMessageHandlder;
-        private readonly IVideoMessageHandler _videoMessageHandler;
-        private readonly IShortVideoMessageHandler _shortVideoMeessageHandler;
-        private readonly ILocationMessageHandler _locationMessageHandler;
-        private readonly ILinkMessageHandler _linkMessageHandlder;
-        private readonly ISubscribeEvtMessageHandler _subscribeEventHandler;
-        private readonly IUnsubscribeEvtMessageHandler _unsubscribeEventHandler;
-        private readonly IScanEvtMessageHandler _scanEventHandler;
-        private readonly ILocationEvtMessageHandler _locationEventHandler;
-        private readonly IClickEvtMessageHandler _clickEventHandler;
+        private readonly TextMessageHandlerBase _textMessageHandler;
+        private readonly ImageMessageHandlerBase _imageMessageHandler;
+        private readonly VoiceMessageHandlerBase _voiceMessageHandlder;
+        private readonly VideoMessageHandlerBase _videoMessageHandler;
+        private readonly ShortVideoMessageHandlerBase _shortVideoMeessageHandler;
+        private readonly LocationMessageHandlerBase _locationMessageHandler;
+        private readonly LinkMessageHandlerBase _linkMessageHandlder;
+        private readonly SubscribeEvtMessageHandlerBase _subscribeEventHandler;
+        private readonly UnsubscribeEvtMessageHandlerBase _unsubscribeEventHandler;
+        private readonly ScanEvtMessageHandlerBase _scanEventHandler;
+        private readonly LocationEvtMessageHandlerBase _locationEventHandler;
+        private readonly ClickEvtMessageHandlerBase _clickEventHandler;
 
         public NorEvtMessageProcesser(IMessageRepetHandler messageRepetHandler,
             IMessageRepetValidUsage messageRepetValidUsage,
-            ITextMessageHandler textMessageHandler, IImageMessageHandler imageMessageHandler,
-            IVoiceMessageHandler voiceMessageHandler, IVideoMessageHandler videoMessageHandler,
-            IShortVideoMessageHandler shortVideoMessageHandler, ILocationMessageHandler locationMessageHandler,
-            ILinkMessageHandler linkMessageHandler, ISubscribeEvtMessageHandler subscribeEventHandler,
-            IUnsubscribeEvtMessageHandler unsubscribeEventHandler, IScanEvtMessageHandler scanEventHandler,
-            ILocationEvtMessageHandler locationEventHandler, IClickEvtMessageHandler clickEventHandler)
+            TextMessageHandlerBase textMessageHandler, ImageMessageHandlerBase imageMessageHandler,
+            VoiceMessageHandlerBase voiceMessageHandler, VideoMessageHandlerBase videoMessageHandler,
+            ShortVideoMessageHandlerBase shortVideoMessageHandler, LocationMessageHandlerBase locationMessageHandler,
+            LinkMessageHandlerBase linkMessageHandler, SubscribeEvtMessageHandlerBase subscribeEventHandler,
+            UnsubscribeEvtMessageHandlerBase unsubscribeEventHandler, ScanEvtMessageHandlerBase scanEventHandler,
+            LocationEvtMessageHandlerBase locationEventHandler, ClickEvtMessageHandlerBase clickEventHandler)
         {
             _messageRepetHandler = messageRepetHandler;
             _messageRepetValidUsage = messageRepetValidUsage;

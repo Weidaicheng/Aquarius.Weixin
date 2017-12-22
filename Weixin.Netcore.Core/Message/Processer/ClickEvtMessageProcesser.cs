@@ -11,11 +11,11 @@ namespace Weixin.Netcore.Core.Message.Processer
     public class ClickEvtMessageProcesser : IMessageProcesser
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
-        private readonly IClickEvtMessageHandler _clickEventHandler;
+        private readonly ClickEvtMessageHandlerBase _clickEventHandler;
         private readonly IMessageRepetValidUsage _messageRepetValidUsage;
 
         public ClickEvtMessageProcesser(IMessageRepetHandler messageRepetHandler, 
-            IClickEvtMessageHandler clickEventHandler, IMessageRepetValidUsage messageRepetValidUsage)
+            ClickEvtMessageHandlerBase clickEventHandler, IMessageRepetValidUsage messageRepetValidUsage)
         {
             _messageRepetHandler = messageRepetHandler;
             _clickEventHandler = clickEventHandler;
