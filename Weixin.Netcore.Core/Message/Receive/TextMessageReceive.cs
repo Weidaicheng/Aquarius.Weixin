@@ -7,9 +7,9 @@ namespace Weixin.Netcore.Core.Message.Receive
     /// <summary>
     /// 文本消息接收
     /// </summary>
-    public class TextMessageReceive : IMessageReceive<TextMessage>
+    public class TextMessageReceive : IMessageReceive//<TextMessage>
     {
-        public TextMessage GetEntity(string xml)
+        public IMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
             return new TextMessage()
@@ -22,7 +22,7 @@ namespace Weixin.Netcore.Core.Message.Receive
             };
         }
 
-        public TextMessage GetEntity(Dictionary<string, string> dic)
+        public IMessage GetEntity(Dictionary<string, string> dic)
         {
             return new TextMessage()
             {

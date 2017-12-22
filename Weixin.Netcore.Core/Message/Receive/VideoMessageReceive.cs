@@ -7,9 +7,9 @@ namespace Weixin.Netcore.Core.Message.Receive
     /// <summary>
     /// 视频消息接收
     /// </summary>
-    public class VideoMessageReceive : IMessageReceive<VideoMessage>
+    public class VideoMessageReceive : IMessageReceive//<VideoMessage>
     {
-        public VideoMessage GetEntity(string xml)
+        public IMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
             return new VideoMessage()
@@ -23,7 +23,7 @@ namespace Weixin.Netcore.Core.Message.Receive
             };
         }
 
-        public VideoMessage GetEntity(Dictionary<string, string> dic)
+        public IMessage GetEntity(Dictionary<string, string> dic)
         {
             return new VideoMessage()
             {

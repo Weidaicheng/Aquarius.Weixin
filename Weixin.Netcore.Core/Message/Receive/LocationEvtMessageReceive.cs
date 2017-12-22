@@ -7,9 +7,9 @@ namespace Weixin.Netcore.Core.Message.Receive
     /// <summary>
     /// 地理位置上报事件消息接收
     /// </summary>
-    public class LocationEvtMessageReceive : IMessageReceive<LocationEvtMessage>
+    public class LocationEvtMessageReceive : IMessageReceive//<LocationEvtMessage>
     {
-        public LocationEvtMessage GetEntity(string xml)
+        public IMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
             return new LocationEvtMessage()
@@ -23,7 +23,7 @@ namespace Weixin.Netcore.Core.Message.Receive
             };
         }
 
-        public LocationEvtMessage GetEntity(Dictionary<string, string> dic)
+        public IMessage GetEntity(Dictionary<string, string> dic)
         {
             return new LocationEvtMessage()
             {

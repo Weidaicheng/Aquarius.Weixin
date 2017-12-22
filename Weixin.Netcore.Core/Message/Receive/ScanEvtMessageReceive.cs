@@ -7,9 +7,9 @@ namespace Weixin.Netcore.Core.Message.Receive
     /// <summary>
     /// 扫码事件接收
     /// </summary>
-    public class ScanEvtMessageReceive : IMessageReceive<ScanEvtMessage>
+    public class ScanEvtMessageReceive : IMessageReceive//<ScanEvtMessage>
     {
-        public ScanEvtMessage GetEntity(string xml)
+        public IMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
             return new ScanEvtMessage()
@@ -23,7 +23,7 @@ namespace Weixin.Netcore.Core.Message.Receive
             };
         }
 
-        public ScanEvtMessage GetEntity(Dictionary<string, string> dic)
+        public IMessage GetEntity(Dictionary<string, string> dic)
         {
             return new ScanEvtMessage()
             {

@@ -7,9 +7,9 @@ namespace Weixin.Netcore.Core.Message.Receive
     /// <summary>
     /// 关注事件消息接收
     /// </summary>
-    public class SubscribeEvtMessageReceive : IMessageReceive<SubscribeEvtMessage>
+    public class SubscribeEvtMessageReceive : IMessageReceive//<SubscribeEvtMessage>
     {
-        public SubscribeEvtMessage GetEntity(string xml)
+        public IMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
             return new SubscribeEvtMessage()
@@ -20,7 +20,7 @@ namespace Weixin.Netcore.Core.Message.Receive
             };
         }
 
-        public SubscribeEvtMessage GetEntity(Dictionary<string, string> dic)
+        public IMessage GetEntity(Dictionary<string, string> dic)
         {
             return new SubscribeEvtMessage()
             {

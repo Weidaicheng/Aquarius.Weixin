@@ -7,9 +7,9 @@ namespace Weixin.Netcore.Core.Message.Receive
     /// <summary>
     /// 语音消息接收
     /// </summary>
-    public class VoiceMessageReceive : IMessageReceive<VoiceMessage>
+    public class VoiceMessageReceive : IMessageReceive//<VoiceMessage>
     {
-        public VoiceMessage GetEntity(string xml)
+        public IMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
             return new VoiceMessage()
@@ -24,7 +24,7 @@ namespace Weixin.Netcore.Core.Message.Receive
             };
         }
 
-        public VoiceMessage GetEntity(Dictionary<string, string> dic)
+        public IMessage GetEntity(Dictionary<string, string> dic)
         {
             return new VoiceMessage()
             {

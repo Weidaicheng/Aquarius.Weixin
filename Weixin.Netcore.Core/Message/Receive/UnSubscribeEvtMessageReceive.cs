@@ -7,9 +7,9 @@ namespace Weixin.Netcore.Core.Message.Receive
     /// <summary>
     /// 取消关注事件消息接收
     /// </summary>
-    public class UnSubscribeEvtMessageReceive : IMessageReceive<UnSubscribeEvtMessage>
+    public class UnSubscribeEvtMessageReceive : IMessageReceive//<UnSubscribeEvtMessage>
     {
-        public UnSubscribeEvtMessage GetEntity(string xml)
+        public IMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
             return new UnSubscribeEvtMessage()
@@ -20,7 +20,7 @@ namespace Weixin.Netcore.Core.Message.Receive
             };
         }
 
-        public UnSubscribeEvtMessage GetEntity(Dictionary<string, string> dic)
+        public IMessage GetEntity(Dictionary<string, string> dic)
         {
             return new UnSubscribeEvtMessage()
             {

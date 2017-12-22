@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Weixin.Netcore.Model.WeixinMessage;
 
 namespace Weixin.Netcore.Core.Message.Receive
 {
@@ -7,26 +8,39 @@ namespace Weixin.Netcore.Core.Message.Receive
     /// </summary>
     public interface IMessageReceive
     {
-    }
-
-    /// <summary>
-    /// 接收消息-泛型
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public interface IMessageReceive<T> : IMessageReceive
-    {
         /// <summary>
         /// 获取实体
         /// </summary>
         /// <param name="xml"></param>
         /// <returns></returns>
-        T GetEntity(string xml);
+        IMessage GetEntity(string xml);
 
         /// <summary>
         /// 获取实体
         /// </summary>
         /// <param name="dic"></param>
         /// <returns></returns>
-        T GetEntity(Dictionary<string, string> dic);
+        IMessage GetEntity(Dictionary<string, string> dic);
     }
+
+    /// <summary>
+    /// 接收消息-泛型
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    //public interface IMessageReceive<T> : IMessageReceive
+    //{
+    //    /// <summary>
+    //    /// 获取实体
+    //    /// </summary>
+    //    /// <param name="xml"></param>
+    //    /// <returns></returns>
+    //    T GetEntity(string xml);
+
+    //    /// <summary>
+    //    /// 获取实体
+    //    /// </summary>
+    //    /// <param name="dic"></param>
+    //    /// <returns></returns>
+    //    T GetEntity(Dictionary<string, string> dic);
+    //}
 }

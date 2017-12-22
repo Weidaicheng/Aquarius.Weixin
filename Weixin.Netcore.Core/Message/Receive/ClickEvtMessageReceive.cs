@@ -7,9 +7,9 @@ namespace Weixin.Netcore.Core.Message.Receive
     /// <summary>
     /// 自定义菜单消息点击事件接收
     /// </summary>
-    public class ClickEvtMessageReceive : IMessageReceive<ClickEvtMessage>
+    public class ClickEvtMessageReceive : IMessageReceive//<ClickEvtMessage>
     {
-        public ClickEvtMessage GetEntity(string xml)
+        public IMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
             return new ClickEvtMessage()
@@ -21,7 +21,7 @@ namespace Weixin.Netcore.Core.Message.Receive
             };
         }
 
-        public ClickEvtMessage GetEntity(Dictionary<string, string> dic)
+        public IMessage GetEntity(Dictionary<string, string> dic)
         {
             return new ClickEvtMessage()
             {
