@@ -3,11 +3,11 @@
 namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
-    /// 订阅事件处理
+    /// 上报位置时间处理
     /// </summary>
-    public class SubscribeEvtMessageHandlerBase
+    public class LocationEvtMessageHandler : IMessageHandler
     {
-        public virtual string SubscribeEventHandler(SubscribeEvtMessage message)
+        public virtual string Handle(IMessage message)
         {
             return "success";
         }

@@ -3,11 +3,11 @@
 namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
-    /// 链接消息处理
+    /// 取消订阅事件处理
     /// </summary>
-    public class LinkMessageHandlerBase
+    public class UnsubscribeEvtMessageHandler : IMessageHandler
     {
-        public virtual string LinkMessageHandler(LinkMessage message)
+        public virtual string Handle(IMessage message)
         {
             return "success";
         }

@@ -3,11 +3,11 @@
 namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
-    /// 视频消息处理
+    /// 地理位置消息处理
     /// </summary>
-    public class VideoMessageHandlerBase
+    public class LocationMessageHandler : IMessageHandler
     {
-        public virtual string VideoMessageHandler(VideoMessage message)
+        public virtual string Handle(IMessage message)
         {
             return "success";
         }
