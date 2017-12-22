@@ -113,8 +113,7 @@ namespace Weixin.Netcore.Web
             builder.RegisterType<NewsMessageReply>().As<IMessageReply<NewsMessage>>();
 
             //消息处理器
-            //根据需要添加相应的消息类型配置
-            builder.RegisterType<NorEvtMessageProcesser>().As<IMessageProcesser>();
+            builder.RegisterType<MessageProcesser>().As<IMessageProcesser>();
 
             //消息处理
             //在Weixin.Netcore.Extensions项目中
