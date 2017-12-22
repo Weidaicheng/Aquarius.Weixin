@@ -3,11 +3,11 @@
 namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
-    /// 扫码二维码事件处理
+    /// 文本消息处理
     /// </summary>
-    public class ScanEvtMessageHandler : IMessageHandler
+    public class TextMessageHandlerBase
     {
-        public virtual string Handle(IMessage message)
+        public virtual string TextMessageHandler(TextMessage message)
         {
             return "success";
         }

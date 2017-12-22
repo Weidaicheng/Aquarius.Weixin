@@ -5,9 +5,9 @@ namespace Weixin.Netcore.Core.Message.Handler
     /// <summary>
     /// 图片消息处理
     /// </summary>
-    public class ImageMessageHandler : IMessageHandler
+    public class ImageMessageHandlerBase
     {
-        public virtual string Handle(IMessage message)
+        public virtual string ImageMessageHandler(ImageMessage message)
         {
             return "success";
         }

@@ -3,11 +3,11 @@
 namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
-    /// 订阅事件处理
+    /// 小视频消息处理
     /// </summary>
-    public class SubscribeEvtMessageHandler : IMessageHandler
+    public class ShortVideoMessageHandlerBase
     {
-        public virtual string Handle(IMessage message)
+        public virtual string ShortVideoMessageHandler(ShortVideoMessage message)
         {
             return "success";
         }

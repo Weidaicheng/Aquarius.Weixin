@@ -3,11 +3,11 @@
 namespace Weixin.Netcore.Core.Message.Handler
 {
     /// <summary>
-    /// 文本消息处理
+    /// 语音消息处理
     /// </summary>
-    public class TextMessageHandler : IMessageHandler
+    public class VoiceMessageHandlerBase
     {
-        public virtual string Handle(IMessage message)
+        public virtual string VoiceMessageHandler(VoiceMessage message)
         {
             return "success";
         }

@@ -8,7 +8,7 @@ namespace Weixin.Netcore.Extensions.Message.Handler
     /// <summary>
     /// 点击回复文本消息扩展
     /// </summary>
-    public class ClickEventReplyTextHandler : ClickEvtMessageHandler
+    public class ClickEventReplyTextHandler : ClickEvtMessageHandlerBase
     {
         private readonly IMessageReply<TextMessage> _messageReply;
 

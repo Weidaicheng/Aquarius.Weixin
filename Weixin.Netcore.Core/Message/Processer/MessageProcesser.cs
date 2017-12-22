@@ -12,15 +12,42 @@ namespace Weixin.Netcore.Core.Message.Processer
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
         private readonly IMessageRepetValidUsage _messageRepetValidUsage;
-        private readonly IMessageHandler _messageHandler;
+        private readonly TextMessageHandlerBase _textMessageHandler;
+        private readonly ImageMessageHandlerBase _imageMessageHandler;
+        private readonly VoiceMessageHandlerBase _voiceMessageHandlder;
+        private readonly VideoMessageHandlerBase _videoMessageHandler;
+        private readonly ShortVideoMessageHandlerBase _shortVideoMeessageHandler;
+        private readonly LocationMessageHandlerBase _locationMessageHandler;
+        private readonly LinkMessageHandlerBase _linkMessageHandlder;
+        private readonly SubscribeEvtMessageHandlerBase _subscribeEventHandler;
+        private readonly UnsubscribeEvtMessageHandlerBase _unsubscribeEventHandler;
+        private readonly ScanEvtMessageHandlerBase _scanEventHandler;
+        private readonly LocationEvtMessageHandlerBase _locationEventHandler;
+        private readonly ClickEvtMessageHandlerBase _clickEventHandler;
 
         public MessageProcesser(IMessageRepetHandler messageRepetHandler,
             IMessageRepetValidUsage messageRepetValidUsage,
-            IMessageHandler messageHandler)
+            TextMessageHandlerBase textMessageHandler, ImageMessageHandlerBase imageMessageHandler,
+            VoiceMessageHandlerBase voiceMessageHandler, VideoMessageHandlerBase videoMessageHandler,
+            ShortVideoMessageHandlerBase shortVideoMessageHandler, LocationMessageHandlerBase locationMessageHandler,
+            LinkMessageHandlerBase linkMessageHandler, SubscribeEvtMessageHandlerBase subscribeEventHandler,
+            UnsubscribeEvtMessageHandlerBase unsubscribeEventHandler, ScanEvtMessageHandlerBase scanEventHandler,
+            LocationEvtMessageHandlerBase locationEventHandler, ClickEvtMessageHandlerBase clickEventHandler)
         {
             _messageRepetHandler = messageRepetHandler;
             _messageRepetValidUsage = messageRepetValidUsage;
-            _messageHandler = messageHandler;
+            _textMessageHandler = textMessageHandler;
+            _imageMessageHandler = imageMessageHandler;
+            _voiceMessageHandlder = voiceMessageHandler;
+            _videoMessageHandler = videoMessageHandler;
+            _shortVideoMeessageHandler = shortVideoMessageHandler;
+            _locationMessageHandler = locationMessageHandler;
+            _linkMessageHandlder = linkMessageHandler;
+            _subscribeEventHandler = subscribeEventHandler;
+            _unsubscribeEventHandler = unsubscribeEventHandler;
+            _scanEventHandler = scanEventHandler;
+            _locationEventHandler = locationEventHandler;
+            _clickEventHandler = clickEventHandler;
         }
 
         public string ProcessMessage(IMessage message)
@@ -29,13 +56,13 @@ namespace Weixin.Netcore.Core.Message.Processer
             {
                 if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as TextMessage).MsgId.ToString()))
                     return "success";
-                return _messageHandler.Handle(message);
+                return _textMessageHandler.TextMessageHandler(message as TextMessage);
             }
             else if(message is ImageMessage)//图片消息
             {
                 if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as ImageMessage).MsgId.ToString()))
                     return "success";
-                return _imageMessageHandler(message as ImageMessage);
+                return _imageMessageHandler.ImageMessageHandler(message as ImageMessage);
             }
             else if(message is VoiceMessage)//语音消息
             {
