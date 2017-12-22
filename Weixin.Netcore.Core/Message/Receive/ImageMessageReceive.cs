@@ -1,33 +1,36 @@
 ﻿using System.Collections.Generic;
+using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Utility;
 
-namespace Weixin.Netcore.Model.WeixinMessage.Receive
+namespace Weixin.Netcore.Core.Message.Receive
 {
     /// <summary>
-    /// 自定义菜单消息点击事件接收
+    /// 图片消息接收
     /// </summary>
-    public class ClickEvtMessageReceive : IMessageReceive<ClickEvtMessage>
+    public class ImageMessageReceive : IMessageReceive<ImageMessage>
     {
-        public ClickEvtMessage GetEntity(string xml)
+        public ImageMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            return new ClickEvtMessage()
+            return new ImageMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
                 CreateTime = long.Parse(dic["CreateTime"]),
-                EventKey = dic["EventKey"]
+                MsgId = long.Parse(dic["MsgId"]),
+                MediaId = dic["MediaId"]
             };
         }
 
-        public ClickEvtMessage GetEntity(Dictionary<string, string> dic)
+        public ImageMessage GetEntity(Dictionary<string, string> dic)
         {
-            return new ClickEvtMessage()
+            return new ImageMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
                 CreateTime = long.Parse(dic["CreateTime"]),
-                EventKey = dic["EventKey"]
+                MsgId = long.Parse(dic["MsgId"]),
+                MediaId = dic["MediaId"]
             };
         }
     }

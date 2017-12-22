@@ -1,4 +1,4 @@
-﻿namespace Weixin.Netcore.Model.WeixinMessage.Reply
+﻿namespace Weixin.Netcore.Core.Message.Reply
 {
     /// <summary>
     /// 回复消息

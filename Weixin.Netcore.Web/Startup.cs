@@ -6,7 +6,6 @@ using RestSharp;
 using Weixin.Netcore.Core.MessageRepet;
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.Message.Handler;
-using Weixin.Netcore.Model.WeixinMessage.Reply;
 using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Core.Message.Processer;
 using Weixin.Netcore.Extensions.Message.Handler;
@@ -18,6 +17,7 @@ using Weixin.Netcore.Model;
 using Weixin.Netcore.Core.MaintainContainer;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Core.Middleware;
+using Weixin.Netcore.Core.Message.Reply;
 
 namespace Weixin.Netcore.Web
 {

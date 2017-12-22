@@ -1,13 +1,14 @@
 ﻿using System.Text;
+using Weixin.Netcore.Model.WeixinMessage;
 
-namespace Weixin.Netcore.Model.WeixinMessage.Reply
+namespace Weixin.Netcore.Core.Message.Reply
 {
     /// <summary>
-    /// 视频消息回复
+    /// 图片消息回复
     /// </summary>
-    public class VideoMessageReply : IMessageReply<VideoMessage>
+    public class ImageMessageReply : IMessageReply<ImageMessage>
     {
-        public string CreateXml(VideoMessage entity)
+        public string CreateXml(ImageMessage entity)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"<xml>");
@@ -15,11 +16,9 @@ namespace Weixin.Netcore.Model.WeixinMessage.Reply
             sb.Append($"<FromUserName><![CDATA[{entity.FromUserName}]]></FromUserName>");
             sb.Append($"<CreateTime>{entity.CreateTime}</CreateTime>");
             sb.Append($"<MsgType><![CDATA[{entity.MsgType}]]></MsgType>");
-            sb.Append($"<Video>");
+            sb.Append($"<Image>");
             sb.Append($"<MediaId><![CDATA[{entity.MediaId}]]></MediaId>");
-            sb.Append($"<Title><![CDATA[{entity.Title}]]></Title> ");
-            sb.Append($"<Description><![CDATA[{entity.Description}]]></Description>");
-            sb.Append($"</Video>");
+            sb.Append($"</Image>");
             sb.Append($"</xml>");
 
             return sb.ToString();

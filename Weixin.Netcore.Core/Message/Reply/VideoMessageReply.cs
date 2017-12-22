@@ -1,13 +1,14 @@
 ﻿using System.Text;
+using Weixin.Netcore.Model.WeixinMessage;
 
-namespace Weixin.Netcore.Model.WeixinMessage.Reply
+namespace Weixin.Netcore.Core.Message.Reply
 {
     /// <summary>
-    /// 音乐消息回复
+    /// 视频消息回复
     /// </summary>
-    public class MusicMessageReply : IMessageReply<MusicMessage>
+    public class VideoMessageReply : IMessageReply<VideoMessage>
     {
-        public string CreateXml(MusicMessage entity)
+        public string CreateXml(VideoMessage entity)
         {
             StringBuilder sb = new StringBuilder();
             sb.Append($"<xml>");
@@ -15,13 +16,11 @@ namespace Weixin.Netcore.Model.WeixinMessage.Reply
             sb.Append($"<FromUserName><![CDATA[{entity.FromUserName}]]></FromUserName>");
             sb.Append($"<CreateTime>{entity.CreateTime}</CreateTime>");
             sb.Append($"<MsgType><![CDATA[{entity.MsgType}]]></MsgType>");
-            sb.Append($"<music>");
-            sb.Append($"<Title><![CDATA[{entity.Title}]]></Title>");
+            sb.Append($"<Video>");
+            sb.Append($"<MediaId><![CDATA[{entity.MediaId}]]></MediaId>");
+            sb.Append($"<Title><![CDATA[{entity.Title}]]></Title> ");
             sb.Append($"<Description><![CDATA[{entity.Description}]]></Description>");
-            sb.Append($"<MusicUrl><![CDATA[{entity.MusicURL}]]></MusicUrl>");
-            sb.Append($"<HQMusicUrl><![CDATA[{entity.HQMusicUrl}]]></HQMusicUrl>");
-            sb.Append($"<ThumbMediaId><![CDATA[{entity.ThumbMediaId}]]></ThumbMediaId>");
-            sb.Append($"</music>");
+            sb.Append($"</Video>");
             sb.Append($"</xml>");
 
             return sb.ToString();

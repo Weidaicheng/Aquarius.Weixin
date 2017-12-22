@@ -1,6 +1,7 @@
 ﻿using System.Text;
+using Weixin.Netcore.Model.WeixinMessage;
 
-namespace Weixin.Netcore.Model.WeixinMessage.Reply
+namespace Weixin.Netcore.Core.Message.Reply
 {
     /// <summary>
     /// 图文消息回复

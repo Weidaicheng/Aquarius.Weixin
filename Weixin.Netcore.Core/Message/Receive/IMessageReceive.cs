@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Weixin.Netcore.Model.WeixinMessage.Receive
+namespace Weixin.Netcore.Core.Message.Receive
 {
     /// <summary>
     /// 接收消息

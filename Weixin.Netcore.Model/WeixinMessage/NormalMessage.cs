@@ -8,6 +8,6 @@
         /// <summary>
         /// 消息Id
         /// </summary>
-        public long MsgId { get; internal set; }
+        public long MsgId { get; set; }
     }
 }

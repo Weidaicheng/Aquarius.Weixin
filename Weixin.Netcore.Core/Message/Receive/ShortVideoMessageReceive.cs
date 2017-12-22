@@ -1,17 +1,18 @@
 ﻿using System.Collections.Generic;
+using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Utility;
 
-namespace Weixin.Netcore.Model.WeixinMessage.Receive
+namespace Weixin.Netcore.Core.Message.Receive
 {
     /// <summary>
-    /// 视频消息接收
+    /// 小视频消息接收
     /// </summary>
-    public class VideoMessageReceive : IMessageReceive<VideoMessage>
+    public class ShortVideoMessageReceive : IMessageReceive<ShortVideoMessage>
     {
-        public VideoMessage GetEntity(string xml)
+        public ShortVideoMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            return new VideoMessage()
+            return new ShortVideoMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -22,9 +23,9 @@ namespace Weixin.Netcore.Model.WeixinMessage.Receive
             };
         }
 
-        public VideoMessage GetEntity(Dictionary<string, string> dic)
+        public ShortVideoMessage GetEntity(Dictionary<string, string> dic)
         {
-            return new VideoMessage()
+            return new ShortVideoMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],

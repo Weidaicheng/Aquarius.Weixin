@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Utility;
 
-namespace Weixin.Netcore.Model.WeixinMessage.Receive
+namespace Weixin.Netcore.Core.Message.Receive
 {
     /// <summary>
     /// 位置消息接收

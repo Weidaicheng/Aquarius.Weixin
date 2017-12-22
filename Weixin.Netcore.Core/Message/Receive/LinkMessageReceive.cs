@@ -1,39 +1,40 @@
 ﻿using System.Collections.Generic;
+using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Utility;
 
-namespace Weixin.Netcore.Model.WeixinMessage.Receive
+namespace Weixin.Netcore.Core.Message.Receive
 {
     /// <summary>
-    /// 语音消息接收
+    /// 链接消息接收
     /// </summary>
-    public class VoiceMessageReceive : IMessageReceive<VoiceMessage>
+    public class LinkMessageReceive : IMessageReceive<LinkMessage>
     {
-        public VoiceMessage GetEntity(string xml)
+        public LinkMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            return new VoiceMessage()
+            return new LinkMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
                 CreateTime = long.Parse(dic["CreateTime"]),
                 MsgId = long.Parse(dic["MsgId"]),
-                MediaId = dic["MediaId"],
-                Format = dic["Format"],
-                Recognition = dic["Recognition"]
+                Title = dic["Title"],
+                Description = dic["Description"],
+                Url = dic["Url"]
             };
         }
 
-        public VoiceMessage GetEntity(Dictionary<string, string> dic)
+        public LinkMessage GetEntity(Dictionary<string, string> dic)
         {
-            return new VoiceMessage()
+            return new LinkMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
                 CreateTime = long.Parse(dic["CreateTime"]),
                 MsgId = long.Parse(dic["MsgId"]),
-                MediaId = dic["MediaId"],
-                Format = dic["Format"],
-                Recognition = dic["Recognition"]
+                Title = dic["Title"],
+                Description = dic["Description"],
+                Url = dic["Url"]
             };
         }
     }

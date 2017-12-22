@@ -1,39 +1,38 @@
 ﻿using System.Collections.Generic;
+using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Utility;
 
-namespace Weixin.Netcore.Model.WeixinMessage.Receive
+namespace Weixin.Netcore.Core.Message.Receive
 {
     /// <summary>
-    /// 链接消息接收
+    /// 视频消息接收
     /// </summary>
-    public class LinkMessageReceive : IMessageReceive<LinkMessage>
+    public class VideoMessageReceive : IMessageReceive<VideoMessage>
     {
-        public LinkMessage GetEntity(string xml)
+        public VideoMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            return new LinkMessage()
+            return new VideoMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
                 CreateTime = long.Parse(dic["CreateTime"]),
                 MsgId = long.Parse(dic["MsgId"]),
-                Title = dic["Title"],
-                Description = dic["Description"],
-                Url = dic["Url"]
+                MediaId = dic["MediaId"],
+                ThumbMediaId = dic["ThumbMediaId"]
             };
         }
 
-        public LinkMessage GetEntity(Dictionary<string, string> dic)
+        public VideoMessage GetEntity(Dictionary<string, string> dic)
         {
-            return new LinkMessage()
+            return new VideoMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
                 CreateTime = long.Parse(dic["CreateTime"]),
                 MsgId = long.Parse(dic["MsgId"]),
-                Title = dic["Title"],
-                Description = dic["Description"],
-                Url = dic["Url"]
+                MediaId = dic["MediaId"],
+                ThumbMediaId = dic["ThumbMediaId"]
             };
         }
     }
