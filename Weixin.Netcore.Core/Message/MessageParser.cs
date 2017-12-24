@@ -24,68 +24,7 @@ namespace Weixin.Netcore.Core.Message
 
             var dic = UtilityHelper.Xml2Dictionary(xml);
 
-            IMessage message = null; ;
-            IMessageReceive messageReceive;
-            switch (dic["MsgType"].ToLower())
-            {
-                case "text":
-                    messageReceive = new TextMessageReceive();
-                    message = messageReceive.GetEntity(dic);
-                    break;
-                case "image":
-                    messageReceive = new ImageMessageReceive();
-                    message = messageReceive.GetEntity(dic);
-                    break;
-                case "voice":
-                    messageReceive = new VoiceMessageReceive();
-                    message = messageReceive.GetEntity(dic);
-                    break;
-                case "video":
-                    messageReceive = new VideoMessageReceive();
-                    message = messageReceive.GetEntity(dic);
-                    break;
-                case "shortvideo":
-                    messageReceive = new ShortVideoMessageReceive();
-                    message = messageReceive.GetEntity(dic);
-                    break;
-                case "location":
-                    messageReceive = new LocationMessageReceive();
-                    message = messageReceive.GetEntity(dic);
-                    break;
-                case "link":
-                    messageReceive = new LinkMessageReceive();
-                    message = messageReceive.GetEntity(dic);
-                    break;
-                case "event":
-                    switch (dic["Event"].ToLower())
-                    {
-                        case "subscribe":
-                            messageReceive = new SubscribeEvtMessageReceive();
-                            message = messageReceive.GetEntity(dic);
-                            break;
-                        case "unsubscribe":
-                            messageReceive = new UnSubscribeEvtMessageReceive();
-                            message = messageReceive.GetEntity(dic);
-                            break;
-                        case "scan":
-                            messageReceive = new ScanEvtMessageReceive();
-                            message = messageReceive.GetEntity(dic);
-                            break;
-                        case "location":
-                            messageReceive = new LocationEvtMessageReceive();
-                            message = messageReceive.GetEntity(dic);
-                            break;
-                        case "click":
-                            messageReceive = new ClickEvtMessageReceive();
-                            message = messageReceive.GetEntity(dic);
-                            break;
-                        default:
-                            break;
-                    }
-                    break;
-                default:
-                    break;
-            }
+            IMessage message = MessageReceiveFactory.GetMessageReceive(dic["MsgType"], dic["Event"]).GetEntity(dic);
 
             return message;
         }
