@@ -1,4 +1,6 @@
-﻿namespace Weixin.Netcore.Core.Message.Receive
+﻿using Weixin.Netcore.Model.Enums;
+
+namespace Weixin.Netcore.Core.Message.Receive
 {
     /// <summary>
     /// 消息接收工厂
@@ -13,57 +15,66 @@
         /// <returns></returns>
         public static IMessageReceive GetMessageReceive(string msgType, string eventType)
         {
-            IMessageReceive messageReceive = null;
+            IMessageReceive messageReceive;
 
-            switch (msgType.ToLower())
+            if (msgType.ToLower() == MessageType.Text.ToString().ToLower())
             {
-                case "text":
-                    messageReceive = new TextMessageReceive();
-                    break;
-                case "image":
-                    messageReceive = new ImageMessageReceive();
-                    break;
-                case "voice":
-                    messageReceive = new VoiceMessageReceive();
-                    break;
-                case "video":
-                    messageReceive = new VideoMessageReceive();
-                    break;
-                case "shortvideo":
-                    messageReceive = new ShortVideoMessageReceive();
-                    break;
-                case "location":
-                    messageReceive = new LocationMessageReceive();
-                    break;
-                case "link":
-                    messageReceive = new LinkMessageReceive();
-                    break;
-                case "event":
-                    switch (eventType.ToLower())
-                    {
-                        case "subscribe":
-                            messageReceive = new SubscribeEvtMessageReceive();
-                            break;
-                        case "unsubscribe":
-                            messageReceive = new UnSubscribeEvtMessageReceive();
-                            break;
-                        case "scan":
-                            messageReceive = new ScanEvtMessageReceive();
-                            break;
-                        case "location":
-                            messageReceive = new LocationEvtMessageReceive();
-                            break;
-                        case "click":
-                            messageReceive = new ClickEvtMessageReceive();
-                            break;
-                        default:
-                            messageReceive = null;
-                            break;
-                    }
-                    break;
-                default:
+                messageReceive = new TextMessageReceive();
+            }
+            else if (msgType.ToLower() == MessageType.Image.ToString().ToLower())
+            {
+                messageReceive = new ImageMessageReceive();
+            }
+            else if (msgType.ToLower() == MessageType.Voice.ToString().ToLower())
+            {
+                messageReceive = new VoiceMessageReceive();
+            }
+            else if (msgType.ToLower() == MessageType.Video.ToString().ToLower())
+            {
+                messageReceive = new VideoMessageReceive();
+            }
+            else if (msgType.ToLower() == MessageType.Shortvideo.ToString().ToLower())
+            {
+                messageReceive = new ShortVideoMessageReceive();
+            }
+            else if (msgType.ToLower() == MessageType.Location.ToString().ToLower())
+            {
+                messageReceive = new LocationMessageReceive();
+            }
+            else if (msgType.ToLower() == MessageType.Link.ToString().ToLower())
+            {
+                messageReceive = new LinkMessageReceive();
+            }
+            else if (msgType.ToLower() == MessageType.Event.ToString().ToLower())
+            {
+                if (eventType.ToLower() == EventType.Subscribe.ToString().ToLower())
+                {
+                    messageReceive = new SubscribeEvtMessageReceive();
+                }
+                else if (eventType.ToLower() == EventType.Unsubscribe.ToString().ToLower())
+                {
+                    messageReceive = new UnSubscribeEvtMessageReceive();
+                }
+                if (eventType.ToLower() == EventType.Scan.ToString().ToLower())
+                {
+                    messageReceive = new ScanEvtMessageReceive();
+                }
+                if (eventType.ToLower() == EventType.Location.ToString().ToLower())
+                {
+                    messageReceive = new LocationEvtMessageReceive();
+                }
+                if (eventType.ToLower() == EventType.Click.ToString().ToLower())
+                {
+                    messageReceive = new ClickEvtMessageReceive();
+                }
+                else
+                {
                     messageReceive = null;
-                    break;
+                }
+            }
+            else
+            {
+                messageReceive = null;
             }
 
             return messageReceive;
