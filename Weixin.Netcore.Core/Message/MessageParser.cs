@@ -24,7 +24,7 @@ namespace Weixin.Netcore.Core.Message
 
             var dic = UtilityHelper.Xml2Dictionary(xml);
 
-            IMessage message = MessageReceiveFactory.GetMessageReceive(dic["MsgType"], dic["Event"]).GetEntity(dic);
+            IMessage message = MessageReceiveFactory.GetMessageReceive(dic["MsgType"], dic.ContainsKey("Event") ? dic["Event"] : null).GetEntity(dic);
 
             return message;
         }

@@ -18,6 +18,7 @@ using Weixin.Netcore.Core.MaintainContainer;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Core.Middleware;
 using Weixin.Netcore.Core.Message.Reply;
+using System.Reflection;
 
 namespace Weixin.Netcore.Web
 {
@@ -52,6 +53,7 @@ namespace Weixin.Netcore.Web
             #region Autofac
             //Add Autofac
             var builder = new ContainerBuilder();
+            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
 
             #region 注入
             #region 第三方
@@ -84,15 +86,15 @@ namespace Weixin.Netcore.Web
 
             #region 接口
             //接口调用
-            builder.RegisterType<OAuthInterfaceCaller>().As<OAuthInterfaceCaller>();
-            builder.RegisterType<MenuInterfaceCaller>().As<MenuInterfaceCaller>();
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(t => t.Namespace == "Weixin.Netcore.Core.InterfaceCaller")
+                .AsSelf();
             #endregion
 
             #region 容器
-            //维护容器
-            builder.RegisterType<AccessTokenContainer>().As<AccessTokenContainer>();
-            //认证容器
-            builder.RegisterType<AuthorizationContainer>().As<AuthorizationContainer>();
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(t => t.Namespace == "Weixin.Netcore.Core.MaintainContainer")
+                .AsSelf();
             #endregion
 
             #region 中间件
@@ -105,12 +107,9 @@ namespace Weixin.Netcore.Web
             builder.RegisterType<MessageRepetHandler>().As<IMessageRepetHandler>();
 
             //消息回复
-            builder.RegisterType<TextMessageReply>().As<IMessageReply<TextMessage>>();
-            builder.RegisterType<ImageMessageReply>().As<IMessageReply<ImageMessage>>();
-            builder.RegisterType<MusicMessageReply>().As<IMessageReply<MusicMessage>>();
-            builder.RegisterType<VoiceMessageReply>().As<IMessageReply<VoiceMessage>>();
-            builder.RegisterType<VideoMessageReply>().As<IMessageReply<VideoMessage>>();
-            builder.RegisterType<NewsMessageReply>().As<IMessageReply<NewsMessage>>();
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(t => t.Namespace == "Weixin.Netcore.Core.Message.Reply")
+                .AsImplementedInterfaces();
 
             //消息处理器
             builder.RegisterType<MessageProcesser>().As<IMessageProcesser>();
@@ -119,18 +118,12 @@ namespace Weixin.Netcore.Web
             //在Weixin.Netcore.Extensions项目中
             //namespace：Weixin.Netcore.Extensions.Message.Handler
             //根据需要替换各种消息消息处理类
-            builder.RegisterType<ClickEventReplyTextHandler>().As<ClickEvtMessageHandlerBase>();
-            builder.RegisterType<EchoTextHandler>().As<TextMessageHandlerBase>();
-            builder.RegisterType<ImageMessageHandlerBase>().As<ImageMessageHandlerBase>();
-            builder.RegisterType<VoiceMessageHandlerBase>().As<VoiceMessageHandlerBase>();
-            builder.RegisterType<VideoMessageHandlerBase>().As<VideoMessageHandlerBase>();
-            builder.RegisterType<ShortVideoMessageHandlerBase>().As<ShortVideoMessageHandlerBase>();
-            builder.RegisterType<LocationMessageHandlerBase>().As<LocationMessageHandlerBase>();
-            builder.RegisterType<LinkMessageHandlerBase>().As<LinkMessageHandlerBase>();
-            builder.RegisterType<SubscribeEvtMessageHandlerBase>().As<SubscribeEvtMessageHandlerBase>();
-            builder.RegisterType<UnsubscribeEvtMessageHandlerBase>().As<UnsubscribeEvtMessageHandlerBase>();
-            builder.RegisterType<ScanEvtMessageHandlerBase>().As<ScanEvtMessageHandlerBase>();
-            builder.RegisterType<LocationEvtMessageHandlerBase>().As<LocationEvtMessageHandlerBase>();
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(t => t.Namespace == "Weixin.Netcore.Core.Message.Handler")
+                .AsSelf();
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(t => t.Namespace == "Weixin.Netcore.Extensions.Message.Handler")
+                .As(t => t.BaseType);
             #endregion
             #endregion
 
