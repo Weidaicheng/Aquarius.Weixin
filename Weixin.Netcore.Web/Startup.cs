@@ -6,7 +6,7 @@ using RestSharp;
 using Weixin.Netcore.Core.MessageRepet;
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.Message.Processer;
-using Weixin.Netcore.Core.Debug;
+using Weixin.Netcore.Core.DebugSetting;
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;

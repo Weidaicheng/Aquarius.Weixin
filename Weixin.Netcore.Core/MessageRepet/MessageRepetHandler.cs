@@ -1,6 +1,6 @@
 ﻿using System;
 using Weixin.Netcore.Cache;
-using Weixin.Netcore.Core.Debug;
+using Weixin.Netcore.Core.DebugSetting;
 
 namespace Weixin.Netcore.Core.MessageRepet
 {

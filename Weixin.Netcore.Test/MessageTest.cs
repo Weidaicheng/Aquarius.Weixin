@@ -1,7 +1,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Weixin.Netcore.Cache;
-using Weixin.Netcore.Core.Debug;
+using Weixin.Netcore.Core.DebugSetting;
 using Weixin.Netcore.Core.Message;
 using Weixin.Netcore.Core.Message.Handler;
 using Weixin.Netcore.Core.Message.Processer;
