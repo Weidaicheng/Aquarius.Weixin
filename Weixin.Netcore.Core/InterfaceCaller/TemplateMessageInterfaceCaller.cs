@@ -205,6 +205,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <returns></returns>
         public long SendTMessage(string accessToken, string openId, string templateId, Dictionary<string, TemplateData> data, string url = null, MiniProgram miniProgram = null)
         {
+            #region 参数验证
             if(string.IsNullOrEmpty(accessToken))
             {
                 throw new ArgumentException("Access Token为空");
@@ -236,6 +237,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
                     throw new ArgumentException($"{item.Key}的值为空");
                 }
             }
+            #endregion
 
             #region 组装Json
             string jsonStr = string.Empty;
