@@ -214,7 +214,11 @@ namespace Weixin.Netcore.Core.InterfaceCaller
             {
                 throw new ArgumentException("接受者OpenId为空");
             }
-            if(miniProgram != null && string.IsNullOrEmpty(miniProgram.AppId))
+            if (string.IsNullOrWhiteSpace(templateId))
+            {
+                throw new ArgumentException("模板Id为空");
+            }
+            if (miniProgram != null && string.IsNullOrEmpty(miniProgram.AppId))
             {
                 throw new ArgumentException("小程序AppId为空");
             }
