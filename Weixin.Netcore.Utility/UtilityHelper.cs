@@ -83,7 +83,7 @@ namespace Weixin.Netcore.Utility
         /// <returns></returns>
         public static bool VerifyMsgSignature(string timestamp, string nonce, string token, string msgEncrypted, string msgSignature)
         {
-            string hash = GenarateSinature(timestamp, nonce, token, msgEncrypted);
+            string hash = GenerateSinature(timestamp, nonce, token, msgEncrypted);
             return hash == msgSignature;
         }
 
@@ -92,7 +92,7 @@ namespace Weixin.Netcore.Utility
         /// </summary>
         /// <param name="strings"></param>
         /// <returns></returns>
-        public static string GenarateSinature(params string[] strings)
+        public static string GenerateSinature(params string[] strings)
         {
             var arr = strings.OrderBy(z => z).ToArray();
             var arrString = string.Join("", arr);
@@ -107,6 +107,20 @@ namespace Weixin.Netcore.Utility
             hash = BitConverter.ToString(dataHashed).Replace("-", "");
             hash = hash.ToLower();
             return hash;
+        }
+
+        /// <summary>
+        /// 创建JS-API签名
+        /// </summary>
+        /// <param name="ticket"></param>
+        /// <param name="noncestr"></param>
+        /// <param name="timestamp"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public static string GenerateJsApiSignature(string ticket, string noncestr, long timestamp, string url)
+        {
+            string str = $"jsapi_ticket={ticket}&noncestr={noncestr}&timestamp={timestamp}&url={url}";
+            return GenerateSinature(str);
         }
 
         /// <summary>
