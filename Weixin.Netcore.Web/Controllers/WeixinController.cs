@@ -22,11 +22,11 @@ namespace Weixin.Netcore.Web.Controllers
         #region .ctor
         private readonly IConfiguration _configuration;
         private readonly ILogger<WeixinController> _logger;
-        private readonly IMessageProcesser _processer;
+        private readonly MessageProcesser _processer;
         private readonly IMessageMiddleware _messageMiddleware;
 
         public WeixinController(IConfiguration configuration, ILogger<WeixinController> logger,
-            IMessageProcesser processer, IMessageMiddleware messageMiddleware)
+            MessageProcesser processer, IMessageMiddleware messageMiddleware)
         {
             _configuration = configuration;
             _logger = logger;

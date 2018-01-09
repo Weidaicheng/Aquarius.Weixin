@@ -105,7 +105,7 @@ namespace Weixin.Netcore.Web
                 .AsImplementedInterfaces();
 
             //消息处理器
-            builder.RegisterType<MessageProcesser>().As<IMessageProcesser>();
+            builder.RegisterType<MessageProcesser>().AsSelf();
 
             //消息处理
             //在Weixin.Netcore.Extensions项目中

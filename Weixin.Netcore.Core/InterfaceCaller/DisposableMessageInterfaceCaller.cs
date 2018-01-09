@@ -27,6 +27,19 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         #endregion
 
         #region 发送一次性订阅消息
+        /// <summary>
+        /// 发送一次性订阅消息
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="scene"></param>
+        /// <param name="title"></param>
+        /// <param name="value"></param>
+        /// <param name="color"></param>
+        /// <param name="url"></param>
+        /// <param name="miniProgram"></param>
+        /// <returns></returns>
         public string SendDisposableMessage(string accessToken, string openId, string templateId, int scene, string title, string value, string color = null, string url = null, MiniProgram miniProgram = null)
         {
             #region 参数验证

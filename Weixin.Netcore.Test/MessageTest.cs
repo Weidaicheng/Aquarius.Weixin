@@ -34,7 +34,7 @@ namespace Weixin.Netcore.Core.Test
             IMessageReply<TextMessage> messageReply = new TextMessageReply();
             ClickEvtMessageHandlerBase clickEvtMessageHandler = new ClickEventReplyTextHandler(messageReply);
             IMessageRepetValidUsage messageRepetValidUsage = new MessageRepetValidUsage(true);
-            IMessageProcesser processer = new MessageProcesser(messageRepetHandler, messageRepetValidUsage, new TextMessageHandlerBase(), new ImageMessageHandlerBase(), new VoiceMessageHandlerBase(), new VideoMessageHandlerBase(), new ShortVideoMessageHandlerBase(), new LocationMessageHandlerBase(), new LinkMessageHandlerBase(), new SubscribeEvtMessageHandlerBase(), new UnsubscribeEvtMessageHandlerBase(), new ScanEvtMessageHandlerBase(), new LocationEvtMessageHandlerBase(), clickEvtMessageHandler);
+            MessageProcesser processer = new MessageProcesser(messageRepetHandler, messageRepetValidUsage, new TextMessageHandlerBase(), new ImageMessageHandlerBase(), new VoiceMessageHandlerBase(), new VideoMessageHandlerBase(), new ShortVideoMessageHandlerBase(), new LocationMessageHandlerBase(), new LinkMessageHandlerBase(), new SubscribeEvtMessageHandlerBase(), new UnsubscribeEvtMessageHandlerBase(), new ScanEvtMessageHandlerBase(), new LocationEvtMessageHandlerBase(), clickEvtMessageHandler);
             Console.WriteLine(processer.ProcessMessage(message));
         }
 

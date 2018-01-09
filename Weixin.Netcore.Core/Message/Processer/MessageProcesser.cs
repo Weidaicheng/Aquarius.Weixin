@@ -8,7 +8,7 @@ namespace Weixin.Netcore.Core.Message.Processer
     /// <summary>
     /// 消息处理器
     /// </summary>
-    public class MessageProcesser : IMessageProcesser
+    public sealed class MessageProcesser
     {
         private readonly IMessageRepetHandler _messageRepetHandler;
         private readonly IMessageRepetValidUsage _messageRepetValidUsage;
