@@ -242,22 +242,25 @@ namespace Weixin.Netcore.Core.InterfaceCaller
             #region 组装Json
             string jsonStr = string.Empty;
             jsonStr += $"{{";
-            jsonStr += $"'touser': '{openId}',";
-            jsonStr += $"'template_id': '{templateId}',";
-            jsonStr += $"'url': '{url ?? ""}',";
-            jsonStr += $"'miniprogram': {{";
-            jsonStr += $"'appid': '{(miniProgram == null ? "" : miniProgram.AppId)}',";
-            jsonStr += $"'pagepath': '{(miniProgram == null ? "" : miniProgram.PagePath)}'";
-            jsonStr += $"}},";
-            jsonStr += $"'data': {{";
-            foreach(var item in data)
+            jsonStr += $"\"touser\": \"{openId}\",";
+            jsonStr += $"\"template_id\": \"{templateId}\",";
+            jsonStr += $"\"url\": \"{url ?? ""}\",";
+            if (miniProgram != null)
             {
-                jsonStr += $"'{item.Key}': {{";
-                jsonStr += $"'value': '{item.Value.Value}',";
-                jsonStr += $"'color': '{item.Value.Color ?? ""}'";
+                jsonStr += $"\"miniprogram\": {{";
+                jsonStr += $"\"appid\": \"{(miniProgram == null ? "" : miniProgram.AppId)}\",";
+                jsonStr += $"\"pagepath\": \"{(miniProgram == null ? "" : miniProgram.PagePath)}\"";
                 jsonStr += $"}},";
             }
-            if(jsonStr.EndsWith(','))
+            jsonStr += $"\"data\": {{";
+            foreach (var item in data)
+            {
+                jsonStr += $"\"{item.Key}\": {{";
+                jsonStr += $"\"value\": \"{item.Value.Value}\",";
+                jsonStr += $"\"color\": \"{item.Value.Color ?? ""}\"";
+                jsonStr += $"}},";
+            }
+            if (jsonStr.EndsWith(","))
             {
                 jsonStr = jsonStr.Remove(jsonStr.Length - 1, 1);
             }
