@@ -5,6 +5,11 @@
     /// </summary>
     public class ScanEvtMessage : EventMessage
     {
+        public ScanEvtMessage()
+        {
+            Event = "Scan";
+        }
+
         /// <summary>
         /// 事件KEY值
         /// </summary>

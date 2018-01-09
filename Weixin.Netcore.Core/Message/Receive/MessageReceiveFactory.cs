@@ -12,8 +12,9 @@ namespace Weixin.Netcore.Core.Message.Receive
         /// </summary>
         /// <param name="msgType">消息类型</param>
         /// <param name="eventType">事件类型</param>
+        /// <param name="eventKey">事件KEY值</param>
         /// <returns></returns>
-        public static IMessageReceive GetMessageReceive(string msgType, string eventType)
+        public static IMessageReceive GetMessageReceive(string msgType, string eventType, string eventKey)
         {
             IMessageReceive messageReceive;
 
@@ -49,7 +50,14 @@ namespace Weixin.Netcore.Core.Message.Receive
             {
                 if (eventType.ToLower() == EventType.Subscribe.ToString().ToLower())
                 {
-                    messageReceive = new SubscribeEvtMessageReceive();
+                    if (string.IsNullOrEmpty(eventKey))
+                    {
+                        messageReceive = new SubscribeEvtMessageReceive(); 
+                    }
+                    else
+                    {
+                        messageReceive = new ScanSubscribeEvtMessageReceive();
+                    }
                 }
                 else if (eventType.ToLower() == EventType.Unsubscribe.ToString().ToLower())
                 {

@@ -5,14 +5,14 @@ using Weixin.Netcore.Utility;
 namespace Weixin.Netcore.Core.Message.Receive
 {
     /// <summary>
-    /// 扫码事件接收
+    /// 扫码关注事件消息接收
     /// </summary>
-    public class ScanEvtMessageReceive : IMessageReceive//<ScanEvtMessage>
+    public class ScanSubscribeEvtMessageReceive : IMessageReceive
     {
         public IMessage GetEntity(string xml)
         {
             var dic = UtilityHelper.Xml2Dictionary(xml);
-            return new ScanEvtMessage()
+            return new ScanSubscribeEvtMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
@@ -24,7 +24,7 @@ namespace Weixin.Netcore.Core.Message.Receive
 
         public IMessage GetEntity(Dictionary<string, string> dic)
         {
-            return new ScanEvtMessage()
+            return new ScanSubscribeEvtMessage()
             {
                 ToUserName = dic["ToUserName"],
                 FromUserName = dic["FromUserName"],
