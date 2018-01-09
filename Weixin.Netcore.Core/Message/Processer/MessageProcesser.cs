@@ -24,6 +24,7 @@ namespace Weixin.Netcore.Core.Message.Processer
         private readonly ScanEvtMessageHandlerBase _scanEventHandler;
         private readonly LocationEvtMessageHandlerBase _locationEventHandler;
         private readonly ClickEvtMessageHandlerBase _clickEventHandler;
+        private readonly ScanSubscribeEvtMessageHandlerBase _scanSubscribeEventHandler;
 
         public MessageProcesser(IMessageRepetHandler messageRepetHandler,
             IMessageRepetValidUsage messageRepetValidUsage,
@@ -32,7 +33,8 @@ namespace Weixin.Netcore.Core.Message.Processer
             ShortVideoMessageHandlerBase shortVideoMessageHandler, LocationMessageHandlerBase locationMessageHandler,
             LinkMessageHandlerBase linkMessageHandler, SubscribeEvtMessageHandlerBase subscribeEventHandler,
             UnsubscribeEvtMessageHandlerBase unsubscribeEventHandler, ScanEvtMessageHandlerBase scanEventHandler,
-            LocationEvtMessageHandlerBase locationEventHandler, ClickEvtMessageHandlerBase clickEventHandler)
+            LocationEvtMessageHandlerBase locationEventHandler, ClickEvtMessageHandlerBase clickEventHandler,
+            ScanSubscribeEvtMessageHandlerBase scanSubscribeEventHandler)
         {
             _messageRepetHandler = messageRepetHandler;
             _messageRepetValidUsage = messageRepetValidUsage;
@@ -48,6 +50,7 @@ namespace Weixin.Netcore.Core.Message.Processer
             _scanEventHandler = scanEventHandler;
             _locationEventHandler = locationEventHandler;
             _clickEventHandler = clickEventHandler;
+            _scanSubscribeEventHandler = scanSubscribeEventHandler;
         }
 
         public string ProcessMessage(IMessage message)
@@ -123,6 +126,12 @@ namespace Weixin.Netcore.Core.Message.Processer
                 if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as ClickEvtMessage).FromUserName + (message as ClickEvtMessage).CreateTime))
                     return "success";
                 return _clickEventHandler.ClickEventHandler(message as ClickEvtMessage);
+            }
+            else if(message is ScanSubscribeEvtMessage)
+            {
+                if (_messageRepetValidUsage.IsRepetValidUse && !_messageRepetHandler.MessageRepetValid((message as ClickEvtMessage).FromUserName + (message as ClickEvtMessage).CreateTime))
+                    return "success";
+                return _scanSubscribeEventHandler.ScanSubscribeEventHandler(message as ScanSubscribeEvtMessage);
             }
             else
             {

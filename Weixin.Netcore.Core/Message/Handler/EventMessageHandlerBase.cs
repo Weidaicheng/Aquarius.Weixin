@@ -31,5 +31,10 @@ namespace Weixin.Netcore.Core.Message.Handler
         {
             return "success";
         }
+
+        public virtual string ScanSubscribeEventHandler(ScanSubscribeEvtMessage message)
+        {
+            return "success";
+        }
     }
 }
