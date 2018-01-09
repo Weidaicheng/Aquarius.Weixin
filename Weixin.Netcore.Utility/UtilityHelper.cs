@@ -83,21 +83,18 @@ namespace Weixin.Netcore.Utility
         /// <returns></returns>
         public static bool VerifyMsgSignature(string timestamp, string nonce, string token, string msgEncrypted, string msgSignature)
         {
-            string hash = GenarateMsgSinature(timestamp, nonce, token, msgEncrypted);
+            string hash = GenarateSinature(timestamp, nonce, token, msgEncrypted);
             return hash == msgSignature;
         }
 
         /// <summary>
-        /// 创建消息签名
+        /// 创建签名
         /// </summary>
-        /// <param name="token"></param>
-        /// <param name="timestamp"></param>
-        /// <param name="nonce"></param>
-        /// <param name="msgEncrypted"></param>
+        /// <param name="strings"></param>
         /// <returns></returns>
-        public static string GenarateMsgSinature(string timestamp, string nonce, string token, string msgEncrypted)
+        public static string GenarateSinature(params string[] strings)
         {
-            var arr = new[] { token, timestamp, nonce, msgEncrypted }.OrderBy(z => z).ToArray();
+            var arr = strings.OrderBy(z => z).ToArray();
             var arrString = string.Join("", arr);
 
             SHA1 sha;

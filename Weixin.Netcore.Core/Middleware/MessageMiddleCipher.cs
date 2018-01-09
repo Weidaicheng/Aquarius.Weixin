@@ -52,7 +52,7 @@ namespace Weixin.Netcore.Core.Middleware
             string replyMsgEncrypted = CryptographyHelper.AESEncrypt(replyMsg, _baseSettings.EncodingAESKey, _baseSettings.AppId);
             string timestamp = UtilityHelper.GetTimeStamp().ToString();
             string nonce = UtilityHelper.GenerateNonce();
-            string signature = UtilityHelper.GenarateMsgSinature(_baseSettings.Token, timestamp, nonce, replyMsgEncrypted);
+            string signature = UtilityHelper.GenarateSinature(_baseSettings.Token, timestamp, nonce, replyMsgEncrypted);
 
             StringBuilder sb = new StringBuilder();
             sb.Append($"<xml>");
