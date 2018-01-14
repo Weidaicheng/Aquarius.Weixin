@@ -273,8 +273,10 @@ namespace Weixin.Netcore.Core.InterfaceCaller
             #endregion
 
             IRestRequest request = new RestRequest("cgi-bin/message/template/send", Method.POST);
+            request.AddHeader("Accept", "application/json");
+            request.Parameters.Clear();
             request.AddQueryParameter("access_token", accessToken);
-            request.AddJsonBody(jsonStr);
+            request.AddParameter("application/json", jsonStr, ParameterType.RequestBody);
 
             IRestResponse response = _restClient.Execute(request);
 
