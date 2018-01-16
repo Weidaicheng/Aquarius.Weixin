@@ -126,12 +126,23 @@ namespace Weixin.Netcore.Utility
         /// <summary>
         /// 创建随机nonce
         /// </summary>
+        /// <param name="length"></param>
         /// <returns></returns>
-        public static string GenerateNonce()
+        public static string GenerateNonce(int length = 16)
         {
-            Random random = new Random();
-            int nonce = random.Next(100000000, 999999999);
-            return nonce.ToString();
+            char[] source = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
+                'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+                'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z' };
+
+            StringBuilder sb = new StringBuilder();
+            Random r = new Random();
+            for (int i = 0; i < length; i++)
+            {
+                var index = r.Next(0, source.Length);
+                sb.Append(source[index]);
+            }
+
+            return sb.ToString();
         }
 
         #region 距离计算
