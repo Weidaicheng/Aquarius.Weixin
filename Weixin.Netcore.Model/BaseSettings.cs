@@ -1,6 +1,4 @@
-﻿using Weixin.Netcore.Model.Enums;
-
-namespace Weixin.Netcore.Model
+﻿namespace Weixin.Netcore.Model
 {
     /// <summary>
     /// 基础设置
@@ -26,5 +24,10 @@ namespace Weixin.Netcore.Model
         /// AES Key
         /// </summary>
         public string EncodingAESKey { get; set; }
+
+        /// <summary>
+        /// 商户Id
+        /// </summary>
+        public string MchId { get; set; }
     }
 }
