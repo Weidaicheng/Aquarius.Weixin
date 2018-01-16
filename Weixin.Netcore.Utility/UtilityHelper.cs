@@ -124,6 +124,54 @@ namespace Weixin.Netcore.Utility
         }
 
         /// <summary>
+        /// 生成MD5
+        /// </summary>
+        /// <param name="sourceStr"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static string GenerateMD5(string sourceStr, Encoding encoding)
+        {
+            using (var md5 = MD5.Create())
+            {
+                var bytes = md5.ComputeHash(encoding.GetBytes(sourceStr));
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    sb.Append(bytes[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+        }
+
+        /// <summary>
+        /// 创建微信支付签名
+        /// </summary>
+        /// <param name="dic"></param>
+        /// <param name="apiKey"></param>
+        /// <param name="encoding"></param>
+        /// <returns></returns>
+        public static string GenerateWxPaySignature(Dictionary<string, string> dic, string apiKey, Encoding encoding = null)
+        {
+            //默认为UTF-8
+            encoding = encoding ?? Encoding.UTF8;
+
+            var arr = dic.OrderBy(z => z.Key).ToArray();
+            string stringSign = string.Empty;
+
+            foreach(var item in arr)
+            {
+                if (!string.IsNullOrEmpty(item.Value))
+                {
+                    stringSign += $"{item.Key}={item.Value}&"; 
+                }
+            }
+            stringSign += $"key={apiKey}";
+
+            return GenerateMD5(stringSign, encoding).ToUpper();
+        }
+
+        /// <summary>
         /// 创建随机nonce
         /// </summary>
         /// <param name="length"></param>
