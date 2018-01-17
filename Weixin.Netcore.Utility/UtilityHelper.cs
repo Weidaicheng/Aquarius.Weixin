@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -248,5 +250,15 @@ namespace Weixin.Netcore.Utility
             return distance;
         }
         #endregion
+
+        /// <summary>
+        /// 获取客户端IP
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        public static IPAddress GetClientIp(HttpRequest request)
+        {
+            return request.HttpContext.Connection.RemoteIpAddress;
+        }
     }
 }

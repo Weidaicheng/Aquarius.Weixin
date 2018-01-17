@@ -33,5 +33,11 @@ namespace Weixin.Netcore.Web.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        public IActionResult MyIp()
+        {
+            var ip = Request.HttpContext.Connection.RemoteIpAddress;
+            return Content(ip.ToString());
+        }
     }
 }
