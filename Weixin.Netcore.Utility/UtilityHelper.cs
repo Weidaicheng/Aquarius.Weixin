@@ -254,11 +254,16 @@ namespace Weixin.Netcore.Utility
         /// <summary>
         /// 获取客户端IP
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="httpContext"></param>
         /// <returns></returns>
-        public static IPAddress GetClientIp(HttpRequest request)
+        public static string GetClientIp(HttpContext httpContext)
         {
-            return request.HttpContext.Connection.RemoteIpAddress;
+            var ip = httpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault();
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = httpContext.Connection.RemoteIpAddress.ToString();
+            }
+            return ip;
         }
     }
 }

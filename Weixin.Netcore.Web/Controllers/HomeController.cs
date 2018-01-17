@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Weixin.Netcore.Utility;
 using Weixin.Netcore.Web.Models;
 
 namespace Weixin.Netcore.Web.Controllers
@@ -36,8 +37,7 @@ namespace Weixin.Netcore.Web.Controllers
 
         public IActionResult MyIp()
         {
-            var ip = Request.HttpContext.Connection.RemoteIpAddress;
-            return Content(ip.ToString());
+            return Content(UtilityHelper.GetClientIp(Request.HttpContext));
         }
     }
 }
