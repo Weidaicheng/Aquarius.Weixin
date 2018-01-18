@@ -51,5 +51,13 @@ namespace Weixin.Netcore.Test
             var sign = UtilityHelper.GenerateWxPaySignature(dic, "aaa");
             Console.WriteLine(sign);
         }
+
+        [TestMethod]
+        public void ReplaceTest()
+        {
+            var source = "<xml></xml>";
+            var after = source.Replace("<xml>", $"<{typeof(Model.Pay.WxPayResult).Name}>").Replace("</xml>", $"</{typeof(Model.Pay.WxPayResult).Name}>");
+            Assert.AreEqual("<WxPayResult></WxPayResult>", after);
+        }
     }
 }

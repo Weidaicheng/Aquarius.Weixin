@@ -29,5 +29,10 @@
         /// 商户Id
         /// </summary>
         public string MchId { get; set; }
+
+        /// <summary>
+        /// 商户ApiKey
+        /// </summary>
+        public string ApiKey { get; set; }
     }
 }
