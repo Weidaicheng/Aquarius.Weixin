@@ -48,7 +48,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <param name="signType">签名方式（目前只实现MD5）</param>
         /// <param name="feeType">币种（目前只有人民币）</param>
         /// <returns></returns>
-        public WxPayResult UnifiedOrder(string nonce, string body, string tradeNo, int totalFee, string clientIp, string notifyUrl, string openId, string signType = "MD5", string feeType = "CNY")
+        internal WxPayResult UnifiedOrder(string nonce, string body, string tradeNo, int totalFee, string clientIp, string notifyUrl, string openId, string signType = "MD5", string feeType = "CNY")
         {
             #region 拼接xml
             #region 获取签名

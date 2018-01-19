@@ -6,7 +6,6 @@ using RestSharp;
 using Weixin.Netcore.Core.MessageRepet;
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.Message.Processer;
-using Weixin.Netcore.Core.DebugSetting;
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -66,13 +65,12 @@ namespace Weixin.Netcore.Web
             //微信设置
             builder.Register(context => new BaseSettings()
             {
+                Debug = false,
                 AppId = Configuration["AppId"],
                 AppSecret = Configuration["AppSecret"],
                 Token = Configuration["Token"],
                 EncodingAESKey = Configuration["EncodingAESKey"]
             }).As<BaseSettings>();
-            //调试模式
-            builder.Register(context => new DebugMode(false)).As<IDebugMode>();
             //启用消息重复验证
             builder.Register(context => new MessageRepetValidUsage(true)).As<IMessageRepetValidUsage>();
             #endregion

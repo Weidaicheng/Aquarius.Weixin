@@ -1,6 +1,6 @@
 ﻿using System;
 using Weixin.Netcore.Cache;
-using Weixin.Netcore.Core.DebugSetting;
+using Weixin.Netcore.Model;
 
 namespace Weixin.Netcore.Core.MessageRepet
 {
@@ -10,17 +10,17 @@ namespace Weixin.Netcore.Core.MessageRepet
     public class MessageRepetHandler : IMessageRepetHandler
     {
         private readonly ICache _cache;
-        private readonly IDebugMode _debug;
+        private readonly BaseSettings _baseSettings;
 
-        public MessageRepetHandler(ICache cache, IDebugMode debug)
+        public MessageRepetHandler(ICache cache, BaseSettings baseSettings)
         {
             _cache = cache;
-            _debug = debug;
+            _baseSettings = baseSettings;
         }
 
         public bool MessageRepetValid(string key)
         {
-            if (_debug.IsDebug)
+            if (_baseSettings.Debug)
                 return true;
 
             var value = _cache.Get(key);

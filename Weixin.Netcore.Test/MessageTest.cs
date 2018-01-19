@@ -1,13 +1,13 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using Weixin.Netcore.Cache;
-using Weixin.Netcore.Core.DebugSetting;
 using Weixin.Netcore.Core.Message;
 using Weixin.Netcore.Core.Message.Handler;
 using Weixin.Netcore.Core.Message.Processer;
 using Weixin.Netcore.Core.Message.Reply;
 using Weixin.Netcore.Core.MessageRepet;
 using Weixin.Netcore.Extensions.Message.Handler;
+using Weixin.Netcore.Model;
 using Weixin.Netcore.Model.WeixinMessage;
 
 namespace Weixin.Netcore.Core.Test
@@ -28,9 +28,12 @@ namespace Weixin.Netcore.Core.Test
                         </xml>";
 
             IMessage message = MessageParser.ParseMessage(xml);
-            IDebugMode debugMode = new DebugMode(true);
+            BaseSettings baseSettings = new BaseSettings()
+            {
+                Debug = true
+            };
             ICache cache = new RedisCache(new Microsoft.Extensions.Caching.Redis.RedisCache(new Microsoft.Extensions.Caching.Redis.RedisCacheOptions() { Configuration = "127.0.0.1:6379,password=123456" }));
-            IMessageRepetHandler messageRepetHandler = new MessageRepetHandler(cache, debugMode);
+            IMessageRepetHandler messageRepetHandler = new MessageRepetHandler(cache, baseSettings);
             IMessageReply<TextMessage> messageReply = new TextMessageReply();
             ClickEvtMessageHandlerBase clickEvtMessageHandler = new ClickEventReplyTextHandler(messageReply);
             IMessageRepetValidUsage messageRepetValidUsage = new MessageRepetValidUsage(true);
@@ -41,8 +44,11 @@ namespace Weixin.Netcore.Core.Test
         [TestMethod]
         public void MessageRepetTest()
         {
-            IDebugMode debugMode = new DebugMode(true);
-            IMessageRepetHandler messageRepetHandler = new MessageRepetHandler(null, debugMode);
+            BaseSettings baseSettings = new BaseSettings()
+            {
+                Debug = true
+            };
+            IMessageRepetHandler messageRepetHandler = new MessageRepetHandler(null, baseSettings);
             Assert.IsTrue(messageRepetHandler.MessageRepetValid("key"));
         }
     }

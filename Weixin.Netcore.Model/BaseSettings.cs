@@ -6,6 +6,11 @@
     public sealed class BaseSettings
     {
         /// <summary>
+        /// 调试模式
+        /// </summary>
+        public bool Debug { get; set; }
+
+        /// <summary>
         /// AppId
         /// </summary>
         public string AppId { get; set; }

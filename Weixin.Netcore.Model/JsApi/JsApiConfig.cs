@@ -20,7 +20,7 @@ namespace Weixin.Netcore.Model.JsApi
         /// <summary>
         /// 生成签名的时间戳
         /// </summary>
-        public string timestamp { get; set; }
+        public long timestamp { get; set; }
 
         /// <summary>
         /// 生成签名的随机串
