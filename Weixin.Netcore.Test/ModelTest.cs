@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Weixin.Netcore.Model.Pay;
 using Weixin.Netcore.Model.WeixinMenu;
 using Weixin.Netcore.Model.WeixinMenu.Button;
 
@@ -41,6 +42,21 @@ namespace Weixin.Netcore.Test
             });
 
             Console.WriteLine(menu.ToJson());
+        }
+
+        [TestMethod]
+        public void SceneInfoToStringTest()
+        {
+            SceneInfo sceneInfo = new SceneInfo()
+            {
+                id = "1",
+                address = "1",
+                area_code = "1",
+                name = "1"
+            };
+
+            string assert = "{\"id\":\"1\",\"name\":\"1\",\"area_code\":\"1\",\"address\":\"1\"}";
+            Assert.AreEqual(assert, sceneInfo.ToString());
         }
     }
 }
