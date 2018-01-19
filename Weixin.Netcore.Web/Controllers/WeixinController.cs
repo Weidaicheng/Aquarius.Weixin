@@ -11,6 +11,7 @@ using Weixin.Netcore.Model.WeixinMessage;
 using Weixin.Netcore.Core.Message;
 using Weixin.Netcore.Core.Message.Processer;
 using Weixin.Netcore.Core.Middleware;
+using Weixin.Netcore.Core.Authentication;
 
 namespace Weixin.Netcore.Web.Controllers
 {
@@ -24,14 +25,16 @@ namespace Weixin.Netcore.Web.Controllers
         private readonly ILogger<WeixinController> _logger;
         private readonly MessageProcesser _processer;
         private readonly IMessageMiddleware _messageMiddleware;
+        private readonly Verifyer _verifyer;
 
         public WeixinController(IConfiguration configuration, ILogger<WeixinController> logger,
-            MessageProcesser processer, IMessageMiddleware messageMiddleware)
+            MessageProcesser processer, IMessageMiddleware messageMiddleware, Verifyer verifyer)
         {
             _configuration = configuration;
             _logger = logger;
             _processer = processer;
             _messageMiddleware = messageMiddleware;
+            _verifyer = verifyer;
         }
         #endregion
 
@@ -42,7 +45,7 @@ namespace Weixin.Netcore.Web.Controllers
                 if(!string.IsNullOrEmpty(echostr))
                 {
                     //服务器认证
-                    if (UtilityHelper.VerifySignature(timestamp, nonce, _configuration["Token"], signature))
+                    if (_verifyer.VerifySignature(timestamp, nonce, _configuration["Token"], signature))
                     {
                         return Content(echostr);
                     }

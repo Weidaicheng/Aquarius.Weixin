@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
+using Weixin.Netcore.Core.Authentication;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model;
 using Weixin.Netcore.Model.Enums;
@@ -18,16 +19,18 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         #region .ctor
         private readonly IRestClient _restClient;
         private readonly BaseSettings _baseSettings;
+        private readonly SignatureGenerater _generater;
 
         #region const
         private const string WeixinUri = "https://api.mch.weixin.qq.com";
         #endregion
 
-        public WxPayInterfaceCaller(IRestClient restClient, BaseSettings baseSettings)
+        public WxPayInterfaceCaller(IRestClient restClient, BaseSettings baseSettings, SignatureGenerater generater)
         {
             _restClient = restClient;
             _restClient.BaseUrl = new Uri(WeixinUri);
             _baseSettings = baseSettings;
+            _generater = generater;
         }
         #endregion
 
@@ -64,7 +67,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
                 {"fee_type", feeType },
                 {"trade_type", TradeType.JSAPI.ToString() },
             };
-            var sign = Utility.UtilityHelper.GenerateWxPaySignature(dic, _baseSettings.ApiKey);
+            var sign = _generater.GenerateWxPaySignature(dic, _baseSettings.ApiKey);
             #endregion
 
             string xml = $"<xml>";

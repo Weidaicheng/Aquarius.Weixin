@@ -95,6 +95,12 @@ namespace Weixin.Netcore.Web
             builder.RegisterType<MessageMiddlePlain>().As<IMessageMiddleware>();
             #endregion
 
+            #region 签名与验证
+            builder.RegisterAssemblyTypes(assemblies)
+                .Where(t => t.Namespace == "Weixin.Netcore.Core.Authentication")
+                .AsSelf();
+            #endregion
+
             #region 消息
             //消息重复处理
             builder.RegisterType<MessageRepetHandler>().As<IMessageRepetHandler>();

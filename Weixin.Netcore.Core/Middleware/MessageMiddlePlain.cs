@@ -1,4 +1,5 @@
-﻿using Weixin.Netcore.Core.Exceptions;
+﻿using Weixin.Netcore.Core.Authentication;
+using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model;
 using Weixin.Netcore.Utility;
 
@@ -10,16 +11,18 @@ namespace Weixin.Netcore.Core.Middleware
     public class MessageMiddlePlain : IMessageMiddleware
     {
         private readonly BaseSettings _baseSettings;
+        private readonly Verifyer _verify;
 
-        public MessageMiddlePlain(BaseSettings baseSettings)
+        public MessageMiddlePlain(BaseSettings baseSettings, Verifyer verifyer)
         {
             _baseSettings = baseSettings;
+            _verify = verifyer;
         }
 
         public string ReceiveMessageMiddle(string signature, string msgSignature, string timestamp, string nonce, string data)
         {
             //验证签名
-            if (!UtilityHelper.VerifySignature(timestamp, nonce, _baseSettings.Token, signature))
+            if (!_verify.VerifySignature(timestamp, nonce, _baseSettings.Token, signature))
             {
                 throw new SignatureInValidException("签名非法");
             }

@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace Weixin.Netcore.Utility
@@ -25,152 +22,6 @@ namespace Weixin.Netcore.Utility
             DateTime startUtc = new DateTime(1970, 1, 1);
             DateTime nowUtc = TimeZoneInfo.ConvertTime(DateTime.Now, TimeZoneInfo.Utc);
             return (long)(nowUtc - startUtc).TotalSeconds;
-        }
-
-        /// <summary>
-		/// XML转换为字典
-		/// </summary>
-		/// <param name="xml"></param>
-		/// <returns></returns>
-		public static Dictionary<string, string> Xml2Dictionary(string xml)
-        {
-            Dictionary<string, string> dictionary = new Dictionary<string, string>();
-            XmlDocument xmlDoc = new XmlDocument();
-
-            xmlDoc.LoadXml(xml);
-            XmlElement root = xmlDoc.DocumentElement;
-            foreach (XmlNode node in root.ChildNodes)
-            {
-                dictionary.Add(node.Name, node.InnerText);
-            }
-
-            return dictionary;
-        }
-
-        /// <summary>
-		/// 签名有效性验证
-		/// </summary>
-		/// <param name="signature"></param>
-		/// <param name="timestamp"></param>
-		/// <param name="nonce"></param>
-		/// <returns></returns>
-		public static bool VerifySignature(string timestamp, string nonce, string token, string signature)
-        {
-            var arr = new[] { token, timestamp, nonce }.OrderBy(z => z).ToArray();
-            var arrString = string.Join("", arr);
-
-            var sha1 = SHA1.Create();
-            var sha1Arr = sha1.ComputeHash(Encoding.UTF8.GetBytes(arrString));
-            StringBuilder enText = new StringBuilder();
-            foreach (var b in sha1Arr)
-            {
-                enText.AppendFormat("{0:x2}", b);
-            }
-            if (enText.ToString() == signature)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// 消息签名有效性验证
-        /// </summary>
-        /// <param name="timestamp"></param>
-        /// <param name="nonce"></param>
-        /// <param name="token"></param>
-        /// <param name="msgEncrypted"></param>
-        /// <param name="msgSignature"></param>
-        /// <returns></returns>
-        public static bool VerifyMsgSignature(string timestamp, string nonce, string token, string msgEncrypted, string msgSignature)
-        {
-            string hash = GenerateSinature(timestamp, nonce, token, msgEncrypted);
-            return hash == msgSignature;
-        }
-
-        /// <summary>
-        /// 创建签名
-        /// </summary>
-        /// <param name="strings"></param>
-        /// <returns></returns>
-        public static string GenerateSinature(params string[] strings)
-        {
-            var arr = strings.OrderBy(z => z).ToArray();
-            var arrString = string.Join("", arr);
-
-            SHA1 sha;
-            ASCIIEncoding enc;
-            string hash = "";
-            sha = new SHA1CryptoServiceProvider();
-            enc = new ASCIIEncoding();
-            byte[] dataToHash = enc.GetBytes(arrString);
-            byte[] dataHashed = sha.ComputeHash(dataToHash);
-            hash = BitConverter.ToString(dataHashed).Replace("-", "");
-            hash = hash.ToLower();
-            return hash;
-        }
-
-        /// <summary>
-        /// 创建JS-API签名
-        /// </summary>
-        /// <param name="ticket"></param>
-        /// <param name="noncestr"></param>
-        /// <param name="timestamp"></param>
-        /// <param name="url"></param>
-        /// <returns></returns>
-        public static string GenerateJsApiSignature(string ticket, string noncestr, long timestamp, string url)
-        {
-            string str = $"jsapi_ticket={ticket}&noncestr={noncestr}&timestamp={timestamp}&url={url}";
-            return GenerateSinature(str);
-        }
-
-        /// <summary>
-        /// 生成MD5
-        /// </summary>
-        /// <param name="sourceStr"></param>
-        /// <param name="encoding"></param>
-        /// <returns></returns>
-        public static string GenerateMD5(string sourceStr, Encoding encoding)
-        {
-            using (var md5 = MD5.Create())
-            {
-                var bytes = md5.ComputeHash(encoding.GetBytes(sourceStr));
-
-                StringBuilder sb = new StringBuilder();
-                for (int i = 0; i < bytes.Length; i++)
-                {
-                    sb.Append(bytes[i].ToString("x2"));
-                }
-                return sb.ToString();
-            }
-        }
-
-        /// <summary>
-        /// 创建微信支付签名
-        /// </summary>
-        /// <param name="dic"></param>
-        /// <param name="apiKey"></param>
-        /// <param name="encoding"></param>
-        /// <returns></returns>
-        public static string GenerateWxPaySignature(Dictionary<string, string> dic, string apiKey, Encoding encoding = null)
-        {
-            //默认为UTF-8
-            encoding = encoding ?? Encoding.UTF8;
-
-            var arr = dic.OrderBy(z => z.Key).ToArray();
-            string stringSign = string.Empty;
-
-            foreach(var item in arr)
-            {
-                if (!string.IsNullOrEmpty(item.Value))
-                {
-                    stringSign += $"{item.Key}={item.Value}&"; 
-                }
-            }
-            stringSign += $"key={apiKey}";
-
-            return GenerateMD5(stringSign, encoding).ToUpper();
         }
 
         /// <summary>
@@ -194,6 +45,82 @@ namespace Weixin.Netcore.Utility
 
             return sb.ToString();
         }
+
+        /// <summary>
+		/// XML转换为字典
+		/// </summary>
+		/// <param name="xml"></param>
+		/// <returns></returns>
+		public static Dictionary<string, string> Xml2Dictionary(string xml)
+        {
+            Dictionary<string, string> dictionary = new Dictionary<string, string>();
+            XmlDocument xmlDoc = new XmlDocument();
+
+            xmlDoc.LoadXml(xml);
+            XmlElement root = xmlDoc.DocumentElement;
+            foreach (XmlNode node in root.ChildNodes)
+            {
+                dictionary.Add(node.Name, node.InnerText);
+            }
+
+            return dictionary;
+        }
+
+        /// <summary>
+        /// 获取客户端IP
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
+        public static string GetClientIp(HttpContext httpContext)
+        {
+            var ip = httpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault();
+            if (string.IsNullOrEmpty(ip))
+            {
+                ip = httpContext.Connection.RemoteIpAddress.ToString();
+            }
+            return ip;
+        }
+
+        #region 加密
+        /// <summary>
+        /// SHA1加密
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static string SHA1Encrypt(string source)
+        {
+            SHA1 sha;
+            ASCIIEncoding enc;
+            string hash = "";
+            sha = new SHA1CryptoServiceProvider();
+            enc = new ASCIIEncoding();
+            byte[] dataToHash = enc.GetBytes(source);
+            byte[] dataHashed = sha.ComputeHash(dataToHash);
+            hash = BitConverter.ToString(dataHashed).Replace("-", "");
+            hash = hash.ToLower();
+            return hash;
+        }
+
+        /// <summary>
+        /// MD5加密（UTF-8编码）
+        /// </summary>
+        /// <param name="source"></param>
+        /// <returns></returns>
+        public static string MD5Encrypt(string source)
+        {
+            using (var md5 = MD5.Create())
+            {
+                var bytes = md5.ComputeHash(Encoding.UTF8.GetBytes(source));
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    sb.Append(bytes[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+        }
+        #endregion
 
         #region 距离计算
         #region private
@@ -250,20 +177,5 @@ namespace Weixin.Netcore.Utility
             return distance;
         }
         #endregion
-
-        /// <summary>
-        /// 获取客户端IP
-        /// </summary>
-        /// <param name="httpContext"></param>
-        /// <returns></returns>
-        public static string GetClientIp(HttpContext httpContext)
-        {
-            var ip = httpContext.Request.Headers["X-Forwarded-For"].FirstOrDefault();
-            if (string.IsNullOrEmpty(ip))
-            {
-                ip = httpContext.Connection.RemoteIpAddress.ToString();
-            }
-            return ip;
-        }
     }
 }
