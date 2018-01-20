@@ -39,5 +39,15 @@
         /// 商户ApiKey
         /// </summary>
         public string ApiKey { get; set; }
+
+        /// <summary>
+        /// p12证书路径
+        /// </summary>
+        public string CertRoot { get; set; }
+
+        /// <summary>
+        /// p12证书密码
+        /// </summary>
+        public string CertPass { get; set; }
     }
 }
