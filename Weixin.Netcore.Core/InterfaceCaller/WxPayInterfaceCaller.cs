@@ -1,11 +1,15 @@
 ﻿using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
 using Weixin.Netcore.Core.Authentication;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Model;
+using Weixin.Netcore.Model.Enums;
 using Weixin.Netcore.Model.Pay;
+using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
 {
@@ -16,19 +20,17 @@ namespace Weixin.Netcore.Core.InterfaceCaller
     {
         #region .ctor
         private readonly IRestClient _restClient;
-        private readonly BaseSettings _baseSettings;
-        private readonly SignatureGenerater _signatureGenerater;
 
         #region const
         private const string WeixinUri = "https://api.mch.weixin.qq.com";
+        private const string SUCCESS = "SUCCESS";
+        private const string Y = "Y";
         #endregion
 
-        public WxPayInterfaceCaller(IRestClient restClient, BaseSettings baseSettings, SignatureGenerater signatureGenerater)
+        public WxPayInterfaceCaller(IRestClient restClient)
         {
             _restClient = restClient;
             _restClient.BaseUrl = new Uri(WeixinUri);
-            _baseSettings = baseSettings;
-            _signatureGenerater = signatureGenerater;
         }
         #endregion
 
@@ -37,7 +39,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// </summary>
         /// <param name="orderXml">xml</param>
         /// <returns></returns>
-        internal WxPayResult UnifiedOrder(string orderXml)
+        internal UnifiedOrderResult UnifiedOrder(string orderXml)
         {
             IRestRequest request = new RestRequest("pay/unifiedorder", Method.POST);
             request.AddHeader("Accept", "application/xml");
@@ -46,25 +48,123 @@ namespace Weixin.Netcore.Core.InterfaceCaller
 
             IRestResponse response = _restClient.Execute(request);
 
-            var content = response.Content.Replace("<xml>", $"<{typeof(WxPayResult).Name}>").Replace("</xml>", $"</{typeof(WxPayResult).Name}>");
+            var content = response.Content.Replace("<xml>", $"<{typeof(UnifiedOrderResult).Name}>").Replace("</xml>", $"</{typeof(UnifiedOrderResult).Name}>");
             using (StringReader r = new StringReader(content))
             {
-                XmlSerializer serializer = new XmlSerializer(typeof(WxPayResult));
-                var wxpayResult = serializer.Deserialize(r) as WxPayResult;
+                XmlSerializer serializer = new XmlSerializer(typeof(UnifiedOrderResult));
+                var result = serializer.Deserialize(r) as UnifiedOrderResult;
 
-                if (wxpayResult.return_code.ToUpper() == "SUCCESS" && wxpayResult.result_code.ToUpper() == "SUCCESS")
+                if (result.return_code.ToUpper() == SUCCESS && result.result_code.ToUpper() == SUCCESS)
                 {
-                    return wxpayResult;
+                    return result;
                 }
                 else
                 {
-                    if (wxpayResult.return_code.ToUpper() != "SUCCESS")
+                    if (result.return_code.ToUpper() != SUCCESS)
                     {
-                        throw new WeixinInterfaceException(wxpayResult.return_msg);
+                        throw new WeixinInterfaceException(result.return_msg);
                     }
                     else
                     {
-                        throw new WeixinInterfaceException(wxpayResult.err_code_des);
+                        throw new WeixinInterfaceException(result.err_code_des);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 查询订单
+        /// </summary>
+        /// <param name="orderQuery"></param>
+        /// <returns></returns>
+        public OrderQueryResult QueryOrder(OrderQuery orderQuery)
+        {
+            if((string.IsNullOrWhiteSpace(orderQuery.transaction_id) && string.IsNullOrWhiteSpace(orderQuery.out_trade_no)) || 
+                (!string.IsNullOrEmpty(orderQuery.transaction_id) && !string.IsNullOrEmpty(orderQuery.out_trade_no)))
+            {
+                throw new ArgumentException("微信订单号和商户订单号必须二选一");
+            }
+
+            #region 拼接xml
+            string xml = $"<xml>";
+            xml += $"<appid>{orderQuery.appid}</appid>";
+            xml += $"<mch_id>{orderQuery.mch_id}</mch_id>";
+            if (!string.IsNullOrEmpty(orderQuery.transaction_id))
+            {
+                xml += $"<transaction_id>{orderQuery.transaction_id}</transaction_id>"; 
+            }
+            else
+            {
+                xml += $"<out_trade_no>{orderQuery.out_trade_no}</out_trade_no>";
+            }
+            xml += $"<nonce_str>{orderQuery.nonce_str}</nonce_str>";
+            xml += $"<sign>{orderQuery.sign}</sign>";
+            xml += $"<sign_type>{orderQuery.sign_type}</sign_type>";
+            xml += $"</xml>";
+            #endregion
+
+            IRestRequest request = new RestRequest("pay/unifiedorder", Method.POST);
+            request.AddHeader("Accept", "application/xml");
+            request.Parameters.Clear();
+            request.AddParameter("application/xml", xml, ParameterType.RequestBody);
+
+            IRestResponse response = _restClient.Execute(request);
+
+            var content = response.Content
+                .Replace("<xml>", $"<{typeof(OrderQueryResult).Name}>").Replace("</xml>", $"</{typeof(OrderQueryResult).Name}>")
+                .Replace('$', '_');
+            using (StringReader r = new StringReader(content))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(OrderQueryResult));
+                var result = serializer.Deserialize(r) as OrderQueryResult;
+
+                if (result.return_code.ToUpper() == SUCCESS && result.result_code.ToUpper() == SUCCESS)
+                {
+                    //属性转换
+                    if (!string.IsNullOrEmpty(result.is_subscribe))
+                        result.IsSubscribe = result.is_subscribe == Y ? true : false;
+                    else
+                        result.IsSubscribe = null;
+
+                    result.TradeType = (TradeType)Enum.Parse(typeof(TradeType), result.trade_type);
+                    result.TradeState = (TradeState)Enum.Parse(typeof(TradeState), result.trade_state);
+                    result.BankType = (BankType)Enum.Parse(typeof(BankType), result.bank_type);
+                    result.FeeType = string.IsNullOrEmpty(result.fee_type) ? FeeType.CNY : (FeeType)Enum.Parse(typeof(FeeType), result.fee_type);
+                    result.CashFeeType = string.IsNullOrEmpty(result.cash_fee_type) ? FeeType.CNY : (FeeType)Enum.Parse(typeof(FeeType), result.cash_fee_type);
+                    result.TimeEnd = DateTime.Parse($"{result.time_end.Substring(0, 4)}-{result.time_end.Substring(4, 2)}-{result.time_end.Substring(6, 2)} {result.time_end.Substring(8, 2)}:{result.time_end.Substring(10, 2)}:{result.time_end.Substring(12, 2)}");
+
+                    var dic = UtilityHelper.Xml2Dictionary(content);
+                    var couponTypes = dic.Where(x => x.Key.Contains("coupon_type"));
+                    var couponIds = dic.Where(x => x.Key.Contains("coupon_id"));
+                    var couponFees = dic.Where(x => x.Key.Contains("coupon_fee"));
+                    if(couponTypes != null && couponTypes.Count() > 0)
+                    {
+                        var coupons = new List<Coupon>();
+                        foreach(var item in couponTypes)
+                        {
+                            coupons.Add(new Coupon()
+                            {
+                                Id = int.Parse(item.Key.Replace("coupon_type__", string.Empty)),
+                                CouponId = couponIds.FirstOrDefault(x => x.Key == $"coupon_id__{item.Key.Replace("coupon_type__", string.Empty)}").Value,
+                                CouponType = (CouponType)Enum.Parse(typeof(CouponType), item.Value),
+                                CouponFee = int.Parse(couponFees.FirstOrDefault(x => x.Key == $"coupon_fee__{item.Key.Replace("coupon_type__", string.Empty)}").Value)
+                            });
+                        }
+
+                        result.Coupons = coupons;
+                    }
+
+                    return result;
+                }
+                else
+                {
+                    if (result.return_code.ToUpper() != SUCCESS)
+                    {
+                        throw new WeixinInterfaceException(result.return_msg);
+                    }
+                    else
+                    {
+                        throw new WeixinInterfaceException(result.err_code_des);
                     }
                 }
             }

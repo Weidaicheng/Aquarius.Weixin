@@ -3,7 +3,7 @@
     /// <summary>
     /// 微信支付返回结果
     /// </summary>
-    public class WxPayResult
+    public class UnifiedOrderResult
     {
         /// <summary>
         /// 返回状态码

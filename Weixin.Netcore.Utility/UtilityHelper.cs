@@ -47,6 +47,16 @@ namespace Weixin.Netcore.Utility
         }
 
         /// <summary>
+        /// 创建32位订单号
+        /// </summary>
+        /// <returns></returns>
+        public static string GenerateTradeNo()
+        {
+            var tradeNo = Guid.NewGuid();
+            return tradeNo.ToString().Replace("-", string.Empty);
+        }
+
+        /// <summary>
 		/// XML转换为字典
 		/// </summary>
 		/// <param name="xml"></param>
