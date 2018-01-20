@@ -28,6 +28,7 @@ namespace Weixin.Netcore.Core.JsApi
             _signatureGenerator = signatureGenerater;
             _baseSettings = baseSettings;
             _accessTokenContainer = accessTokenContainer;
+            _ticketContainer = ticketContainer;
             _wxPayInterfaceCaller = wxPayInterfaceCaller;
         }
         #endregion
