@@ -7,11 +7,11 @@ using System.Text;
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Core.MaintainContainer;
-using Weixin.Netcore.Model;
-using Weixin.Netcore.Model.OAuth;
-using Weixin.Netcore.Model.WeixinMenu;
-using Weixin.Netcore.Model.WeixinMenu.Button;
-using Weixin.Netcore.Model.WeixinMenu.Conditional;
+using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.OAuth;
+using Weixin.Netcore.Entity.WeixinMenu;
+using Weixin.Netcore.Entity.WeixinMenu.Button;
+using Weixin.Netcore.Entity.WeixinMenu.Conditional;
 
 namespace Weixin.Netcore.Test
 {

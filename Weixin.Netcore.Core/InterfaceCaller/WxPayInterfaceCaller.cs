@@ -6,9 +6,9 @@ using System.Linq;
 using System.Xml.Serialization;
 using Weixin.Netcore.Core.Authentication;
 using Weixin.Netcore.Core.Exceptions;
-using Weixin.Netcore.Model;
-using Weixin.Netcore.Model.Enums;
-using Weixin.Netcore.Model.Pay;
+using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.Enums;
+using Weixin.Netcore.Entity.Pay;
 using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Core.InterfaceCaller

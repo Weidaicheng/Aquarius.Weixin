@@ -1,6 +1,6 @@
 ﻿using Weixin.Netcore.Core.Message.Handler;
 using Weixin.Netcore.Core.Message.Reply;
-using Weixin.Netcore.Model.WeixinMessage;
+using Weixin.Netcore.Entity.WeixinMessage;
 using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Extensions.Message.Handler

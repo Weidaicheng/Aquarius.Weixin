@@ -3,11 +3,11 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using Weixin.Netcore.Core.Exceptions;
-using Weixin.Netcore.Model;
-using IndustryEnum = Weixin.Netcore.Model.Enums.Industry;
-using IndustryClass = Weixin.Netcore.Model.TemplateMessage.Industry;
-using Weixin.Netcore.Model.TemplateMessage;
-using Weixin.Netcore.Model.Argument;
+using Weixin.Netcore.Entity;
+using IndustryEnum = Weixin.Netcore.Entity.Enums.Industry;
+using IndustryClass = Weixin.Netcore.Entity.TemplateMessage.Industry;
+using Weixin.Netcore.Entity.TemplateMessage;
+using Weixin.Netcore.Entity.Argument;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
 {

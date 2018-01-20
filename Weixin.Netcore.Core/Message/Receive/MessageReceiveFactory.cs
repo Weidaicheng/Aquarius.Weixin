@@ -1,4 +1,4 @@
-﻿using Weixin.Netcore.Model.Enums;
+﻿using Weixin.Netcore.Entity.Enums;
 
 namespace Weixin.Netcore.Core.Message.Receive
 {

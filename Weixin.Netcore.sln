@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Core", "Weixin.Netcore.Core\Weixin.Netcore.Core.csproj", "{F6CE1896-3A1F-473B-AA85-C945FA92D89A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Model", "Weixin.Netcore.Model\Weixin.Netcore.Model.csproj", "{E0F20462-CC27-4F9F-96F7-E7C658463395}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Entity", "Weixin.Netcore.Entity\Weixin.Netcore.Entity.csproj", "{E0F20462-CC27-4F9F-96F7-E7C658463395}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Weixin.Netcore.Utility", "Weixin.Netcore.Utility\Weixin.Netcore.Utility.csproj", "{D84D6D77-5985-48B0-9601-7947FD168735}"
 EndProject

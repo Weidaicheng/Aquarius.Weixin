@@ -9,7 +9,7 @@ using Weixin.Netcore.Core.Message.Processer;
 using System;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Weixin.Netcore.Model;
+using Weixin.Netcore.Entity;
 using Weixin.Netcore.Core.Middleware;
 
 namespace Weixin.Netcore.Web

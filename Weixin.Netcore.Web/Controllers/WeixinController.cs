@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Weixin.Netcore.Utility;
 using System.IO;
 using Microsoft.Extensions.Logging;
-using Weixin.Netcore.Model.WeixinMessage;
+using Weixin.Netcore.Entity.WeixinMessage;
 using Weixin.Netcore.Core.Message;
 using Weixin.Netcore.Core.Message.Processer;
 using Weixin.Netcore.Core.Middleware;

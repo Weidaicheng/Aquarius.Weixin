@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Weixin.Netcore.Model.Pay;
-using Weixin.Netcore.Model.WeixinMenu;
-using Weixin.Netcore.Model.WeixinMenu.Button;
+using Weixin.Netcore.Entity.Pay;
+using Weixin.Netcore.Entity.WeixinMenu;
+using Weixin.Netcore.Entity.WeixinMenu.Button;
 
 namespace Weixin.Netcore.Test
 {

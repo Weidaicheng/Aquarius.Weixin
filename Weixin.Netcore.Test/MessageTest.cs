@@ -7,8 +7,8 @@ using Weixin.Netcore.Core.Message.Processer;
 using Weixin.Netcore.Core.Message.Reply;
 using Weixin.Netcore.Core.MessageRepet;
 using Weixin.Netcore.Extensions.Message.Handler;
-using Weixin.Netcore.Model;
-using Weixin.Netcore.Model.WeixinMessage;
+using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.WeixinMessage;
 
 namespace Weixin.Netcore.Core.Test
 {

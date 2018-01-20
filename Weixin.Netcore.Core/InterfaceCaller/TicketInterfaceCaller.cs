@@ -4,8 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Weixin.Netcore.Core.Exceptions;
-using Weixin.Netcore.Model;
-using Weixin.Netcore.Model.Ticket;
+using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.Ticket;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
 {

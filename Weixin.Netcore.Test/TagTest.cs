@@ -8,7 +8,7 @@ using System.Text;
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Core.MaintainContainer;
-using Weixin.Netcore.Model;
+using Weixin.Netcore.Entity;
 
 namespace Weixin.Netcore.Test
 {
@@ -192,7 +192,7 @@ namespace Weixin.Netcore.Test
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
             UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
-            var userInfo = tagManageInterfaceCaller.GetUserInfo(accessToken, "oGV7Kv0bgXvAUabe8sDopmKlzPNE", Model.Enums.Language.zh_CN);
+            var userInfo = tagManageInterfaceCaller.GetUserInfo(accessToken, "oGV7Kv0bgXvAUabe8sDopmKlzPNE", Entity.Enums.Language.zh_CN);
             Console.WriteLine(JsonConvert.SerializeObject(userInfo));
         }
 

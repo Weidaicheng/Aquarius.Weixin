@@ -2,8 +2,8 @@
 using RestSharp;
 using System;
 using Weixin.Netcore.Core.Exceptions;
-using Weixin.Netcore.Model;
-using Weixin.Netcore.Model.WeixinMenu;
+using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.WeixinMenu;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
 {

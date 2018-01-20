@@ -2,9 +2,9 @@
 using Weixin.Netcore.Core.Authentication;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Core.MaintainContainer;
-using Weixin.Netcore.Model;
-using Weixin.Netcore.Model.JsApi;
-using Weixin.Netcore.Model.Pay;
+using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.JsApi;
+using Weixin.Netcore.Entity.Pay;
 using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Core.JsApi

@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Weixin.Netcore.Model.WeixinMessage;
+using Weixin.Netcore.Entity.WeixinMessage;
 using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Core.Message.Receive

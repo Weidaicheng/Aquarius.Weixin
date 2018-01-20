@@ -3,10 +3,10 @@ using RestSharp;
 using System;
 using System.Collections.Generic;
 using Weixin.Netcore.Core.Exceptions;
-using Weixin.Netcore.Model.UserManage;
-using Weixin.Netcore.Model;
-using Weixin.Netcore.Model.Enums;
-using Weixin.Netcore.Model.Argument;
+using Weixin.Netcore.Entity.UserManage;
+using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.Enums;
+using Weixin.Netcore.Entity.Argument;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
 {

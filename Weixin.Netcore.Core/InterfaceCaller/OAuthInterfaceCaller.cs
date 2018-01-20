@@ -2,9 +2,9 @@
 using RestSharp;
 using System;
 using Weixin.Netcore.Core.Exceptions;
-using Weixin.Netcore.Model;
-using Weixin.Netcore.Model.Enums;
-using Weixin.Netcore.Model.OAuth;
+using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.Enums;
+using Weixin.Netcore.Entity.OAuth;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
 {

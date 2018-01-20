@@ -7,7 +7,7 @@ using System.Text;
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Core.MaintainContainer;
-using Weixin.Netcore.Model;
+using Weixin.Netcore.Entity;
 
 namespace Weixin.Netcore.Test
 {

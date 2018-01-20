@@ -1,4 +1,4 @@
-﻿using Weixin.Netcore.Model.WeixinMessage;
+﻿using Weixin.Netcore.Entity.WeixinMessage;
 
 namespace Weixin.Netcore.Core.Message.Handler
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 using Weixin.Netcore.Cache;
-using Weixin.Netcore.Model;
+using Weixin.Netcore.Entity;
 
 namespace Weixin.Netcore.Core.MessageRepet
 {

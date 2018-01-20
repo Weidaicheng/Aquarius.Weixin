@@ -1,7 +1,7 @@
 ﻿using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Core.Message.Handler;
 using Weixin.Netcore.Core.MessageRepet;
-using Weixin.Netcore.Model.WeixinMessage;
+using Weixin.Netcore.Entity.WeixinMessage;
 
 namespace Weixin.Netcore.Core.Message.Processer
 {
