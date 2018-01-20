@@ -15,19 +15,18 @@ namespace Weixin.Netcore.Core.JsApi
     public class ConfigGenerater
     {
         #region .ctor
-        private readonly TicketInterfaceCaller _ticketInterfaceCaller;
         private readonly WxPayInterfaceCaller _wxPayInterfaceCaller;
         private readonly AccessTokenContainer _accessTokenContainer;
+        private readonly TicketContainer _ticketContainer;
         private readonly SignatureGenerater _signatureGenerator;
         private readonly BaseSettings _baseSettings;
 
         public ConfigGenerater(SignatureGenerater signatureGenerater, BaseSettings baseSettings, 
-            TicketInterfaceCaller ticketInterfaceCaller, AccessTokenContainer accessTokenContainer,
+            TicketContainer ticketContainer, AccessTokenContainer accessTokenContainer,
             WxPayInterfaceCaller wxPayInterfaceCaller)
         {
             _signatureGenerator = signatureGenerater;
             _baseSettings = baseSettings;
-            _ticketInterfaceCaller = ticketInterfaceCaller;
             _accessTokenContainer = accessTokenContainer;
             _wxPayInterfaceCaller = wxPayInterfaceCaller;
         }
@@ -44,8 +43,8 @@ namespace Weixin.Netcore.Core.JsApi
             var timeStamp = UtilityHelper.GetTimeStamp();
             var nonceStr = UtilityHelper.GenerateNonce();
             var accessToken = _accessTokenContainer.GetAccessToken();
-            var ticket = _ticketInterfaceCaller.GetJsApiTicket(accessToken);
-            var signature = _signatureGenerator.GenerateJsApiSignature(ticket.ticket, nonceStr, timeStamp, url);
+            var ticket = _ticketContainer.GetJsApiTicket(accessToken);
+            var signature = _signatureGenerator.GenerateJsApiSignature(ticket, nonceStr, timeStamp, url);
 
             return new JsApiConfig()
             {
