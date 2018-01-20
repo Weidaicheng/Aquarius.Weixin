@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -79,6 +80,19 @@ namespace Weixin.Netcore.Utility
                 var name = item.Name;
                 //属性值
                 var value = (type.GetProperty(name).GetValue(obj) ?? "").ToString();
+
+                //Required检查
+                var required = type.GetProperty(name).GetCustomAttributes(typeof(RequiredAttribute), false).FirstOrDefault() as RequiredAttribute;
+                if (required != null && string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException($"The {name} field is required");
+                }
+                //MaxLength检查
+                var maxLength = type.GetProperty(name).GetCustomAttributes(typeof(MaxLengthAttribute), false).FirstOrDefault() as MaxLengthAttribute;
+                if (maxLength != null && !string.IsNullOrEmpty(value) && value.Length > maxLength.Length)
+                {
+                    throw new ArgumentException($"The field {name} must be a string or array type with a maximum length of '{maxLength.Length}'");
+                }
 
                 if (!canVEmpty && string.IsNullOrEmpty(value))
                     continue;
