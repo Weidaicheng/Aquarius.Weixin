@@ -60,18 +60,16 @@ namespace Weixin.Netcore.Core.JsApi
         /// <summary>
         /// 创建chooseWxPay配置
         /// </summary>
-        /// <param name="order"></param>
+        /// <param name="unifiedOrder"></param>
         /// <returns></returns>
-        public ChooseWxPayConfig GenerateChooseWxPayConfig(UnifiedOrder order)
+        public ChooseWxPayConfig GenerateChooseWxPayConfig(UnifiedOrder unifiedOrder)
         {
             //转换字典
-            var dic = UtilityHelper.Obj2Dictionary(order);
+            var dic = UtilityHelper.Obj2Dictionary(unifiedOrder);
             //生成签名
-            order.sign = _signatureGenerator.GenerateWxPaySignature(dic, _baseSettings.ApiKey);
-            //xml
-            string xml = UtilityHelper.Obj2Xml(order);
-
-            var wxPayResult = _wxPayInterfaceCaller.UnifiedOrder(xml);
+            unifiedOrder.sign = _signatureGenerator.GenerateWxPaySignature(dic, _baseSettings.ApiKey);
+            //统一下单
+            var unifiedOrderResult = _wxPayInterfaceCaller.UnifiedOrder(unifiedOrder);
 
             var nonceStr = UtilityHelper.GenerateNonce();
             var timeStamp = UtilityHelper.GetTimeStamp();
@@ -79,7 +77,7 @@ namespace Weixin.Netcore.Core.JsApi
             {
                 nonceStr = nonceStr,
                 timestamp = timeStamp,
-                package = wxPayResult.prepay_id,
+                package = unifiedOrderResult.prepay_id,
                 signType = "MD5"
             };
             var paySign = _signatureGenerator.GenerateWxPaySignature(new Dictionary<string, string>()

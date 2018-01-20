@@ -37,14 +37,17 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <summary>
         /// 统一下单
         /// </summary>
-        /// <param name="orderXml">xml</param>
+        /// <param name="unifiedOrder"></param>
         /// <returns></returns>
-        internal UnifiedOrderResult UnifiedOrder(string orderXml)
+        internal UnifiedOrderResult UnifiedOrder(UnifiedOrder unifiedOrder)
         {
+            //转换xml
+            string xml = UtilityHelper.Obj2Xml(unifiedOrder);
+
             IRestRequest request = new RestRequest("pay/unifiedorder", Method.POST);
             request.AddHeader("Accept", "application/xml");
             request.Parameters.Clear();
-            request.AddParameter("application/xml", orderXml, ParameterType.RequestBody);
+            request.AddParameter("application/xml", xml, ParameterType.RequestBody);
 
             IRestResponse response = _restClient.Execute(request);
 
