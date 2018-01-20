@@ -57,6 +57,73 @@ namespace Weixin.Netcore.Utility
         }
 
         /// <summary>
+        /// 对象转换为xml
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="canVEmpty">值是否可以为空</param>
+        /// <returns></returns>
+        public static string Obj2Xml<T>(T obj, bool canVEmpty = false)
+        {
+            //类型
+            var type = typeof(T);
+            //所有属性
+            var properties = type.GetProperties();
+
+            //xml
+            string xml = $"<xml>";
+            //读取所有属性值
+            foreach (var item in properties)
+            {
+                //属性名
+                var name = item.Name;
+                //属性值
+                var value = (type.GetProperty(name).GetValue(obj) ?? "").ToString();
+
+                if (!canVEmpty && string.IsNullOrEmpty(value))
+                    continue;
+
+                xml += $"<{name}>{value}</{name}>";
+            }
+            xml += $"</xml>";
+
+            return xml;
+        }
+
+        /// <summary>
+        /// 对象转换为字典
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="obj"></param>
+        /// <param name="canVEmpty">值是否可以为空</param>
+        /// <returns></returns>
+        public static Dictionary<string, string> Obj2Dictionary<T>(T obj, bool canVEmpty = false)
+        {
+            //类型
+            var type = typeof(T);
+            //所有属性
+            var properties = type.GetProperties();
+
+            //dic
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            //读取所有属性值
+            foreach (var item in properties)
+            {
+                //属性名
+                var name = item.Name;
+                //属性值
+                var value = (type.GetProperty(name).GetValue(obj) ?? "").ToString();
+
+                if (!canVEmpty && string.IsNullOrEmpty(value))
+                    continue;
+
+                dic.Add(name, value);
+            }
+
+            return dic;
+        }
+
+        /// <summary>
 		/// XML转换为字典
 		/// </summary>
 		/// <param name="xml"></param>

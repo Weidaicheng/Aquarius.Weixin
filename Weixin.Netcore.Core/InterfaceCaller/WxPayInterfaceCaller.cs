@@ -85,23 +85,8 @@ namespace Weixin.Netcore.Core.InterfaceCaller
                 throw new ArgumentException("微信订单号和商户订单号必须二选一");
             }
 
-            #region 拼接xml
-            string xml = $"<xml>";
-            xml += $"<appid>{orderQuery.appid}</appid>";
-            xml += $"<mch_id>{orderQuery.mch_id}</mch_id>";
-            if (!string.IsNullOrEmpty(orderQuery.transaction_id))
-            {
-                xml += $"<transaction_id>{orderQuery.transaction_id}</transaction_id>"; 
-            }
-            else
-            {
-                xml += $"<out_trade_no>{orderQuery.out_trade_no}</out_trade_no>";
-            }
-            xml += $"<nonce_str>{orderQuery.nonce_str}</nonce_str>";
-            xml += $"<sign>{orderQuery.sign}</sign>";
-            xml += $"<sign_type>{orderQuery.sign_type}</sign_type>";
-            xml += $"</xml>";
-            #endregion
+            //转换xml
+            string xml = UtilityHelper.Obj2Xml(orderQuery);
 
             IRestRequest request = new RestRequest("pay/unifiedorder", Method.POST);
             request.AddHeader("Accept", "application/xml");

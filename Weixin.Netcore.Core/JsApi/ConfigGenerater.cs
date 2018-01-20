@@ -65,37 +65,12 @@ namespace Weixin.Netcore.Core.JsApi
         /// <returns></returns>
         public ChooseWxPayConfig GenerateChooseWxPayConfig(UnifiedOrder order)
         {
-            #region 拼接xml
-            //类型
-            var type = typeof(UnifiedOrder);
-            //所有属性
-            var properties = order.GetType().GetProperties();
-
+            //转换字典
+            var dic = UtilityHelper.Obj2Dictionary(order);
+            //生成签名
+            order.sign = _signatureGenerator.GenerateWxPaySignature(dic, _baseSettings.ApiKey);
             //xml
-            string xml = $"<xml>";
-            //字典
-            Dictionary<string, string> dic = new Dictionary<string, string>();
-
-            //读取所有属性值
-            foreach(var item in properties)
-            {
-                var name = item.Name;
-                var value = (type.GetProperty(name).GetValue(order) ?? "").ToString();
-
-                if (!string.IsNullOrEmpty(value))
-                {
-                    dic.Add(name, value);
-                    xml += $"<{name}>{value}</{name}>";
-                }
-            }
-
-            //获取签名
-            var sign = _signatureGenerator.GenerateWxPaySignature(dic, _baseSettings.ApiKey);
-
-            //拼接签名
-            xml += $"<sign>{sign}</sign>";
-            xml += $"</xml>";
-            #endregion
+            string xml = UtilityHelper.Obj2Xml(order);
 
             var wxPayResult = _wxPayInterfaceCaller.UnifiedOrder(xml);
 
