@@ -53,5 +53,14 @@ namespace Weixin.Netcore.Test
 
             var dic = UtilityHelper.Obj2Dictionary(orderQuery);
         }
+
+        [TestMethod]
+        public void SHA256EncryptTest()
+        {
+            string key = "192006250b4c09247ec02edce69f6a2d";
+            string str = "appid=wxd930ea5d5a258f4f&body=test&device_info=1000&mch_id=10000100&nonce_str=ibuaiVcKdpRxkhJA" + $"&key={key}";
+            Assert.AreEqual("6A9AE1657590FD6257D693A078E1C3E4BB6BA4DC30B23E0EE2496E54170DACD6",
+                UtilityHelper.SHA256Encrypt(str, key).ToUpper());
+        }
     }
 }

@@ -179,6 +179,26 @@ namespace Weixin.Netcore.Utility
         }
 
         /// <summary>
+        /// SHA256加密
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="key"></param>
+        /// <returns></returns>
+        public static string SHA256Encrypt(string source, string key)
+        {
+            using (HMACSHA256 sha256 = new HMACSHA256(Encoding.UTF8.GetBytes(key)))
+            {
+                byte[] bytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(source));
+                StringBuilder sb = new StringBuilder();
+                for (int i = 0; i < bytes.Length; i++)
+                {
+                    sb.Append(bytes[i].ToString("x2"));
+                }
+                return sb.ToString();
+            }
+        }
+
+        /// <summary>
         /// MD5加密（UTF-8编码）
         /// </summary>
         /// <param name="source"></param>
