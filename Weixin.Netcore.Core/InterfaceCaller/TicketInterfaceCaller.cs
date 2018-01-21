@@ -34,7 +34,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// </summary>
         /// <param name="accessToken"></param>
         /// <returns></returns>
-        internal Ticket GetJsApiTicket(string accessToken)
+        public Ticket GetJsApiTicket(string accessToken)
         {
             if(string.IsNullOrEmpty(accessToken))
             {

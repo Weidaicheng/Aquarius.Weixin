@@ -45,7 +45,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// </summary>
         /// <param name="unifiedOrder"></param>
         /// <returns></returns>
-        internal UnifiedOrderResult UnifiedOrder(UnifiedOrder unifiedOrder)
+        public UnifiedOrderResult UnifiedOrder(UnifiedOrder unifiedOrder)
         {
             //转换xml
             string xml = UtilityHelper.Obj2Xml(unifiedOrder);
