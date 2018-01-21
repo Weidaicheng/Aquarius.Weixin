@@ -1,7 +1,7 @@
 # Weixin.Netcore
 由于工作需要在公司做公众号，正巧自己也在学习.net core，所以就把自己总结的一些方法（解决方案）放到了该项目中。如有错误之处，还请指正。[Issues][Issues]
 
-##解决方案介绍
+## 解决方案介绍
 >+[Weixin.Netcore.Cache][Cache]:缓存的实现，使用了asp.net core中的InMemory缓存以及Redis缓存。
 
 >+[Weixin.Netcore.Core][Core]:整个公众号的核心方法。查看[详细介绍][CoreDetail]。
@@ -16,12 +16,12 @@
 
 >+[Weixin.Netcore.Web][Web]:公众号的web项目，可以认为这是一个Sample。
 
-##快速开始
+## 快速开始
 >方式一：前往[Releases][Releases]下载文件，直接在该解决方案中进行开发**（推荐方式）**
 
 >方式二：PM控制台执行 `Install-Package Weixin.Netcore.Core -Version 0.1.0-preview`
 
->####1、网页授权
+>#### 1、网页授权
 
 >网页授权分snsapi_base和snsapi_userinfo两种方式，具体区别请查看微信[官方文档][微信网页授权文档]，这里以snsapi_base方式介绍。
 
@@ -32,7 +32,7 @@
 
 >至此，已经获取到用户信息。
 
->####2、消息处理
+>#### 2、消息处理
 
 >以Echo文本消息介绍。
 
@@ -63,7 +63,7 @@
 
 >如果使用方式二，在处理文本消息时用此类替换默认的 `TextMessageHandlerBase` 即可。
 
->####3、微信支付
+>#### 3、微信支付
 
 
 >第一步：配置JS-SDK
@@ -81,7 +81,7 @@
 
 >这样就拿到了chooseWXPay方法的配置信息，上边传入的unifiedOrder是 `UnifiedOrder` 类型的对象，[查看该类][UnifiedOrder]。
 
-##联系方式
+## 联系方式
 
 >我的微信：wdcdavyc，如果有什么错误或者有什么疑问可以加我微信沟通批评（请备注：Github）。
 
