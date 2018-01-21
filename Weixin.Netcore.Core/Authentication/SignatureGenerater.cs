@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Weixin.Netcore.Core.Exceptions;
+using Weixin.Netcore.Entity.Enums;
 using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Core.Authentication
@@ -42,8 +44,9 @@ namespace Weixin.Netcore.Core.Authentication
         /// </summary>
         /// <param name="dic"></param>
         /// <param name="apiKey"></param>
+        /// <param name="signType"></param>
         /// <returns></returns>
-        public string GenerateWxPaySignature(Dictionary<string, string> dic, string apiKey)
+        public string GenerateWxPaySignature(Dictionary<string, string> dic, string apiKey, WxPaySignType signType)
         {
             var arr = dic.OrderBy(z => z.Key).ToArray();
             string stringSign = string.Empty;
@@ -57,7 +60,20 @@ namespace Weixin.Netcore.Core.Authentication
             }
             stringSign += $"key={apiKey}";
 
-            return UtilityHelper.MD5Encrypt(stringSign).ToUpper();
+            string sign = string.Empty;
+            switch(signType)
+            {
+                case WxPaySignType.MD5:
+                    sign = UtilityHelper.MD5Encrypt(stringSign).ToUpper();
+                    break;
+                case WxPaySignType.SHA256:
+                    sign = UtilityHelper.SHA256Encrypt(stringSign, apiKey).ToUpper();
+                    break;
+                default:
+                    throw new SignTypeNotSupportException($"{signType.ToString()}不受支持");
+            }
+
+            return sign;
         }
         #endregion
     }

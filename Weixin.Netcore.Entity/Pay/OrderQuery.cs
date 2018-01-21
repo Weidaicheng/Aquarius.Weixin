@@ -52,6 +52,6 @@ namespace Weixin.Netcore.Entity.Pay
         /// 签名类型，目前支持HMAC-SHA256和MD5，默认为MD5
         /// </summary>
         [MaxLength(32)]
-        public string sign_type { get; set; } = "MD5";
+        public string sign_type { get; set; }
     }
 }

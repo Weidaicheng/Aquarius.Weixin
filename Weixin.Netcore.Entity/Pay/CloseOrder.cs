@@ -44,6 +44,6 @@ namespace Weixin.Netcore.Entity.Pay
         /// 签名类型
         /// </summary>
         [MaxLength(32)]
-        public string sign_type { get; set; } = "MD5";
+        public string sign_type { get; set; }
     }
 }

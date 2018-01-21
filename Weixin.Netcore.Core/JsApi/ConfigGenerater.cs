@@ -3,6 +3,7 @@ using Weixin.Netcore.Core.Authentication;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Core.MaintainContainer;
 using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.Enums;
 using Weixin.Netcore.Entity.JsApi;
 using Weixin.Netcore.Entity.Pay;
 using Weixin.Netcore.Utility;
@@ -62,13 +63,14 @@ namespace Weixin.Netcore.Core.JsApi
         /// 创建chooseWxPay配置
         /// </summary>
         /// <param name="unifiedOrder"></param>
+        /// <param name="signType"></param>
         /// <returns></returns>
-        public ChooseWxPayConfig GenerateChooseWxPayConfig(UnifiedOrder unifiedOrder)
+        public ChooseWxPayConfig GenerateChooseWxPayConfig(UnifiedOrder unifiedOrder, WxPaySignType signType = WxPaySignType.MD5)
         {
             //转换字典
             var dic = UtilityHelper.Obj2Dictionary(unifiedOrder);
             //生成签名
-            unifiedOrder.sign = _signatureGenerator.GenerateWxPaySignature(dic, _baseSettings.ApiKey);
+            unifiedOrder.sign = _signatureGenerator.GenerateWxPaySignature(dic, _baseSettings.ApiKey, signType);
             //统一下单
             var unifiedOrderResult = _wxPayInterfaceCaller.UnifiedOrder(unifiedOrder);
 
@@ -79,7 +81,7 @@ namespace Weixin.Netcore.Core.JsApi
                 nonceStr = nonceStr,
                 timestamp = timeStamp,
                 package = unifiedOrderResult.prepay_id,
-                signType = "MD5"
+                signType = signType == WxPaySignType.MD5 ? "MD5" : "HMAC-SHA256"
             };
             var paySign = _signatureGenerator.GenerateWxPaySignature(new Dictionary<string, string>()
             {
@@ -88,7 +90,7 @@ namespace Weixin.Netcore.Core.JsApi
                 {"nonceStr", chooseWxPayConfig.nonceStr },
                 {"package", chooseWxPayConfig.package },
                 {"signType", chooseWxPayConfig.signType }
-            }, _baseSettings.ApiKey);
+            }, _baseSettings.ApiKey, signType);
 
             chooseWxPayConfig.paySign = paySign;
 

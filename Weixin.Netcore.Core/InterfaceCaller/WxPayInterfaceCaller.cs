@@ -882,5 +882,105 @@ namespace Weixin.Netcore.Core.InterfaceCaller
                 return downloadBillResult;
             }
         }
+
+        /// <summary>
+        /// 拉取评论
+        /// </summary>
+        /// <param name="commentQuery"></param>
+        /// <returns></returns>
+        public CommentQueryResult QueryComment(CommentQuery commentQuery)
+        {
+            //转换xml
+            string xml = UtilityHelper.Obj2Xml(commentQuery);
+
+            #region 证书
+            _restClient.RemoteCertificateValidationCallback += (sender, certificate, chain, errors) =>
+            {
+                if (errors == SslPolicyErrors.None)
+                    return true;
+                return false;
+            };
+            X509Certificate cert = string.IsNullOrEmpty(_baseSettings.CertPass) ?
+                new X509Certificate(_baseSettings.CertRoot) :
+                new X509Certificate(_baseSettings.CertRoot, _baseSettings.CertPass);
+            _restClient.ClientCertificates.Add(cert);
+            #endregion
+
+            IRestRequest request = new RestRequest("billcommentsp/batchquerycomment", Method.POST);
+            request.AddHeader("Accept", "application/xml");
+            request.Parameters.Clear();
+            request.AddParameter("application/xml", xml, ParameterType.RequestBody);
+
+            IRestResponse response = _restClient.Execute(request);
+
+            if (response.Content.Contains("<return_code>"))
+            {
+                //失败
+                var content = response.Content.Replace("<xml>", $"<{typeof(WxPayError).Name}>").Replace("</xml>", $"</{typeof(WxPayError).Name}>");
+                using (StreamReader r = new StreamReader(content))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(WxPayError));
+                    var result = serializer.Deserialize(r) as WxPayError;
+
+                    if(result.return_code != SUCCESS)
+                    {
+                        //接口失败
+                        throw new WeixinInterfaceException(result.return_msg);
+                    }
+                    else
+                    {
+                        //业务失败
+                        throw new WeixinInterfaceException(result.err_code_des);
+                    }
+                }
+            }
+            else
+            {
+                //成功
+                CommentQueryResult commentQueryResult = new CommentQueryResult()
+                {
+                    CommentDetails = new List<CommentDetail>()
+                };
+
+                using (StringReader r = new StringReader(response.Content))
+                {
+                    var lines = new List<string>();
+                    string line;
+                    while ((line = r.ReadLine()) != null)
+                    {
+                        lines.Add(line);
+                    }
+
+                    //第0行为offset，第1~(Count-1)行为评论数据
+                    //offset
+                    commentQueryResult.Offset = int.Parse(lines[0]);
+
+                    //评论详情
+                    for (int i = 1; i < lines.Count; i++)
+                    {
+                        var details = lines[i].Split(',').Select(x => x.TrimStart('`')).ToArray();
+                        commentQueryResult.CommentDetails.Add(new CommentDetail()
+                        {
+                            CommentTime = new Func<DateTime?>(() =>
+                            {
+                                if (string.IsNullOrEmpty(details[0]))
+                                    return null;
+                                return DateTime.Parse(details[0]);
+                            }).Invoke(),
+                            OrderId = details[1],
+                            Star = new Func<int?>(() =>
+                            {
+                                if (string.IsNullOrEmpty(details[2]))
+                                    return null;
+                                return int.Parse(details[2]);
+                            }).Invoke(),
+                            CommentDesc = details[3]
+                        });
+                    }
+                }
+
+                return commentQueryResult;
+            }
+        }
     }
 }
