@@ -14,7 +14,7 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void QueryOrderTest()
         {
-            WxPayInterfaceCaller interfaceCaller = new WxPayInterfaceCaller(new RestClient());
+            WxPayInterfaceCaller interfaceCaller = new WxPayInterfaceCaller(new RestClient(), new Entity.BaseSettings());
             var orderQuery = new OrderQuery()
             {
                 appid = "wx2421b1c4370ec43b",
