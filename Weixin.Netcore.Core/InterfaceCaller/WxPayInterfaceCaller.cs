@@ -13,6 +13,7 @@ using Weixin.Netcore.Entity;
 using Weixin.Netcore.Entity.Enums;
 using Weixin.Netcore.Entity.Pay;
 using Weixin.Netcore.Utility;
+using WxPayError = Weixin.Netcore.Entity.Pay.Error;
 
 namespace Weixin.Netcore.Core.InterfaceCaller
 {
@@ -439,6 +440,446 @@ namespace Weixin.Netcore.Core.InterfaceCaller
                         throw new WeixinInterfaceException(result.err_code_des);
                     }
                 }
+            }
+        }
+
+        /// <summary>
+        /// 下载对账单
+        /// </summary>
+        /// <param name="downloadBill"></param>
+        /// <returns></returns>
+        public DownloadBillResult DownloadBill(DownloadBill downloadBill)
+        {
+            //转换xml
+            string xml = UtilityHelper.Obj2Xml(downloadBill);
+
+            IRestRequest request = new RestRequest("pay/downloadbill ", Method.POST);
+            request.AddHeader("Accept", "application/xml");
+            request.Parameters.Clear();
+            request.AddParameter("application/xml", xml, ParameterType.RequestBody);
+
+            IRestResponse response = _restClient.Execute(request);
+
+            if (response.Content.Contains("<return_code>"))
+            {
+                //失败
+                var content = response.Content.Replace("<xml>", $"<{typeof(WxPayError).Name}>").Replace("</xml>", $"</{typeof(WxPayError).Name}>");
+                using (StreamReader r = new StreamReader(content))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(WxPayError));
+                    var result = serializer.Deserialize(r) as WxPayError;
+
+                    throw new WeixinInterfaceException(result.return_msg); 
+                }
+            }
+            else
+            {
+                //成功
+                DownloadBillResult downloadBillResult = new DownloadBillResult()
+                {
+                    DownloadBillResultDetails = new List<DownloadBillResultDetail>(),
+                    DownloadBillResultStatistics = new DownloadBillResultStatistics()
+                };
+
+                using (StringReader r = new StringReader(response.Content))
+                {
+                    var lines = new List<string>();
+                    string line;
+                    while((line = r.ReadLine()) != null)
+                    {
+                        lines.Add(line);
+                    }
+
+                    //第0行为标题，第1~(Count-3)行为订单数据，第(Count-2)行为统计标题，第(Count-1)行为统计数据
+                    //订单数据
+                    switch (downloadBill.bill_type)
+                    {
+                        #region 当日所有订单 
+                        case BillType.ALL:
+                            for (int i = 1; i < lines.Count - 2; i++)
+                            {
+                                var details = lines[i].Split(',').Select(x => x.TrimStart('`')).ToArray();
+                                downloadBillResult.DownloadBillResultDetails.Add(new DownloadBillResultDetail()
+                                {
+                                    TradeTime = new Func<DateTime?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[0]))
+                                            return null;
+                                        return DateTime.Parse(details[0]);
+                                    }).Invoke(),
+                                    AppId = details[1],
+                                    MchId = details[2],
+                                    SubMchId = details[3],
+                                    DeviceInfo = details[4],
+                                    TransactionId = details[5],
+                                    OutTradeNo = details[6],
+                                    OpenId = details[7],
+                                    TradeType = new Func<TradeType?>(() => 
+                                    {
+                                        if (string.IsNullOrEmpty(details[8]))
+                                            return null;
+                                        return (TradeType)Enum.Parse(typeof(TradeType), details[8]);
+                                    }).Invoke(),
+                                    TradeState = new Func<TradeState?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[9]))
+                                            return null;
+                                        return (TradeState)Enum.Parse(typeof(TradeState), details[9]);
+                                    }).Invoke(),
+                                    BankType = new Func<BankType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[10]))
+                                            return null;
+                                        return (BankType)Enum.Parse(typeof(BankType), details[10]);
+                                    }).Invoke(),
+                                    FeeType = new Func<FeeType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[11]))
+                                            return FeeType.CNY;
+                                        return (FeeType)Enum.Parse(typeof(FeeType), details[11]);
+                                    }).Invoke(),
+                                    TotalFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[12]))
+                                            return null;
+                                        return decimal.Parse(details[12]);
+                                    }).Invoke(),
+                                    CouponFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[13]))
+                                            return null;
+                                        return decimal.Parse(details[13]);
+                                    }).Invoke(),
+                                    RefundId = details[14],
+                                    OutRefundNo = details[15],
+                                    RefundFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[16]))
+                                            return null;
+                                        return decimal.Parse(details[16]);
+                                    }).Invoke(),
+                                    CouponRefundFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[17]))
+                                            return null;
+                                        return decimal.Parse(details[17]);
+                                    }).Invoke(),
+                                    RefundType = details[18],
+                                    RefundState = new Func<RefundState?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[19]))
+                                            return null;
+                                        return (RefundState)Enum.Parse(typeof(RefundState), details[19]);
+                                    }).Invoke(),
+                                    Body = details[20],
+                                    Attach = details[21],
+                                    ServiceCharge = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[22]))
+                                            return null;
+                                        return decimal.Parse(details[22]);
+                                    }).Invoke(),
+                                    Tariff = details[23]
+                                });
+                            }
+                            break;
+                        #endregion
+                        #region 当日成功支付的订单 
+                        case BillType.SUCCESS:
+                            for (int i = 1; i < lines.Count - 2; i++)
+                            {
+                                var details = lines[i].Split(',').Select(x => x.TrimStart('`')).ToArray();
+                                downloadBillResult.DownloadBillResultDetails.Add(new DownloadBillResultDetail()
+                                {
+                                    TradeTime = new Func<DateTime?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[0]))
+                                            return null;
+                                        return DateTime.Parse(details[0]);
+                                    }).Invoke(),
+                                    AppId = details[1],
+                                    MchId = details[2],
+                                    SubMchId = details[3],
+                                    DeviceInfo = details[4],
+                                    TransactionId = details[5],
+                                    OutTradeNo = details[6],
+                                    OpenId = details[7],
+                                    TradeType = new Func<TradeType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[8]))
+                                            return null;
+                                        return (TradeType)Enum.Parse(typeof(TradeType), details[8]);
+                                    }).Invoke(),
+                                    TradeState = new Func<TradeState?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[9]))
+                                            return null;
+                                        return (TradeState)Enum.Parse(typeof(TradeState), details[9]);
+                                    }).Invoke(),
+                                    BankType = new Func<BankType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[10]))
+                                            return null;
+                                        return (BankType)Enum.Parse(typeof(BankType), details[10]);
+                                    }).Invoke(),
+                                    FeeType = new Func<FeeType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[11]))
+                                            return FeeType.CNY;
+                                        return (FeeType)Enum.Parse(typeof(FeeType), details[11]);
+                                    }).Invoke(),
+                                    TotalFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[12]))
+                                            return null;
+                                        return decimal.Parse(details[12]);
+                                    }).Invoke(),
+                                    CouponFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[13]))
+                                            return null;
+                                        return decimal.Parse(details[13]);
+                                    }).Invoke(),
+                                    Body = details[14],
+                                    Attach = details[15],
+                                    ServiceCharge = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[16]))
+                                            return null;
+                                        return decimal.Parse(details[16]);
+                                    }).Invoke(),
+                                    Tariff = details[17]
+                                });
+                            }
+                            break;
+                        #endregion
+                        #region 当日退款的订单 
+                        case BillType.REFUND:
+                            for (int i = 1; i < lines.Count - 2; i++)
+                            {
+                                var details = lines[i].Split(',').Select(x => x.TrimStart('`')).ToArray();
+                                downloadBillResult.DownloadBillResultDetails.Add(new DownloadBillResultDetail()
+                                {
+                                    TradeTime = new Func<DateTime?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[0]))
+                                            return null;
+                                        return DateTime.Parse(details[0]);
+                                    }).Invoke(),
+                                    AppId = details[1],
+                                    MchId = details[2],
+                                    SubMchId = details[3],
+                                    DeviceInfo = details[4],
+                                    TransactionId = details[5],
+                                    OutTradeNo = details[6],
+                                    OpenId = details[7],
+                                    TradeType = new Func<TradeType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[8]))
+                                            return null;
+                                        return (TradeType)Enum.Parse(typeof(TradeType), details[8]);
+                                    }).Invoke(),
+                                    TradeState = new Func<TradeState?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[9]))
+                                            return null;
+                                        return (TradeState)Enum.Parse(typeof(TradeState), details[9]);
+                                    }).Invoke(),
+                                    BankType = new Func<BankType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[10]))
+                                            return null;
+                                        return (BankType)Enum.Parse(typeof(BankType), details[10]);
+                                    }).Invoke(),
+                                    FeeType = new Func<FeeType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[11]))
+                                            return FeeType.CNY;
+                                        return (FeeType)Enum.Parse(typeof(FeeType), details[11]);
+                                    }).Invoke(),
+                                    TotalFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[12]))
+                                            return null;
+                                        return decimal.Parse(details[12]);
+                                    }).Invoke(),
+                                    CouponFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[13]))
+                                            return null;
+                                        return decimal.Parse(details[13]);
+                                    }).Invoke(),
+                                    RefundTime = new Func<DateTime?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[14]))
+                                            return null;
+                                        return DateTime.Parse(details[14]);
+                                    }).Invoke(),
+                                    RefundSuccessTime = new Func<DateTime?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[15]))
+                                            return null;
+                                        return DateTime.Parse(details[15]);
+                                    }).Invoke(),
+                                    RefundId = details[16],
+                                    OutRefundNo = details[17],
+                                    RefundFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[18]))
+                                            return null;
+                                        return decimal.Parse(details[18]);
+                                    }).Invoke(),
+                                    CouponRefundFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[19]))
+                                            return null;
+                                        return decimal.Parse(details[19]);
+                                    }).Invoke(),
+                                    RefundType = details[20],
+                                    RefundState = new Func<RefundState?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[21]))
+                                            return null;
+                                        return (RefundState)Enum.Parse(typeof(RefundState), details[21]);
+                                    }).Invoke(),
+                                    Body = details[22],
+                                    Attach = details[23],
+                                    ServiceCharge = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[24]))
+                                            return null;
+                                        return decimal.Parse(details[24]);
+                                    }).Invoke(),
+                                    Tariff = details[25]
+                                });
+                            }
+                            break;
+                        #endregion
+                        #region 当日充值退款订单
+                        case BillType.RECHARGE_REFUND:
+                            for (int i = 1; i < lines.Count - 2; i++)
+                            {
+                                var details = lines[i].Split(',').Select(x => x.TrimStart('`')).ToArray();
+                                downloadBillResult.DownloadBillResultDetails.Add(new DownloadBillResultDetail()
+                                {
+                                    TradeTime = new Func<DateTime?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[0]))
+                                            return null;
+                                        return DateTime.Parse(details[0]);
+                                    }).Invoke(),
+                                    AppId = details[1],
+                                    MchId = details[2],
+                                    SubMchId = details[3],
+                                    DeviceInfo = details[4],
+                                    TransactionId = details[5],
+                                    OutTradeNo = details[6],
+                                    OpenId = details[7],
+                                    TradeType = new Func<TradeType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[8]))
+                                            return null;
+                                        return (TradeType)Enum.Parse(typeof(TradeType), details[8]);
+                                    }).Invoke(),
+                                    TradeState = new Func<TradeState?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[9]))
+                                            return null;
+                                        return (TradeState)Enum.Parse(typeof(TradeState), details[9]);
+                                    }).Invoke(),
+                                    BankType = new Func<BankType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[10]))
+                                            return null;
+                                        return (BankType)Enum.Parse(typeof(BankType), details[10]);
+                                    }).Invoke(),
+                                    FeeType = new Func<FeeType?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[11]))
+                                            return FeeType.CNY;
+                                        return (FeeType)Enum.Parse(typeof(FeeType), details[11]);
+                                    }).Invoke(),
+                                    TotalFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[12]))
+                                            return null;
+                                        return decimal.Parse(details[12]);
+                                    }).Invoke(),
+                                    CouponFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[13]))
+                                            return null;
+                                        return decimal.Parse(details[13]);
+                                    }).Invoke(),
+                                    RefundTime = new Func<DateTime?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[14]))
+                                            return null;
+                                        return DateTime.Parse(details[14]);
+                                    }).Invoke(),
+                                    RefundSuccessTime = new Func<DateTime?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[15]))
+                                            return null;
+                                        return DateTime.Parse(details[15]);
+                                    }).Invoke(),
+                                    RefundId = details[16],
+                                    OutRefundNo = details[17],
+                                    RefundFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[18]))
+                                            return null;
+                                        return decimal.Parse(details[18]);
+                                    }).Invoke(),
+                                    CouponRefundFee = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[19]))
+                                            return null;
+                                        return decimal.Parse(details[19]);
+                                    }).Invoke(),
+                                    RefundType = details[20],
+                                    RefundState = new Func<RefundState?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[21]))
+                                            return null;
+                                        return (RefundState)Enum.Parse(typeof(RefundState), details[21]);
+                                    }).Invoke(),
+                                    Body = details[22],
+                                    Attach = details[23],
+                                    ServiceCharge = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[24]))
+                                            return null;
+                                        return decimal.Parse(details[24]);
+                                    }).Invoke(),
+                                    Tariff = details[25],
+                                    RefundServiceCharge = new Func<decimal?>(() =>
+                                    {
+                                        if (string.IsNullOrEmpty(details[26]))
+                                            return null;
+                                        return decimal.Parse(details[26]);
+                                    }).Invoke()
+                                });
+                            }
+                            break;
+                        #endregion
+                        default:
+                            break;
+                    }
+                    
+                    //统计数据
+                    var statistics = lines[lines.Count - 1].Split(',').Select(x => x.TrimStart('`')).ToArray();
+                    downloadBillResult.DownloadBillResultStatistics = new DownloadBillResultStatistics()
+                    {
+                        TotalTradeCount = int.Parse(statistics[0]),
+                        TotalTradeFee = decimal.Parse(statistics[1]),
+                        TotalRefundFee = decimal.Parse(statistics[2]),
+                        TotalCouponRefundFee = decimal.Parse(statistics[3]),
+                        TotalTariffFee = decimal.Parse(statistics[4])
+                    };
+                }
+
+                return downloadBillResult;
             }
         }
     }
