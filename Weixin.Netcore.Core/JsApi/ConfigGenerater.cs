@@ -79,7 +79,7 @@ namespace Weixin.Netcore.Core.JsApi
                 nonceStr = nonceStr,
                 timestamp = timeStamp,
                 package = unifiedOrderResult.prepay_id,
-                signType = signType == WxPaySignType.MD5 ? "MD5" : "HMAC-SHA256"
+                signType = signType.GetDescription()
             };
             var paySign = SignatureGenerater.GenerateWxPaySignature(new Dictionary<string, string>()
             {

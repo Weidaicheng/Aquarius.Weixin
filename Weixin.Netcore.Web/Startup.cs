@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RestSharp;
-using Weixin.Netcore.Core.MessageRepet;
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.Message.Processer;
 using System;
@@ -11,6 +10,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Weixin.Netcore.Entity;
 using Weixin.Netcore.Core.Middleware;
+using Weixin.Netcore.Core.Message;
 
 namespace Weixin.Netcore.Web
 {
@@ -66,13 +66,12 @@ namespace Weixin.Netcore.Web
             builder.Register(context => new BaseSettings()
             {
                 Debug = false,
+                IsRepetValid = true,
                 AppId = Configuration["AppId"],
                 AppSecret = Configuration["AppSecret"],
                 Token = Configuration["Token"],
                 EncodingAESKey = Configuration["EncodingAESKey"]
             }).As<BaseSettings>();
-            //启用消息重复验证
-            builder.Register(context => new MessageRepetValidUsage(true)).As<IMessageRepetValidUsage>();
             #endregion
 
             #region 接口
@@ -101,7 +100,7 @@ namespace Weixin.Netcore.Web
 
             #region 消息
             //消息重复处理
-            builder.RegisterType<MessageRepetHandler>().As<IMessageRepetHandler>();
+            builder.RegisterType<MessageRepetHandler>().AsSelf();
 
             //消息回复
             builder.RegisterAssemblyTypes(assemblies)

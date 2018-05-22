@@ -1,4 +1,6 @@
-﻿namespace Weixin.Netcore.Entity.Enums
+﻿using System.ComponentModel;
+
+namespace Weixin.Netcore.Entity.Enums
 {
     /// <summary>
     /// 微信支付签名类型
@@ -8,11 +10,13 @@
         /// <summary>
         /// MD5
         /// </summary>
+        [Description("MD5")]
         MD5,
 
         /// <summary>
         /// SHA256
         /// </summary>
+        [Description("HMAC-SHA256")]
         SHA256,
     }
 }

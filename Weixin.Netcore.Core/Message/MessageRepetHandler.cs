@@ -2,13 +2,14 @@
 using Weixin.Netcore.Cache;
 using Weixin.Netcore.Entity;
 
-namespace Weixin.Netcore.Core.MessageRepet
+namespace Weixin.Netcore.Core.Message
 {
     /// <summary>
     /// 消息重复性处理
     /// </summary>
-    public class MessageRepetHandler : IMessageRepetHandler
+    public class MessageRepetHandler
     {
+        #region .ctor
         private readonly ICache _cache;
         private readonly BaseSettings _baseSettings;
 
@@ -17,10 +18,22 @@ namespace Weixin.Netcore.Core.MessageRepet
             _cache = cache;
             _baseSettings = baseSettings;
         }
+        #endregion
 
+        /// <summary>
+        /// 消息重复性验证
+        /// </summary>
+        /// <param name="key"></param>
+        /// <returns>
+        /// true：消息未重复
+        /// false：消息重复
+        /// </returns>
         public bool MessageRepetValid(string key)
         {
             if (_baseSettings.Debug)
+                return true;
+
+            if (!_baseSettings.IsRepetValid)
                 return true;
 
             var value = _cache.Get(key);

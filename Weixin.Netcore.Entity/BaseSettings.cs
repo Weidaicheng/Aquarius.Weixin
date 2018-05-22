@@ -5,10 +5,27 @@
     /// </summary>
     public sealed class BaseSettings
     {
+        #region field
+        private bool debug;
+        private bool isRepetValid;
+        #endregion
+
         /// <summary>
         /// 调试模式
         /// </summary>
-        public bool Debug { get; set; }
+        public bool Debug
+        {
+            get
+            {
+                return debug;
+            }
+            set
+            {
+                debug = value;
+                if (value)
+                    isRepetValid = false;
+            }
+        }
 
         /// <summary>
         /// AppId
@@ -49,5 +66,25 @@
         /// p12证书密码
         /// </summary>
         public string CertPass { get; set; }
+
+        /// <summary>
+        /// 是否启用消息重复验证
+        /// </summary>
+        public bool IsRepetValid
+        {
+            get
+            {
+                return isRepetValid;
+            }
+            set
+            {
+                if (debug)
+                {
+                    isRepetValid = false;
+                    return;
+                }
+                isRepetValid = value;
+            }
+        }
     }
 }
