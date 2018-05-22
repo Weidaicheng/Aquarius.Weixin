@@ -17,7 +17,7 @@ namespace Weixin.Netcore.Core.Authentication
         /// </summary>
         /// <param name="strings">生成签名的字符串</param>
         /// <returns></returns>
-        public string GenerateSignature(params string[] strings)
+        public static string GenerateSignature(params string[] strings)
         {
             var arr = strings.OrderBy(z => z).ToArray();
             var arrString = string.Join("", arr);
@@ -33,7 +33,7 @@ namespace Weixin.Netcore.Core.Authentication
         /// <param name="timestamp"></param>
         /// <param name="url"></param>
         /// <returns></returns>
-        public string GenerateJsApiSignature(string ticket, string noncestr, long timestamp, string url)
+        public static string GenerateJsApiSignature(string ticket, string noncestr, long timestamp, string url)
         {
             string str = $"jsapi_ticket={ticket}&noncestr={noncestr}&timestamp={timestamp}&url={url}";
             return UtilityHelper.SHA1Encrypt(str).ToLower();
@@ -46,7 +46,7 @@ namespace Weixin.Netcore.Core.Authentication
         /// <param name="apiKey"></param>
         /// <param name="signType"></param>
         /// <returns></returns>
-        public string GenerateWxPaySignature(Dictionary<string, string> dic, string apiKey, WxPaySignType signType)
+        public static string GenerateWxPaySignature(Dictionary<string, string> dic, string apiKey, WxPaySignType signType)
         {
             var arr = dic.OrderBy(z => z.Key).ToArray();
             string stringSign = string.Empty;

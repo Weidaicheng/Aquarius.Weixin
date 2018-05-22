@@ -5,15 +5,6 @@
     /// </summary>
     public class Verifyer
     {
-        #region .ctor
-        private readonly SignatureGenerater _generater;
-
-        public Verifyer(SignatureGenerater generater)
-        {
-            _generater = generater;
-        }
-        #endregion
-
         /// <summary>
         /// 签名有效性验证
         /// </summary>
@@ -22,7 +13,7 @@
         /// <returns></returns>
         public bool VerifySignature(string signature, params string[] strings)
         {
-            string sign = _generater.GenerateSignature(strings);
+            string sign = SignatureGenerater.GenerateSignature(strings);
             return sign == signature;
         }
     }
