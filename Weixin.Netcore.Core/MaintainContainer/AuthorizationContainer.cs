@@ -23,12 +23,17 @@ namespace Weixin.Netcore.Core.MaintainContainer
         }
         #endregion
 
+        /// <summary>
+        /// 获取OpenId
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public string GetOpenId(string code)
         {
             //通过code获取OpenId
             OpenId openId = _oAuthInterfaceCaller.GetOpenId(code);
 
-            //保存Access Token
+            //保存用户Access Token
             _cache.Set($"{openId.openid}AccessToken", openId.access_token, TimeSpan.FromSeconds(openId.expires_in));
             //保存Refresh Token
             _cache.Set($"{openId.openid}RefreshToken", openId.refresh_token, TimeSpan.FromDays(30));
@@ -36,9 +41,15 @@ namespace Weixin.Netcore.Core.MaintainContainer
             return openId.openid;
         }
 
+        /// <summary>
+        /// 获取用户信息
+        /// </summary>
+        /// <param name="openId"></param>
+        /// <param name="lang"></param>
+        /// <returns></returns>
         public UserInfo GetUserInfo(string openId, Language lang)
         {
-            //读取Access Token
+            //读取用户Access Token
             string accessToken = _cache.Get($"{openId}AccessToken");
             if(!string.IsNullOrEmpty(accessToken))
             {

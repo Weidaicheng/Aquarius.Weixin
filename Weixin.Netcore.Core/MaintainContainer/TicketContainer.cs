@@ -13,6 +13,8 @@ namespace Weixin.Netcore.Core.MaintainContainer
         private readonly ICache _cache;
         private readonly TicketInterfaceCaller _ticketInterfaceCaller;
 
+        private static readonly object locker = new object();
+
         public TicketContainer(ICache cache, TicketInterfaceCaller ticketInterfaceCaller)
         {
             _cache = cache;
@@ -28,11 +30,17 @@ namespace Weixin.Netcore.Core.MaintainContainer
         public string GetJsApiTicket(string accessToken)
         {
             string token = _cache.Get("JSSDKTicket");
-            if (string.IsNullOrEmpty(token))
+            lock(locker)
             {
-                var ticket = _ticketInterfaceCaller.GetJsApiTicket(accessToken);
-                _cache.Set("JSSDKTicket", ticket.ticket, TimeSpan.FromSeconds(ticket.expires_in));
-                token = ticket.ticket;
+                if (string.IsNullOrEmpty(token))
+                {
+                    lock(locker)
+                    {
+                        var ticket = _ticketInterfaceCaller.GetJsApiTicket(accessToken);
+                        _cache.Set("JSSDKTicket", ticket.ticket, TimeSpan.FromSeconds(ticket.expires_in));
+                        token = ticket.ticket;
+                    }
+                }
             }
 
             return token;

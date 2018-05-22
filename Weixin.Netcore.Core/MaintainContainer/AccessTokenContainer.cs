@@ -9,8 +9,12 @@ namespace Weixin.Netcore.Core.MaintainContainer
     /// </summary>
     public class AccessTokenContainer
     {
+        #region .ctor
         private readonly ICache _cache;
         private readonly OAuthInterfaceCaller _oAuthInterfaceCaller;
+
+        private static readonly object locker = new object();
+        #endregion
 
         public AccessTokenContainer(ICache cache, OAuthInterfaceCaller oAuthInterfaceCaller)
         {
@@ -18,14 +22,24 @@ namespace Weixin.Netcore.Core.MaintainContainer
             _oAuthInterfaceCaller = oAuthInterfaceCaller;
         }
 
+        /// <summary>
+        /// 获取AccessToken
+        /// </summary>
+        /// <returns></returns>
         public string GetAccessToken()
         {
             string token = _cache.Get("AccessToken");
-            if (string.IsNullOrEmpty(token))
+            lock(locker)
             {
-                var accessToken = _oAuthInterfaceCaller.GetAccessToken();
-                _cache.Set("AccessToken", accessToken.access_token, TimeSpan.FromSeconds(accessToken.expires_in));
-                token = accessToken.access_token;
+                if (string.IsNullOrEmpty(token))
+                {
+                    lock(locker)
+                    {
+                        var accessToken = _oAuthInterfaceCaller.GetAccessToken();
+                        _cache.Set("AccessToken", accessToken.access_token, TimeSpan.FromSeconds(accessToken.expires_in));
+                        token = accessToken.access_token;
+                    }
+                }
             }
 
             return token;

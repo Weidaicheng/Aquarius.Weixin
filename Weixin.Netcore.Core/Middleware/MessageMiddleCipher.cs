@@ -14,13 +14,11 @@ namespace Weixin.Netcore.Core.Middleware
     {
         private readonly BaseSettings _baseSettings;
         private readonly Verifyer _verifyer;
-        private readonly SignatureGenerater _generater;
 
-        public MessageMiddleCipher(BaseSettings baseSettings, Verifyer verifyer, SignatureGenerater generater)
+        public MessageMiddleCipher(BaseSettings baseSettings, Verifyer verifyer)
         {
             _baseSettings = baseSettings;
             _verifyer = verifyer;
-            _generater = generater;
         }
 
         public string ReceiveMessageMiddle(string signature, string msgSignature, string timestamp, string nonce, string data)
@@ -57,7 +55,7 @@ namespace Weixin.Netcore.Core.Middleware
             string replyMsgEncrypted = CryptographyHelper.AESEncrypt(replyMsg, _baseSettings.EncodingAESKey, _baseSettings.AppId);
             string timestamp = UtilityHelper.GetTimeStamp().ToString();
             string nonce = UtilityHelper.GenerateNonce();
-            string signature = _generater.GenerateSignature(_baseSettings.Token, timestamp, nonce, replyMsgEncrypted);
+            string signature = SignatureGenerater.GenerateSignature(_baseSettings.Token, timestamp, nonce, replyMsgEncrypted);
 
             StringBuilder sb = new StringBuilder();
             sb.Append($"<xml>");

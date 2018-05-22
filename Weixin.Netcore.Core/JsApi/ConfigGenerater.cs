@@ -19,14 +19,12 @@ namespace Weixin.Netcore.Core.JsApi
         private readonly WxPayInterfaceCaller _wxPayInterfaceCaller;
         private readonly AccessTokenContainer _accessTokenContainer;
         private readonly TicketContainer _ticketContainer;
-        private readonly SignatureGenerater _signatureGenerator;
         private readonly BaseSettings _baseSettings;
 
-        public ConfigGenerater(SignatureGenerater signatureGenerater, BaseSettings baseSettings, 
+        public ConfigGenerater(BaseSettings baseSettings, 
             TicketContainer ticketContainer, AccessTokenContainer accessTokenContainer,
             WxPayInterfaceCaller wxPayInterfaceCaller)
         {
-            _signatureGenerator = signatureGenerater;
             _baseSettings = baseSettings;
             _accessTokenContainer = accessTokenContainer;
             _ticketContainer = ticketContainer;
@@ -46,7 +44,7 @@ namespace Weixin.Netcore.Core.JsApi
             var nonceStr = UtilityHelper.GenerateNonce();
             var accessToken = _accessTokenContainer.GetAccessToken();
             var ticket = _ticketContainer.GetJsApiTicket(accessToken);
-            var signature = _signatureGenerator.GenerateJsApiSignature(ticket, nonceStr, timeStamp, url);
+            var signature = SignatureGenerater.GenerateJsApiSignature(ticket, nonceStr, timeStamp, url);
 
             return new JsApiConfig()
             {
@@ -70,7 +68,7 @@ namespace Weixin.Netcore.Core.JsApi
             //转换字典
             var dic = UtilityHelper.Obj2Dictionary(unifiedOrder);
             //生成签名
-            unifiedOrder.sign = _signatureGenerator.GenerateWxPaySignature(dic, _baseSettings.ApiKey, signType);
+            unifiedOrder.sign = SignatureGenerater.GenerateWxPaySignature(dic, _baseSettings.ApiKey, signType);
             //统一下单
             var unifiedOrderResult = _wxPayInterfaceCaller.UnifiedOrder(unifiedOrder);
 
@@ -83,7 +81,7 @@ namespace Weixin.Netcore.Core.JsApi
                 package = unifiedOrderResult.prepay_id,
                 signType = signType == WxPaySignType.MD5 ? "MD5" : "HMAC-SHA256"
             };
-            var paySign = _signatureGenerator.GenerateWxPaySignature(new Dictionary<string, string>()
+            var paySign = SignatureGenerater.GenerateWxPaySignature(new Dictionary<string, string>()
             {
                 {"appId", _baseSettings.AppId },
                 {"timeStamp", chooseWxPayConfig.timestamp.ToString() },
