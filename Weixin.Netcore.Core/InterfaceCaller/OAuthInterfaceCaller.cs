@@ -33,7 +33,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// 获取普通AccessToken
         /// </summary>
         /// <returns></returns>
-        internal AccessToken GetAccessToken()
+        public AccessToken GetAccessToken()
         {
             IRestRequest request = new RestRequest("cgi-bin/token", Method.GET);
             request.AddQueryParameter("grant_type", "client_credential");
@@ -56,7 +56,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// </summary>
         /// <param name="code"></param>
         /// <returns></returns>
-        internal OpenId GetOpenId(string code)
+        public OpenId GetOpenId(string code)
         {
             if(string.IsNullOrEmpty(code))
             {
@@ -85,7 +85,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// </summary>
         /// <param name="refreshToken"></param>
         /// <returns></returns>
-        internal OpenId RefreshToken(string refreshToken)
+        public OpenId RefreshToken(string refreshToken)
         {
             if (string.IsNullOrEmpty(refreshToken))
             {
@@ -115,7 +115,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <param name="openId"></param>
         /// <param name="lang">语言</param>
         /// <returns></returns>
-        internal UserInfo GetUserInfo(string accessToken, string openId, Language lang)
+        public UserInfo GetUserInfo(string accessToken, string openId, Language lang)
         {
             if (string.IsNullOrEmpty(accessToken))
             {
@@ -149,7 +149,7 @@ namespace Weixin.Netcore.Core.InterfaceCaller
         /// <param name="openId"></param>
         /// <param name="errMsg">错误消息</param>
         /// <returns></returns>
-        internal bool CheckToken(string accessToken, string openId, out string errMsg)
+        public bool CheckToken(string accessToken, string openId, out string errMsg)
         {
             if (string.IsNullOrEmpty(accessToken))
             {
