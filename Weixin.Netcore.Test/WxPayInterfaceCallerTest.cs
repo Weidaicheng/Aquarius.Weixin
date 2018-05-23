@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Weixin.Netcore.Core.InterfaceCaller;
+using Weixin.Netcore.Entity.Configuration;
 using Weixin.Netcore.Entity.Pay;
 
 namespace Weixin.Netcore.Test
@@ -14,7 +15,7 @@ namespace Weixin.Netcore.Test
         [TestMethod]
         public void QueryOrderTest()
         {
-            WxPayInterfaceCaller interfaceCaller = new WxPayInterfaceCaller(new RestClient(), new Entity.BaseSettings());
+            WxPayInterfaceCaller interfaceCaller = new WxPayInterfaceCaller(new RestClient(), new BaseSettings());
             var orderQuery = new OrderQuery()
             {
                 appid = "wx2421b1c4370ec43b",

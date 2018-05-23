@@ -1,6 +1,6 @@
 ﻿using System;
 using Weixin.Netcore.Cache;
-using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.Configuration;
 
 namespace Weixin.Netcore.Core.Message
 {

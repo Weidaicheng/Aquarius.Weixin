@@ -1,4 +1,4 @@
-﻿namespace Weixin.Netcore.Entity
+﻿namespace Weixin.Netcore.Entity.Configuration
 {
     /// <summary>
     /// 基础设置

@@ -8,6 +8,7 @@ using Weixin.Netcore.Cache;
 using Weixin.Netcore.Core.InterfaceCaller;
 using Weixin.Netcore.Core.MaintainContainer;
 using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.Configuration;
 using Weixin.Netcore.Entity.OAuth;
 using Weixin.Netcore.Entity.WeixinMenu;
 using Weixin.Netcore.Entity.WeixinMenu.Button;

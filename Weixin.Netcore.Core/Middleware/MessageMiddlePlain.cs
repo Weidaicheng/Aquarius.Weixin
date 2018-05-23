@@ -1,7 +1,6 @@
 ﻿using Weixin.Netcore.Core.Authentication;
 using Weixin.Netcore.Core.Exceptions;
-using Weixin.Netcore.Entity;
-using Weixin.Netcore.Utility;
+using Weixin.Netcore.Entity.Configuration;
 
 namespace Weixin.Netcore.Core.Middleware
 {
@@ -22,7 +21,7 @@ namespace Weixin.Netcore.Core.Middleware
         public string ReceiveMessageMiddle(string signature, string msgSignature, string timestamp, string nonce, string data)
         {
             //验证签名
-            if (!_verify.VerifySignature(timestamp, nonce, _baseSettings.Token, signature))
+            if (!_verify.VerifySignature(signature, timestamp, nonce, _baseSettings.Token))
             {
                 throw new SignatureInValidException("签名非法");
             }

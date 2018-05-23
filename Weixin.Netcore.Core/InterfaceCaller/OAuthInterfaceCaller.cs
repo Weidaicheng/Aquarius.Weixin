@@ -3,6 +3,7 @@ using RestSharp;
 using System;
 using Weixin.Netcore.Core.Exceptions;
 using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.Configuration;
 using Weixin.Netcore.Entity.Enums;
 using Weixin.Netcore.Entity.OAuth;
 

@@ -2,7 +2,7 @@
 using System.Xml;
 using Weixin.Netcore.Core.Authentication;
 using Weixin.Netcore.Core.Exceptions;
-using Weixin.Netcore.Entity;
+using Weixin.Netcore.Entity.Configuration;
 using Weixin.Netcore.Utility;
 
 namespace Weixin.Netcore.Core.Middleware
@@ -31,7 +31,7 @@ namespace Weixin.Netcore.Core.Middleware
             encryptedMsg = root["Encrypt"].InnerText;
 
             //验证签名
-            if(!_verifyer.VerifySignature(timestamp, nonce, _baseSettings.Token, signature))
+            if(!_verifyer.VerifySignature(signature, timestamp, nonce, _baseSettings.Token))
             {
                 throw new SignatureInValidException("签名非法");
             }

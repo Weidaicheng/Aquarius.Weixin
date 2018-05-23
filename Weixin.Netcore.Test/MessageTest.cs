@@ -8,6 +8,7 @@ using Weixin.Netcore.Core.Message.Reply;
 using Weixin.Netcore.Extensions.Message.Handler;
 using Weixin.Netcore.Entity;
 using Weixin.Netcore.Entity.WeixinMessage;
+using Weixin.Netcore.Entity.Configuration;
 
 namespace Weixin.Netcore.Core.Test
 {

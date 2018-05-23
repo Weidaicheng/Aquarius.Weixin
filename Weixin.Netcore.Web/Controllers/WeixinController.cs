@@ -45,7 +45,7 @@ namespace Weixin.Netcore.Web.Controllers
                 if(!string.IsNullOrEmpty(echostr))
                 {
                     //服务器认证
-                    if (_verifyer.VerifySignature(timestamp, nonce, _configuration["Token"], signature))
+                    if (_verifyer.VerifySignature(signature, timestamp, nonce, _configuration["Token"]))
                     {
                         return Content(echostr);
                     }
