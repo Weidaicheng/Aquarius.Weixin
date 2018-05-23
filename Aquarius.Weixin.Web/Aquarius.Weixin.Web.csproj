@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <UserSecretsId>d2a7aabe-0e98-44b2-a9a9-ba71a7ced32b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
+    <PackageReference Include="NLog.Web.AspNetCore" Version="4.5.0-beta04" />
+    <PackageReference Include="RestSharp" Version="106.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Aquarius.Weixin.Cache\Aquarius.Weixin.Cache.csproj" />
+    <ProjectReference Include="..\Aquarius.Weixin.Core\Aquarius.Weixin.Core.csproj" />
+    <ProjectReference Include="..\Aquarius.Weixin.Entity\Aquarius.Weixin.Entity.csproj" />
+    <ProjectReference Include="..\Aquarius.Weixin.Utility\Aquarius.Weixin.Utility.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>
