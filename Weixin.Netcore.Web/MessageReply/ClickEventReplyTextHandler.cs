@@ -3,7 +3,7 @@ using Weixin.Netcore.Core.Message.Reply;
 using Weixin.Netcore.Entity.WeixinMessage;
 using Weixin.Netcore.Utility;
 
-namespace Weixin.Netcore.Extensions.Message.Handler
+namespace Weixin.Netcore.Web.MessageReply
 {
     /// <summary>
     /// 点击回复文本消息扩展

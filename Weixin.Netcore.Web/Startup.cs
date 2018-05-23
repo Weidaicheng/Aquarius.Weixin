@@ -6,7 +6,7 @@ using Weixin.Netcore.Core.Configuration.DependencyInjection;
 using Weixin.Netcore.Core.Message.Handler;
 using Weixin.Netcore.Entity.Configuration;
 using Weixin.Netcore.Entity.Enums;
-using Weixin.Netcore.Extensions.Message.Handler;
+using Weixin.Netcore.Web.MessageReply;
 
 namespace Weixin.Netcore.Web
 {
@@ -44,6 +44,7 @@ namespace Weixin.Netcore.Web
             });
 
             services.AddScoped<TextMessageHandlerBase, EchoTextHandler>();
+            services.AddScoped<ClickEvtMessageHandlerBase, ClickEventReplyTextHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
