@@ -10,6 +10,11 @@
             type = "pic_photo_or_album";
         }
 
+        public SinglePicPhotoOrAlbumButton(string name, string key) : this(key)
+        {
+            this.key = key;
+        }
+
         public string key { get; set; }
     }
 }

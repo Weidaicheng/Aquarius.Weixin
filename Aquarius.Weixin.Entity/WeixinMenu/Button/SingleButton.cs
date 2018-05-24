@@ -1,7 +1,7 @@
 ﻿namespace Aquarius.Weixin.Entity.WeixinMenu.Button
 {
     /// <summary>
-    /// 单击按钮
+    /// 单按钮
     /// </summary>
     public abstract class SingleButton : ButtonBase
     {

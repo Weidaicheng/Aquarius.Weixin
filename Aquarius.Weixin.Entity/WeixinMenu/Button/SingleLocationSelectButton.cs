@@ -10,6 +10,11 @@
             type = "location_select";
         }
 
+        public SingleLocationSelectButton(string name, string key) : this(name)
+        {
+            this.key = key;
+        }
+
         public string key { get; set; }
     }
 }

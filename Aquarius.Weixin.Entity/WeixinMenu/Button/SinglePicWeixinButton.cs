@@ -10,6 +10,11 @@
             type = "pic_weixin";
         }
 
+        public SinglePicWeixinButton(string name, string key) : this(name)
+        {
+            this.key = key;
+        }
+
         public string key { get; set; }
     }
 }

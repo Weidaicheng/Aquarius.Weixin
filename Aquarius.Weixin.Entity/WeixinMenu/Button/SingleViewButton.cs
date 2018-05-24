@@ -10,6 +10,11 @@
             type = "view";
         }
 
+        public SingleViewButton(string name, string url) : this(name)
+        {
+            this.url = url;
+        }
+
         public string url { get; set; }
     }
 }
