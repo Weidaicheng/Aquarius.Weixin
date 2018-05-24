@@ -6,7 +6,7 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection.Options
     /// <summary>
     /// Aquarius.Weixin 选项配置
     /// </summary>
-    public class WeixinNetcoreOptions
+    public class AquariusWeixinOptions
     {
         /// <summary>
         /// 基础设置

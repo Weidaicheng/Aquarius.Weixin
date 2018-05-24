@@ -23,9 +23,9 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
     /// <summary>
     /// 添加Aquarius.Weixin的DI扩展
     /// </summary>
-    public static class WeixinNetcoreServiceCollectionExtensions
+    public static class AquariusWeixinServiceCollectionExtensions
     {
-        private static WeixinNetcoreOptions options = new WeixinNetcoreOptions()
+        private static AquariusWeixinOptions options = new AquariusWeixinOptions()
         {
             CacheType = CacheType.InMemory,
             MsgMiddlewareType = MessageMiddlewareType.Plain,
@@ -50,7 +50,7 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
         /// </summary>
         /// <param name="services">The services.</param>
         /// <returns></returns>
-        public static IServiceCollection AddWeixinNetcore(this IServiceCollection services)
+        public static IServiceCollection AddAquariusWeixin(this IServiceCollection services)
         {
             //RestSharp
             services.AddScoped<IRestClient, RestClient>();
@@ -153,10 +153,10 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
         /// <param name="services">The services.</param>
         /// <param name="setupAction">The setup action.</param>
         /// <returns></returns>
-        public static IServiceCollection AddWeixinNetcore(this IServiceCollection services, Action<WeixinNetcoreOptions> setupAction)
+        public static IServiceCollection AddAquariusWeixin(this IServiceCollection services, Action<AquariusWeixinOptions> setupAction)
         {
             setupAction.Invoke(options);
-            return services.AddWeixinNetcore();
+            return services.AddAquariusWeixin();
         }
 
         /// <summary>
@@ -165,10 +165,10 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
         /// <param name="services">The services.</param>
         /// <param name="configuration">The configuration.</param>
         /// <returns></returns>
-        public static IServiceCollection AddWeixinNetcore(this IServiceCollection services, IConfiguration configuration)
+        public static IServiceCollection AddAquariusWeixin(this IServiceCollection services, IConfiguration configuration)
         {
-            options = configuration.Get<WeixinNetcoreOptions>();
-            return services.AddWeixinNetcore();
+            options = configuration.Get<AquariusWeixinOptions>();
+            return services.AddAquariusWeixin();
         }
     }
 }

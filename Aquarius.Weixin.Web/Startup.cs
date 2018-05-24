@@ -24,7 +24,7 @@ namespace Aquarius.Weixin.Web
         {
             services.AddMvc();
 
-            services.AddWeixinNetcore(opt =>
+            services.AddAquariusWeixin(opt =>
             {
                 opt.BaseSetting = new BaseSettings()
                 {
