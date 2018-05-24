@@ -1,0 +1,16 @@
+﻿{
+  "CacheType": "InMemory",
+  "MsgMiddlewareType": "Plain",
+  "BaseSetting": {
+    "Debug": true,
+    "IsRepetValid": false,
+    "AppId": "",
+    "AppSecret": "",
+    "Token": "Weixin",
+    "EncodingAESKey": "",
+    "ApiKey": "",
+    "CertPass": "",
+    "CertRoot": "",
+    "MchId": ""
+  }
+}

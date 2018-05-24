@@ -43,6 +43,11 @@ namespace Aquarius.Weixin.Web
                 opt.MsgMiddlewareType = MessageMiddlewareType.Plain;
             });
 
+            //var options = new ConfigurationBuilder()
+            //    .AddJsonFile("AquariusWeixinOptions.json")
+            //    .Build();
+            //services.AddAquariusWeixin(options);
+
             services.AddScoped<TextMessageHandlerBase, EchoTextHandler>();
             services.AddScoped<ClickEvtMessageHandlerBase, ClickEventReplyTextHandler>();
         }
