@@ -10,6 +10,11 @@
             type = "scancode_push";
         }
 
+        public SingleScancodePushButton(string name, string key) : this(name)
+        {
+            this.key = key;
+        }
+
         public string key { get; set; }
     }
 }

@@ -10,6 +10,11 @@
             type = "click";
         }
 
+        public SingleClickButton(string name, string key) : this(name)
+        {
+            this.key = key;
+        }
+
         public string key { get; set; }
     }
 }
