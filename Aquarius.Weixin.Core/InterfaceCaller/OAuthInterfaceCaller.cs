@@ -68,7 +68,7 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             request.AddQueryParameter("appid", _weixinSetting.AppId);
             request.AddQueryParameter("secret", _weixinSetting.AppSecret);
             request.AddQueryParameter("code", code);
-            request.AddQueryParameter("grent_type", "authorization_code");
+            request.AddQueryParameter("grant_type", "authorization_code");
 
             IRestResponse response = _restClient.Execute(request);
 
