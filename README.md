@@ -225,5 +225,7 @@ services.AddScoped<ClickEvtMessageHandlerBase, ClickEventReplyTextHandler>();
 End
 -------------
 >支付教程不包含在 Quick Start 中，后续将会更新详细教程
+>
 >有问题请提 Issue 或与我联系
+>
 >微信：wdcdavyc（请备注：Github）。
