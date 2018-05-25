@@ -3,17 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27004.2009
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Core", "Aquarius.Weixin.Core\Aquarius.Weixin.Core.csproj", "{F6CE1896-3A1F-473B-AA85-C945FA92D89A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Core", "src\Aquarius.Weixin\Aquarius.Weixin.Core\Aquarius.Weixin.Core.csproj", "{F6CE1896-3A1F-473B-AA85-C945FA92D89A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Entity", "Aquarius.Weixin.Entity\Aquarius.Weixin.Entity.csproj", "{E0F20462-CC27-4F9F-96F7-E7C658463395}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Entity", "src\Aquarius.Weixin\Aquarius.Weixin.Entity\Aquarius.Weixin.Entity.csproj", "{E0F20462-CC27-4F9F-96F7-E7C658463395}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Utility", "Aquarius.Weixin.Utility\Aquarius.Weixin.Utility.csproj", "{D84D6D77-5985-48B0-9601-7947FD168735}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Utility", "src\Aquarius.Weixin\Aquarius.Weixin.Utility\Aquarius.Weixin.Utility.csproj", "{D84D6D77-5985-48B0-9601-7947FD168735}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Cache", "Aquarius.Weixin.Cache\Aquarius.Weixin.Cache.csproj", "{FFE2E386-0BA3-4546-BA4C-FE4D4156031E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Cache", "src\Aquarius.Weixin\Aquarius.Weixin.Cache\Aquarius.Weixin.Cache.csproj", "{FFE2E386-0BA3-4546-BA4C-FE4D4156031E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Test", "Aquarius.Weixin.Test\Aquarius.Weixin.Test.csproj", "{F5C02989-242D-4F7A-9947-0DF776D721B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Test", "Test\Aquarius.Weixin.Test\Aquarius.Weixin.Test.csproj", "{F5C02989-242D-4F7A-9947-0DF776D721B8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Web", "Aquarius.Weixin.Web\Aquarius.Weixin.Web.csproj", "{59906DD6-2AE2-4C88-AD07-C070FB030A05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aquarius.Weixin.Web", "src\Web\Aquarius.Weixin.Web\Aquarius.Weixin.Web.csproj", "{59906DD6-2AE2-4C88-AD07-C070FB030A05}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{17197F5C-6F8E-41B0-817B-7B56D2BF9FEF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{3C058C45-B777-490E-AA22-1EADF880BFCC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Aquarius.Weixin", "Aquarius.Weixin", "{AD2A9ECC-C7A7-4CE2-A926-1BAF1FD1565C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{3098EE98-C793-47B8-B2BB-CA8557C2E4A9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +56,16 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F6CE1896-3A1F-473B-AA85-C945FA92D89A} = {AD2A9ECC-C7A7-4CE2-A926-1BAF1FD1565C}
+		{E0F20462-CC27-4F9F-96F7-E7C658463395} = {AD2A9ECC-C7A7-4CE2-A926-1BAF1FD1565C}
+		{D84D6D77-5985-48B0-9601-7947FD168735} = {AD2A9ECC-C7A7-4CE2-A926-1BAF1FD1565C}
+		{FFE2E386-0BA3-4546-BA4C-FE4D4156031E} = {AD2A9ECC-C7A7-4CE2-A926-1BAF1FD1565C}
+		{F5C02989-242D-4F7A-9947-0DF776D721B8} = {3C058C45-B777-490E-AA22-1EADF880BFCC}
+		{59906DD6-2AE2-4C88-AD07-C070FB030A05} = {3098EE98-C793-47B8-B2BB-CA8557C2E4A9}
+		{AD2A9ECC-C7A7-4CE2-A926-1BAF1FD1565C} = {17197F5C-6F8E-41B0-817B-7B56D2BF9FEF}
+		{3098EE98-C793-47B8-B2BB-CA8557C2E4A9} = {17197F5C-6F8E-41B0-817B-7B56D2BF9FEF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {9708A6BE-3CDA-4320-AEDB-45F0AFEA45E2}

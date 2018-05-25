@@ -17,10 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Aquarius.Weixin.Cache\Aquarius.Weixin.Cache.csproj" />
-    <ProjectReference Include="..\Aquarius.Weixin.Core\Aquarius.Weixin.Core.csproj" />
-    <ProjectReference Include="..\Aquarius.Weixin.Entity\Aquarius.Weixin.Entity.csproj" />
-    <ProjectReference Include="..\Aquarius.Weixin.Utility\Aquarius.Weixin.Utility.csproj" />
+    <ProjectReference Include="..\..\Aquarius.Weixin\Aquarius.Weixin.Cache\Aquarius.Weixin.Cache.csproj" />
+    <ProjectReference Include="..\..\Aquarius.Weixin\Aquarius.Weixin.Core\Aquarius.Weixin.Core.csproj" />
+    <ProjectReference Include="..\..\Aquarius.Weixin\Aquarius.Weixin.Entity\Aquarius.Weixin.Entity.csproj" />
+    <ProjectReference Include="..\..\Aquarius.Weixin\Aquarius.Weixin.Utility\Aquarius.Weixin.Utility.csproj" />
   </ItemGroup>
 
   <ItemGroup>
