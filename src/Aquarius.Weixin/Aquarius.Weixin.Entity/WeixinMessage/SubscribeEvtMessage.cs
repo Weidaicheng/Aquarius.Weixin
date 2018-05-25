@@ -9,5 +9,10 @@
         {
             Event = "subscribe";
         }
+
+        public SubscribeEvtMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            Event = "subscribe";
+        }
     }
 }

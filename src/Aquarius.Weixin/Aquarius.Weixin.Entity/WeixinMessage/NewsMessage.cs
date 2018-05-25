@@ -12,6 +12,11 @@ namespace Aquarius.Weixin.Entity.WeixinMessage
             MsgType = "news";
         }
 
+        public NewsMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            MsgType = "news";
+        }
+
         /// <summary>
         /// 图文详情
         /// </summary>

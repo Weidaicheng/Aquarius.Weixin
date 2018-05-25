@@ -10,6 +10,11 @@
             MsgType = "text";
         }
 
+        public TextMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            MsgType = "text";
+        }
+
         /// <summary>
 		/// 文本消息内容
 		/// </summary>

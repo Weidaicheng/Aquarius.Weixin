@@ -10,6 +10,11 @@
             Event = "CLICK";
         }
 
+        public ClickEvtMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            Event = "CLICK";
+        }
+
         /// <summary>
         /// 事件KEY值
         /// </summary>

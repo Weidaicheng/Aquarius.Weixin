@@ -10,6 +10,11 @@
             MsgType = "shortvideo";
         }
 
+        public ShortVideoMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            MsgType = "shortvideo";
+        }
+
         /// <summary>
         /// 视频消息素材Id
         /// </summary>

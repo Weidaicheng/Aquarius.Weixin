@@ -10,6 +10,11 @@
             Event = "Scan";
         }
 
+        public ScanEvtMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            Event = "Scan";
+        }
+
         /// <summary>
         /// 事件KEY值
         /// </summary>

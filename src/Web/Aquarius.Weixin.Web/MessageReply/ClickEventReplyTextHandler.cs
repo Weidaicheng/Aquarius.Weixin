@@ -19,10 +19,8 @@ namespace Aquarius.Weixin.Web.MessageReply
 
         public override string ClickEventHandler(ClickEvtMessage message)
         {
-            var textMessage = new TextMessage()
+            var textMessage = new TextMessage(message)
             {
-                ToUserName = message.FromUserName,
-                FromUserName = message.ToUserName,
                 CreateTime = UtilityHelper.GetTimeStamp(),
                 Content = $"你点击了{message.EventKey}按钮"
             };

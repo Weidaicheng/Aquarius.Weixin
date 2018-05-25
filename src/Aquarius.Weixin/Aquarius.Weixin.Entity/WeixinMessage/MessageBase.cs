@@ -5,6 +5,15 @@
     /// </summary>
     public abstract class MessageBase : IMessage
     {
+        public MessageBase()
+        { }
+
+        public MessageBase(MessageBase receivedMsg)
+        {
+            ToUserName = receivedMsg.FromUserName;
+            FromUserName = receivedMsg.ToUserName;
+        }
+
         /// <summary>
 		/// 接收到的消息：AppId
         /// 发送出的消息：OpenId

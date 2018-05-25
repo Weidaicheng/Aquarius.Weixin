@@ -5,6 +5,12 @@
     /// </summary>
     public abstract class NormalMessage : MessageBase
     {
+        public NormalMessage()
+        { }
+
+        public NormalMessage(MessageBase receivedMsg) : base(receivedMsg)
+        { }
+
         /// <summary>
         /// 消息Id
         /// </summary>

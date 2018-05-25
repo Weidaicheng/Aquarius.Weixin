@@ -10,6 +10,11 @@
             MsgType = "event";
         }
 
+        public EventMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            MsgType = "event";
+        }
+
         public string Event { get; set; }
     }
 }

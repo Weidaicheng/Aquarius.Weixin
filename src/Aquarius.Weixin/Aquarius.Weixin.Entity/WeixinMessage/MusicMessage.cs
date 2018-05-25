@@ -10,6 +10,11 @@
             MsgType = "music";
         }
 
+        public MusicMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            MsgType = "music";
+        }
+
         /// <summary>
 		/// 标题
 		/// </summary>

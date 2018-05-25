@@ -10,6 +10,11 @@
             MsgType = "link";
         }
 
+        public LinkMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            MsgType = "link";
+        }
+
         /// <summary>
         /// 消息标题
         /// </summary>

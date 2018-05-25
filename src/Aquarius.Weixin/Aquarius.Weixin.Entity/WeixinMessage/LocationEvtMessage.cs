@@ -10,6 +10,11 @@
             Event = "LOCATION";
         }
 
+        public LocationEvtMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            Event = "LOCATION";
+        }
+
         /// <summary>
         /// 纬度
         /// </summary>

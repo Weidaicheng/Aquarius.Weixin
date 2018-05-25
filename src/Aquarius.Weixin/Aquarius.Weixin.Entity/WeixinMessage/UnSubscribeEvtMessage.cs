@@ -9,5 +9,10 @@
         {
             Event = "unsubscribe";
         }
+
+        public UnSubscribeEvtMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            Event = "unsubscribe";
+        }
     }
 }

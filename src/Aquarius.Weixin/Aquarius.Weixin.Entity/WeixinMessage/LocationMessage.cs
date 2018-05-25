@@ -7,6 +7,11 @@
             MsgType = "location";
         }
 
+        public LocationMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            MsgType = "location";
+        }
+
         /// <summary>
         /// 纬度
         /// </summary>

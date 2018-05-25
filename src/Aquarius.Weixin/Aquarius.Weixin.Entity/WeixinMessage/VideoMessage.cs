@@ -10,6 +10,11 @@
             MsgType = "video";
         }
 
+        public VideoMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            MsgType = "video";
+        }
+
         /// <summary>
 		/// 标题
 		/// </summary>

@@ -10,6 +10,11 @@
             MsgType = "voice";
         }
 
+        public VoiceMessage(MessageBase receivedMsg) : base(receivedMsg)
+        {
+            MsgType = "voice";
+        }
+
         /// <summary>
 		/// 素材Id
 		/// </summary>
