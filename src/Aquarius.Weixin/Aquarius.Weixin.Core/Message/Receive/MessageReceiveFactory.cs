@@ -1,4 +1,5 @@
 ﻿using Aquarius.Weixin.Entity.Enums;
+using System;
 
 namespace Aquarius.Weixin.Core.Message.Receive
 {
@@ -16,73 +17,68 @@ namespace Aquarius.Weixin.Core.Message.Receive
         /// <returns></returns>
         public static IMessageReceive GetMessageReceive(string msgType, string eventType, string eventKey)
         {
+            //更改为首字母大写模式
+            msgType = string.IsNullOrEmpty(msgType) ? msgType : $"{msgType.Substring(0, 1).ToUpper()}{msgType.Substring(1)}";
+            eventType = string.IsNullOrEmpty(eventType) ? eventType : $"{eventType.Substring(0, 1).ToUpper()}{eventType.Substring(1).ToLower()}";
+
             IMessageReceive messageReceive;
 
-            if (msgType.ToLower() == MessageType.Text.ToString().ToLower())
+            switch(Enum.Parse(typeof(MessageType), msgType))
             {
-                messageReceive = new TextMessageReceive();
-            }
-            else if (msgType.ToLower() == MessageType.Image.ToString().ToLower())
-            {
-                messageReceive = new ImageMessageReceive();
-            }
-            else if (msgType.ToLower() == MessageType.Voice.ToString().ToLower())
-            {
-                messageReceive = new VoiceMessageReceive();
-            }
-            else if (msgType.ToLower() == MessageType.Video.ToString().ToLower())
-            {
-                messageReceive = new VideoMessageReceive();
-            }
-            else if (msgType.ToLower() == MessageType.Shortvideo.ToString().ToLower())
-            {
-                messageReceive = new ShortVideoMessageReceive();
-            }
-            else if (msgType.ToLower() == MessageType.Location.ToString().ToLower())
-            {
-                messageReceive = new LocationMessageReceive();
-            }
-            else if (msgType.ToLower() == MessageType.Link.ToString().ToLower())
-            {
-                messageReceive = new LinkMessageReceive();
-            }
-            else if (msgType.ToLower() == MessageType.Event.ToString().ToLower())
-            {
-                if (eventType.ToLower() == EventType.Subscribe.ToString().ToLower())
-                {
-                    if (string.IsNullOrEmpty(eventKey))
+                case MessageType.Text:
+                    messageReceive = new TextMessageReceive();
+                    break;
+                case MessageType.Image:
+                    messageReceive = new ImageMessageReceive();
+                    break;
+                case MessageType.Voice:
+                    messageReceive = new VoiceMessageReceive();
+                    break;
+                case MessageType.Video:
+                    messageReceive = new VideoMessageReceive();
+                    break;
+                case MessageType.Shortvideo:
+                    messageReceive = new ShortVideoMessageReceive();
+                    break;
+                case MessageType.Location:
+                    messageReceive = new LocationMessageReceive();
+                    break;
+                case MessageType.Link:
+                    messageReceive = new LinkMessageReceive();
+                    break;
+                case MessageType.Event:
+                    switch(Enum.Parse(typeof(EventType), eventType))
                     {
-                        messageReceive = new SubscribeEvtMessageReceive(); 
+                        case EventType.Subscribe:
+                            if (string.IsNullOrEmpty(eventKey))
+                            {
+                                messageReceive = new SubscribeEvtMessageReceive();
+                            }
+                            else
+                            {
+                                messageReceive = new ScanSubscribeEvtMessageReceive();
+                            }
+                            break;
+                        case EventType.Unsubscribe:
+                            messageReceive = new UnSubscribeEvtMessageReceive();
+                            break;
+                        case EventType.Scan:
+                            messageReceive = new ScanEvtMessageReceive();
+                            break;
+                        case EventType.Location:
+                            messageReceive = new LocationEvtMessageReceive();
+                            break;
+                        case EventType.Click:
+                            messageReceive = new ClickEvtMessageReceive();
+                            break;
+                        default:
+                            messageReceive = null;
+                            break;
                     }
-                    else
-                    {
-                        messageReceive = new ScanSubscribeEvtMessageReceive();
-                    }
-                }
-                else if (eventType.ToLower() == EventType.Unsubscribe.ToString().ToLower())
-                {
-                    messageReceive = new UnSubscribeEvtMessageReceive();
-                }
-                if (eventType.ToLower() == EventType.Scan.ToString().ToLower())
-                {
-                    messageReceive = new ScanEvtMessageReceive();
-                }
-                if (eventType.ToLower() == EventType.Location.ToString().ToLower())
-                {
-                    messageReceive = new LocationEvtMessageReceive();
-                }
-                if (eventType.ToLower() == EventType.Click.ToString().ToLower())
-                {
-                    messageReceive = new ClickEvtMessageReceive();
-                }
-                else
-                {
+                    break;
+                default:
                     messageReceive = null;
-                }
-            }
-            else
-            {
-                messageReceive = null;
+                    break;
             }
 
             return messageReceive;
