@@ -13,8 +13,4 @@
     <PackageReference Include="MSTest.TestFramework" Version="1.1.18" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\src\Aquarius.Weixin\Aquarius.Weixin.Core\Aquarius.Weixin.Core.csproj" />
-  </ItemGroup>
-
 </Project>
