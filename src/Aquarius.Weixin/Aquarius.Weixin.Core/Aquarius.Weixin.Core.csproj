@@ -12,7 +12,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Aquarius.Weixin.Cache\Aquarius.Weixin.Cache.csproj" />
     <ProjectReference Include="..\Aquarius.Weixin.Entity\Aquarius.Weixin.Entity.csproj" />
-    <ProjectReference Include="..\Aquarius.Weixin.Utility\Aquarius.Weixin.Utility.csproj" />
   </ItemGroup>
 
 </Project>
