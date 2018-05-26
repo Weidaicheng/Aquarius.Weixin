@@ -127,7 +127,7 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
                 throw new ArgumentException("OpenId为空");
             }
 
-            IRestRequest request = new RestRequest("sns/oauth2/userinfo", Method.GET);
+            IRestRequest request = new RestRequest("sns/userinfo", Method.GET);
             request.AddQueryParameter("access_token", accessToken);
             request.AddQueryParameter("openid", openId);
             request.AddQueryParameter("lang", lang.ToString());
