@@ -1,18 +1,15 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Aquarius.Weixin.Cache" Version="1.0.0" />
+    <PackageReference Include="Aquarius.Weixin.Entity" Version="1.0.0" />
+    <PackageReference Include="Aquarius.Weixin.Utility" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="RestSharp" Version="106.1.0" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Aquarius.Weixin.Cache\Aquarius.Weixin.Cache.csproj" />
-    <ProjectReference Include="..\Aquarius.Weixin.Entity\Aquarius.Weixin.Entity.csproj" />
-    <ProjectReference Include="..\Aquarius.Weixin.Utility\Aquarius.Weixin.Utility.csproj" />
   </ItemGroup>
 
 </Project>
