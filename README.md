@@ -1,5 +1,7 @@
 # ♒Aquarius.Weixin♒
 
+#[系列教程](https://www.jianshu.com/nb/25911549)
+
 Quick Start
 --------------------
 1、在Web项目中执行 `Install-Package Aquarius.Weixin` 或 `dotnet add package Aquarius.Weixin` 安装Nuget包，建议使用最新版本以防止各种问题
