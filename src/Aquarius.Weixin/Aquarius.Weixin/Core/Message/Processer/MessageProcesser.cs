@@ -49,6 +49,11 @@ namespace Aquarius.Weixin.Core.Message.Processer
             _scanSubscribeEventHandler = scanSubscribeEventHandler;
         }
 
+        /// <summary>
+        /// 处理消息
+        /// </summary>
+        /// <param name="message"></param>
+        /// <returns></returns>
         public string ProcessMessage(IMessage message)
         {
             if(message is TextMessage)//文本消息
@@ -133,6 +138,17 @@ namespace Aquarius.Weixin.Core.Message.Processer
             {
                 throw new MessageNotSupportException("不支持的消息类型");
             }
+        }
+
+        /// <summary>
+        /// 处理消息，先进行<see cref="MessageParser.ParseMessage(string)"/>
+        /// </summary>
+        /// <param name="messageStr"></param>
+        /// <returns></returns>
+        public string ProcessMessage(string messageStr)
+        {
+            IMessage message = MessageParser.ParseMessage(messageStr);
+            return ProcessMessage(message);
         }
     }
 }
