@@ -1,6 +1,6 @@
 # ♒Aquarius.Weixin♒
 
-#[系列教程](https://www.jianshu.com/nb/25911549)
+# [系列教程](https://www.jianshu.com/nb/25911549)
 
 Quick Start
 --------------------
