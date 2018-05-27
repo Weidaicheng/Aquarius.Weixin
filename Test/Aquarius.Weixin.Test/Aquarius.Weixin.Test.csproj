@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Aquarius.Weixin\Aquarius.Weixin.Core\Aquarius.Weixin.Core.csproj" />
+    <ProjectReference Include="..\..\src\Aquarius.Weixin\Aquarius.Weixin\Aquarius.Weixin.csproj" />
   </ItemGroup>
 
 </Project>
