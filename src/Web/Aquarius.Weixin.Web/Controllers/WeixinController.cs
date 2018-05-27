@@ -68,7 +68,7 @@ namespace Aquarius.Weixin.Web.Controllers
                 if(!string.IsNullOrEmpty(echostr))
                 {
                     //服务器认证
-                    if (_verifyer.VerifySignature(signature, timestamp, nonce, _configuration["Token"]))
+                    if (_verifyer.VerifySignature(signature, timestamp, nonce, "token"))
                     {
                         return Content(echostr);
                     }
@@ -137,11 +137,11 @@ namespace Aquarius.Weixin.Web.Controllers
                         {
                             new SingleClickButton("按钮2")
                             {
-                                key = "按钮2"
+                                key = "Button2"
                             },
                             new SingleViewButton("网页")
                             {
-                                url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=yourappid&redirect_uri=http://yourdomain.com/Weixin/Authorization&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
+                                url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=&redirect_uri=http://yourdomain.com/Weixin/Authorization&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect"
                             }
                         }
                     }
