@@ -71,6 +71,9 @@ namespace Aquarius.Weixin.Core.Message.Receive
                         case EventType.Click:
                             messageReceive = new ClickEvtMessageReceive();
                             break;
+                        case EventType.View:
+                            messageReceive = new ViewEvtMessageReceive();
+                            break;
                         default:
                             messageReceive = null;
                             break;

@@ -23,6 +23,7 @@ namespace Aquarius.Weixin.Core.Message.Processer
         private readonly LocationEvtMessageHandlerBase _locationEventHandler;
         private readonly ClickEvtMessageHandlerBase _clickEventHandler;
         private readonly ScanSubscribeEvtMessageHandlerBase _scanSubscribeEventHandler;
+        private readonly ViewEvtMessageHandlerBase _viewEvtMessageHandler;
 
         public MessageProcesser(MessageRepetHandler messageRepetHandler,
             TextMessageHandlerBase textMessageHandler, ImageMessageHandlerBase imageMessageHandler,
@@ -31,7 +32,7 @@ namespace Aquarius.Weixin.Core.Message.Processer
             LinkMessageHandlerBase linkMessageHandler, SubscribeEvtMessageHandlerBase subscribeEventHandler,
             UnsubscribeEvtMessageHandlerBase unsubscribeEventHandler, ScanEvtMessageHandlerBase scanEventHandler,
             LocationEvtMessageHandlerBase locationEventHandler, ClickEvtMessageHandlerBase clickEventHandler,
-            ScanSubscribeEvtMessageHandlerBase scanSubscribeEventHandler)
+            ScanSubscribeEvtMessageHandlerBase scanSubscribeEventHandler, ViewEvtMessageHandlerBase viewEvtMessageHandler)
         {
             _messageRepetHandler = messageRepetHandler;
             _textMessageHandler = textMessageHandler;
@@ -47,6 +48,7 @@ namespace Aquarius.Weixin.Core.Message.Processer
             _locationEventHandler = locationEventHandler;
             _clickEventHandler = clickEventHandler;
             _scanSubscribeEventHandler = scanSubscribeEventHandler;
+            _viewEvtMessageHandler = viewEvtMessageHandler;
         }
 
         /// <summary>
@@ -128,11 +130,17 @@ namespace Aquarius.Weixin.Core.Message.Processer
                     return "success";
                 return _clickEventHandler.ClickEventHandler(message as ClickEvtMessage);
             }
-            else if(message is ScanSubscribeEvtMessage)
+            else if(message is ScanSubscribeEvtMessage)//扫码订阅事件消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as ClickEvtMessage).FromUserName + (message as ClickEvtMessage).CreateTime))
                     return "success";
                 return _scanSubscribeEventHandler.ScanSubscribeEventHandler(message as ScanSubscribeEvtMessage);
+            }
+            else if(message is ViewEvtMessage)//自定义View菜单事件
+            {
+                if (!_messageRepetHandler.MessageRepetValid((message as ViewEvtMessage).FromUserName + (message as ViewEvtMessage).CreateTime))
+                    return "success";
+                return _viewEvtMessageHandler.ViewEventHandler(message as ViewEvtMessage);
             }
             else
             {
