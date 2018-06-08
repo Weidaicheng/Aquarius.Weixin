@@ -81,5 +81,17 @@ namespace Aquarius.Weixin.Core.MaintainContainer
                 }
             }
         }
+
+        /// <summary>
+        /// 通过code换取<see cref="UserInfo"/>
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="lang">语言，默认为<see cref="Language.zh_CN"/></param>
+        /// <returns></returns>
+        public UserInfo GetUserInfoByCode(string code, Language lang = Language.zh_CN)
+        {
+            var openId = GetOpenId(code);
+            return GetUserInfo(openId, lang);
+        }
     }
 }
