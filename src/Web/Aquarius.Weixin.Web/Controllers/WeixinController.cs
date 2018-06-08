@@ -112,9 +112,8 @@ namespace Aquarius.Weixin.Web.Controllers
         /// <returns></returns>
         public IActionResult Authorization(string code)
         {
-            var openId = _authorizationContainer.GetOpenId(code);
-            var userInfo = _authorizationContainer.GetUserInfo(openId, Language.zh_CN);
-            return Content($"your openId is {openId}, your nickname is {userInfo.nickname}");
+            var userInfo = _authorizationContainer.GetUserInfoByCode(code);
+            return Content($"your openId is {userInfo.openid}, your nickname is {userInfo.nickname}");
         }
 
         /// <summary>
