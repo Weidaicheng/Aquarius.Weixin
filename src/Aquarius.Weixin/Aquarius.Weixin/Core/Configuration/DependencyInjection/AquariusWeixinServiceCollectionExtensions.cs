@@ -17,6 +17,7 @@ using Aquarius.Weixin.Core.Middleware;
 using Aquarius.Weixin.Entity.Configuration;
 using Aquarius.Weixin.Entity.Enums;
 using Aquarius.Weixin.Entity.WeixinMessage;
+using Aquarius.Weixin.Core.Message.Handler.DefaultHandler;
 
 namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
 {
@@ -74,25 +75,28 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
             services.AddScoped<Verifyer, Verifyer>();
 
             //消息
+            //消息重复处理
             services.AddScoped<MessageRepetHandler, MessageRepetHandler>();
+            //消息解析器
             services.AddScoped<MessageParser, MessageParser>();
+            //消息处理器
             services.AddScoped<MessageProcesser, MessageProcesser>();
-            services.AddScoped<ClickEvtMessageHandlerBase, ClickEvtMessageHandlerBase>();
-            services.AddScoped<EventMessageHandlerBase, EventMessageHandlerBase>();
-            services.AddScoped<ImageMessageHandlerBase, ImageMessageHandlerBase>();
-            services.AddScoped<LinkMessageHandlerBase, LinkMessageHandlerBase>();
-            services.AddScoped<LocationEvtMessageHandlerBase, LocationEvtMessageHandlerBase>();
-            services.AddScoped<LocationMessageHandlerBase, LocationMessageHandlerBase>();
-            services.AddScoped<NorEvtMessageHandlerBase, NorEvtMessageHandlerBase>();
-            services.AddScoped<NormalMessageHandlerBase, NormalMessageHandlerBase>();
-            services.AddScoped<ScanEvtMessageHandlerBase, ScanEvtMessageHandlerBase>();
-            services.AddScoped<ScanSubscribeEvtMessageHandlerBase, ScanSubscribeEvtMessageHandlerBase>();
-            services.AddScoped<ShortVideoMessageHandlerBase, ShortVideoMessageHandlerBase>();
-            services.AddScoped<SubscribeEvtMessageHandlerBase, SubscribeEvtMessageHandlerBase>();
-            services.AddScoped<TextMessageHandlerBase, TextMessageHandlerBase>();
-            services.AddScoped<UnsubscribeEvtMessageHandlerBase, UnsubscribeEvtMessageHandlerBase>();
-            services.AddScoped<VideoMessageHandlerBase, VideoMessageHandlerBase>();
-            services.AddScoped<VoiceMessageHandlerBase, VoiceMessageHandlerBase>();
+            //消息处理方法
+            services.AddScoped<IClickEvtMessageHandler, DefaultClickEvtMessageHandler>();
+            services.AddScoped<IImageMessageHandler, DefaultImageMessageHandler>();
+            services.AddScoped<ILinkMessageHandler, DefaultLinkMessageHandler>();
+            services.AddScoped<ILocationEvtMessageHandler, DefaultLocationEvtMessageHandler>();
+            services.AddScoped<ILocationMessageHandler, DefaultLocationMessageHandler>();
+            services.AddScoped<IScanEvtMessageHandler, DefaultScanEvtMessageHandler>();
+            services.AddScoped<IScanSubscribeEvtMessageHandler, DefaultScanSubscribeEvtMessageHandler>();
+            services.AddScoped<IShortVideoMessageHandler, DefaultShortVideoMessageHandler>();
+            services.AddScoped<ISubscribeEvtMessageHandler, DefaultSubscribeEvtMessageHandler>();
+            services.AddScoped<ITextMessageHandler, DefaultTextMessageHandler>();
+            services.AddScoped<IUnsubscribeEvtMessageHandler, DefaultUnsubscribeEvtMessageHandler>();
+            services.AddScoped<IVideoMessageHandler, DefaultVideoMessageHandler>();
+            services.AddScoped<IViewEvtMessageHandler, DefaultViewEvtMessageHandler>();
+            services.AddScoped<IVoiceMessageHandler, DefaultVoiceMessageHandler>();
+            //消息回复
             services.AddScoped<IMessageReply<ImageMessage>, ImageMessageReply>();
             services.AddScoped<IMessageReply<MusicMessage>, MusicMessageReply>();
             services.AddScoped<IMessageReply<NewsMessage>, NewsMessageReply>();
