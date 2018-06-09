@@ -5,7 +5,7 @@ namespace Aquarius.Weixin.Entity.WeixinMessage
     /// <summary>
     /// 图文消息
     /// </summary>
-    public class NewsMessage : MessageBase
+    public class NewsMessage : MessageBase, ICanBeUsedToReply
     {
         public NewsMessage()
         {

@@ -1,17 +1,18 @@
-﻿namespace Aquarius.Weixin.Core.Message.Reply
+﻿using Aquarius.Weixin.Entity.WeixinMessage;
+
+namespace Aquarius.Weixin.Core.Message.Reply
 {
     /// <summary>
     /// 回复消息
     /// </summary>
     public interface IMessageReply
-    {
-    }
+    { }
 
     /// <summary>
     /// 回复消息-泛型
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public interface IMessageReply<T> : IMessageReply
+    public interface IMessageReply<T> : IMessageReply where T : IMessage, ICanBeUsedToReply
     {
         /// <summary>
         /// 生成Xml

@@ -3,7 +3,7 @@
     /// <summary>
     /// 文本消息
     /// </summary>
-    public class TextMessage : NormalMessage
+    public class TextMessage : NormalMessage, ICanBeUsedToReply
     {
         public TextMessage()
         {
