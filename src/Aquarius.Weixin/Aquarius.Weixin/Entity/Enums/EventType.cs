@@ -28,6 +28,11 @@
         /// <summary>
         /// 自定义菜单点击事件
         /// </summary>
-        Click
+        Click,
+
+        /// <summary>
+        /// 自定义View菜单事件
+        /// </summary>
+        View
     }
 }

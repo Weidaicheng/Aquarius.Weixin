@@ -1,5 +1,6 @@
 ﻿using Aquarius.Weixin.Core.Exceptions;
 using Aquarius.Weixin.Core.Message.Handler;
+using Aquarius.Weixin.Entity.Enums;
 using Aquarius.Weixin.Entity.WeixinMessage;
 
 namespace Aquarius.Weixin.Core.Message.Processer
@@ -10,28 +11,29 @@ namespace Aquarius.Weixin.Core.Message.Processer
     public sealed class MessageProcesser
     {
         private readonly MessageRepetHandler _messageRepetHandler;
-        private readonly TextMessageHandlerBase _textMessageHandler;
-        private readonly ImageMessageHandlerBase _imageMessageHandler;
-        private readonly VoiceMessageHandlerBase _voiceMessageHandlder;
-        private readonly VideoMessageHandlerBase _videoMessageHandler;
-        private readonly ShortVideoMessageHandlerBase _shortVideoMeessageHandler;
-        private readonly LocationMessageHandlerBase _locationMessageHandler;
-        private readonly LinkMessageHandlerBase _linkMessageHandlder;
-        private readonly SubscribeEvtMessageHandlerBase _subscribeEventHandler;
-        private readonly UnsubscribeEvtMessageHandlerBase _unsubscribeEventHandler;
-        private readonly ScanEvtMessageHandlerBase _scanEventHandler;
-        private readonly LocationEvtMessageHandlerBase _locationEventHandler;
-        private readonly ClickEvtMessageHandlerBase _clickEventHandler;
-        private readonly ScanSubscribeEvtMessageHandlerBase _scanSubscribeEventHandler;
+        private readonly ITextMessageHandler _textMessageHandler;
+        private readonly IImageMessageHandler _imageMessageHandler;
+        private readonly IVoiceMessageHandler _voiceMessageHandlder;
+        private readonly IVideoMessageHandler _videoMessageHandler;
+        private readonly IShortVideoMessageHandler _shortVideoMeessageHandler;
+        private readonly ILocationMessageHandler _locationMessageHandler;
+        private readonly ILinkMessageHandler _linkMessageHandlder;
+        private readonly ISubscribeEvtMessageHandler _subscribeEventHandler;
+        private readonly IUnsubscribeEvtMessageHandler _unsubscribeEventHandler;
+        private readonly IScanEvtMessageHandler _scanEventHandler;
+        private readonly ILocationEvtMessageHandler _locationEventHandler;
+        private readonly IClickEvtMessageHandler _clickEventHandler;
+        private readonly IScanSubscribeEvtMessageHandler _scanSubscribeEventHandler;
+        private readonly IViewEvtMessageHandler _viewEvtMessageHandler;
 
         public MessageProcesser(MessageRepetHandler messageRepetHandler,
-            TextMessageHandlerBase textMessageHandler, ImageMessageHandlerBase imageMessageHandler,
-            VoiceMessageHandlerBase voiceMessageHandler, VideoMessageHandlerBase videoMessageHandler,
-            ShortVideoMessageHandlerBase shortVideoMessageHandler, LocationMessageHandlerBase locationMessageHandler,
-            LinkMessageHandlerBase linkMessageHandler, SubscribeEvtMessageHandlerBase subscribeEventHandler,
-            UnsubscribeEvtMessageHandlerBase unsubscribeEventHandler, ScanEvtMessageHandlerBase scanEventHandler,
-            LocationEvtMessageHandlerBase locationEventHandler, ClickEvtMessageHandlerBase clickEventHandler,
-            ScanSubscribeEvtMessageHandlerBase scanSubscribeEventHandler)
+            ITextMessageHandler textMessageHandler, IImageMessageHandler imageMessageHandler,
+            IVoiceMessageHandler voiceMessageHandler, IVideoMessageHandler videoMessageHandler,
+            IShortVideoMessageHandler shortVideoMessageHandler, ILocationMessageHandler locationMessageHandler,
+            ILinkMessageHandler linkMessageHandler, ISubscribeEvtMessageHandler subscribeEventHandler,
+            IUnsubscribeEvtMessageHandler unsubscribeEventHandler, IScanEvtMessageHandler scanEventHandler,
+            ILocationEvtMessageHandler locationEventHandler, IClickEvtMessageHandler clickEventHandler,
+            IScanSubscribeEvtMessageHandler scanSubscribeEventHandler, IViewEvtMessageHandler viewEvtMessageHandler)
         {
             _messageRepetHandler = messageRepetHandler;
             _textMessageHandler = textMessageHandler;
@@ -47,6 +49,7 @@ namespace Aquarius.Weixin.Core.Message.Processer
             _locationEventHandler = locationEventHandler;
             _clickEventHandler = clickEventHandler;
             _scanSubscribeEventHandler = scanSubscribeEventHandler;
+            _viewEvtMessageHandler = viewEvtMessageHandler;
         }
 
         /// <summary>
@@ -56,87 +59,93 @@ namespace Aquarius.Weixin.Core.Message.Processer
         /// <returns></returns>
         public string ProcessMessage(IMessage message)
         {
-            if(message is TextMessage)//文本消息
+            if (message is TextMessage)//文本消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as TextMessage).MsgId.ToString()))
-                    return "success";
-                return _textMessageHandler.TextMessageHandler(message as TextMessage);
+                    return Consts.Success;
+                return _textMessageHandler.Handle(message as TextMessage);
             }
             else if(message is ImageMessage)//图片消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as ImageMessage).MsgId.ToString()))
-                    return "success";
-                return _imageMessageHandler.ImageMessageHandler(message as ImageMessage);
+                    return Consts.Success;
+                return _imageMessageHandler.Handle(message as ImageMessage);
             }
             else if(message is VoiceMessage)//语音消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as VoiceMessage).MsgId.ToString()))
-                    return "success";
-                return _voiceMessageHandlder.VoiceMessageHandler(message as VoiceMessage);
+                    return Consts.Success;
+                return _voiceMessageHandlder.Handle(message as VoiceMessage);
             }
             else if(message is VideoMessage)//视频消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as VideoMessage).MsgId.ToString()))
-                    return "success";
-                return _videoMessageHandler.VideoMessageHandler(message as VideoMessage);
+                    return Consts.Success;
+                return _videoMessageHandler.Handle(message as VideoMessage);
             }
             else if(message is ShortVideoMessage)//小视频消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as ShortVideoMessage).MsgId.ToString()))
-                    return "success";
-                return _shortVideoMeessageHandler.ShortVideoMessageHandler(message as ShortVideoMessage);
+                    return Consts.Success;
+                return _shortVideoMeessageHandler.Handle(message as ShortVideoMessage);
             }
             else if(message is LocationMessage)//位置消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as LocationMessage).MsgId.ToString()))
-                    return "success";
-                return _locationMessageHandler.LocationMessageHandler(message as LocationMessage);
+                    return Consts.Success;
+                return _locationMessageHandler.Handle(message as LocationMessage);
             }
             else if(message is LinkMessage)//链接消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as LinkMessage).MsgId.ToString()))
-                    return "success";
-                return _linkMessageHandlder.LinkMessageHandler(message as LinkMessage);
+                    return Consts.Success;
+                return _linkMessageHandlder.Handle(message as LinkMessage);
             }
             else if(message is SubscribeEvtMessage)//订阅事件消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as SubscribeEvtMessage).FromUserName + (message as SubscribeEvtMessage).CreateTime))
-                    return "success";
-                return _subscribeEventHandler.SubscribeEventHandler(message as SubscribeEvtMessage);
+                    return Consts.Success;
+                return _subscribeEventHandler.Handle(message as SubscribeEvtMessage);
             }
             else if(message is UnSubscribeEvtMessage)//取消订阅事件消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as UnSubscribeEvtMessage).FromUserName + (message as UnSubscribeEvtMessage).CreateTime))
-                    return "success";
-                return _unsubscribeEventHandler.UnsubscribeEventHandler(message as UnSubscribeEvtMessage);
+                    return Consts.Success;
+                return _unsubscribeEventHandler.Handle(message as UnSubscribeEvtMessage);
             }
             else if(message is ScanEvtMessage)//扫码事件消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as ScanEvtMessage).FromUserName + (message as ScanEvtMessage).CreateTime))
-                    return "success";
-                return _scanEventHandler.ScanEventHandler(message as ScanEvtMessage);
+                    return Consts.Success;
+                return _scanEventHandler.Handle(message as ScanEvtMessage);
             }
             else if(message is LocationEvtMessage)//位置上报事件消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as LocationEvtMessage).FromUserName + (message as LocationEvtMessage).CreateTime))
-                    return "success";
-                return _locationEventHandler.LocationEventHandler(message as LocationEvtMessage);
+                    return Consts.Success;
+                return _locationEventHandler.Handle(message as LocationEvtMessage);
             }
             else if(message is ClickEvtMessage)//点击事件消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as ClickEvtMessage).FromUserName + (message as ClickEvtMessage).CreateTime))
-                    return "success";
-                return _clickEventHandler.ClickEventHandler(message as ClickEvtMessage);
+                    return Consts.Success;
+                return _clickEventHandler.Handle(message as ClickEvtMessage);
             }
-            else if(message is ScanSubscribeEvtMessage)
+            else if(message is ScanSubscribeEvtMessage)//扫码订阅事件消息
             {
                 if (!_messageRepetHandler.MessageRepetValid((message as ClickEvtMessage).FromUserName + (message as ClickEvtMessage).CreateTime))
-                    return "success";
-                return _scanSubscribeEventHandler.ScanSubscribeEventHandler(message as ScanSubscribeEvtMessage);
+                    return Consts.Success;
+                return _scanSubscribeEventHandler.Handle(message as ScanSubscribeEvtMessage);
+            }
+            else if(message is ViewEvtMessage)//自定义View菜单事件
+            {
+                if (!_messageRepetHandler.MessageRepetValid((message as ViewEvtMessage).FromUserName + (message as ViewEvtMessage).CreateTime))
+                    return Consts.Success;
+                return _viewEvtMessageHandler.Handle(message as ViewEvtMessage);
             }
             else
             {
-                throw new MessageNotSupportException("不支持的消息类型");
+                throw new MessageNotSupportException($"不支持的消息类型：{message.GetType().FullName}");
             }
         }
 
