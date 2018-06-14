@@ -61,26 +61,46 @@ namespace Aquarius.Weixin.Core.JsApi
         /// <summary>
         /// 创建chooseWxPay配置
         /// </summary>
-        /// <param name="unifiedOrder"></param>
+        /// <param name="info"></param>
         /// <param name="signType"></param>
         /// <returns></returns>
-        public ChooseWxPayConfig GenerateChooseWxPayConfig(UnifiedOrder unifiedOrder, WxPaySignType signType = WxPaySignType.MD5)
+        public ChooseWxPayConfig GenerateChooseWxPayConfig(UnifiedOrderInfo info)
         {
+            var unifiedOrder = new UnifiedOrder()
+            {
+                nonce_str = info.NonceStr,
+                appid = _baseSettings.AppId,
+                mch_id = _baseSettings.MchId,
+                out_trade_no = info.TradeNo,
+                sign_type = info.SignType.GetDescription(),
+                total_fee = (int)(info.TotalFee * 100),
+                openid = info.OpenId,
+                notify_url = info.NotifyUrl,
+                fee_type = info.FeeType,
+                spbill_create_ip = info.DeviceIp,
+                time_start = info.StartTime.ToString("yyyyMMddHHmmss"),
+                time_expire = info.EndTime.ToString("yyyyMMddHHmmss"),
+                attach = info.Attach,
+                body = info.Body,
+                detail = info.Detail,
+                goods_tag = info.GoodTags,
+                limit_pay = info.UseLimitPay ? "no_credit" : null,
+                trade_type = info.TradeType,
+                scene_info = info.SceneInfo
+            };
             //转换字典
             var dic = UtilityHelper.Obj2Dictionary(unifiedOrder);
             //生成签名
-            unifiedOrder.sign = SignatureGenerater.GenerateWxPaySignature(dic, _baseSettings.ApiKey, signType);
+            unifiedOrder.sign = SignatureGenerater.GenerateWxPaySignature(dic, _baseSettings.ApiKey, info.SignType);
             //统一下单
             var unifiedOrderResult = _wxPayInterfaceCaller.UnifiedOrder(unifiedOrder);
 
-            var nonceStr = UtilityHelper.GenerateNonce();
-            var timeStamp = UtilityHelper.GetTimeStamp();
             var chooseWxPayConfig = new ChooseWxPayConfig()
             {
-                nonceStr = nonceStr,
-                timestamp = timeStamp,
+                nonceStr = info.NonceStr,
+                timestamp = info.TimeStamp,
                 package = unifiedOrderResult.prepay_id,
-                signType = signType.GetDescription()
+                signType = info.SignType.GetDescription()
             };
             var paySign = SignatureGenerater.GenerateWxPaySignature(new Dictionary<string, string>()
             {
@@ -89,7 +109,7 @@ namespace Aquarius.Weixin.Core.JsApi
                 {"nonceStr", chooseWxPayConfig.nonceStr },
                 {"package", chooseWxPayConfig.package },
                 {"signType", chooseWxPayConfig.signType }
-            }, _baseSettings.ApiKey, signType);
+            }, _baseSettings.ApiKey, info.SignType);
 
             chooseWxPayConfig.paySign = paySign;
 
