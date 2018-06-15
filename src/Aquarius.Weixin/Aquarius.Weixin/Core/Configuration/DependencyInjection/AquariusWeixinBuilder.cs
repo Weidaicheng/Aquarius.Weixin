@@ -11,6 +11,7 @@ using Aquarius.Weixin.Core.Message.Handler.DefaultHandler;
 using Aquarius.Weixin.Core.Message.Processer;
 using Aquarius.Weixin.Core.Message.Reply;
 using Aquarius.Weixin.Core.Middleware;
+using Aquarius.Weixin.Core.Pay;
 using Aquarius.Weixin.Entity.Configuration;
 using Aquarius.Weixin.Entity.Enums;
 using Aquarius.Weixin.Entity.WeixinMessage;
@@ -155,6 +156,11 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
                 default:
                     break;
             }
+        }
+
+        public void AddPayService()
+        {
+            _services.AddScoped<WxPayService, WxPayService>();
         }
     }
 }

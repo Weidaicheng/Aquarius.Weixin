@@ -69,5 +69,10 @@
         /// 添加消息中间件
         /// </summary>
         void AddMsgMiddleware();
+
+        /// <summary>
+        /// 添加支付服务
+        /// </summary>
+        void AddPayService();
     }
 }
