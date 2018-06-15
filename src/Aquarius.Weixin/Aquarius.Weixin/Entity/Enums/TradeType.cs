@@ -18,6 +18,11 @@
         /// <summary>
         /// App支付
         /// </summary>
-        APP
+        APP,
+
+        /// <summary>
+        /// H5支付
+        /// </summary>
+        MWEB
     }
 }

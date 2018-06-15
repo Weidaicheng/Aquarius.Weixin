@@ -170,14 +170,16 @@ namespace Aquarius.Weixin.Entity.Pay
         /// <param name="notifyUrl">回调Url</param>
         /// <param name="openId">OpenId</param>
         /// <param name="deviceIp">设备Ip</param>
+        /// <param name="tradeType">交易类型</param>
         /// <param name="signType">签名类型</param>
-        public UnifiedOrderInfo(string tradeNo, decimal totalFee, string notifyUrl, string openId, string deviceIp, WxPaySignType signType = WxPaySignType.MD5)
+        public UnifiedOrderInfo(string tradeNo, decimal totalFee, string notifyUrl, string openId, string deviceIp, TradeType tradeType = TradeType.JSAPI, WxPaySignType signType = WxPaySignType.MD5)
         {
             TradeNo = tradeNo;
             TotalFee = totalFee;
             NotifyUrl = notifyUrl;
             OpenId = openId;
             DeviceIp = deviceIp;
+            TradeType = tradeType;
             SignType = signType;
         }
 
@@ -270,5 +272,10 @@ namespace Aquarius.Weixin.Entity.Pay
         /// 场景信息（非必需）
         /// </summary>
         public SceneInfo SceneInfo { get; set; }
+
+        /// <summary>
+        /// H5支付跳转Url
+        /// </summary>
+        public string RedirectUrl { get; set; }
     }
 }
