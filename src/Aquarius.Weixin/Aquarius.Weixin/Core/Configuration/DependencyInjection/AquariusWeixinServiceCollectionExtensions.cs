@@ -32,6 +32,7 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
             builder.AddBaseSetting();
             builder.AddCache();
             builder.AddMsgMiddleware();
+            builder.AddPayService();
 
             return builder;
         }
