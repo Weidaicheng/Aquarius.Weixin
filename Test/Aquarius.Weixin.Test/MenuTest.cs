@@ -27,7 +27,7 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             ICache cache = new InMemoryCache(new MemoryCache(new MemoryCacheOptions()));
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             var accessToken = container.GetAccessToken();
@@ -55,7 +55,7 @@ namespace Aquarius.Weixin.Test
        }]
  }
 ";
-            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
+            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller();
             Console.WriteLine(menuInterfaceCaller.CreateMenu(accessToken, menu));
         }
 
@@ -67,11 +67,11 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             ICache cache = new InMemoryCache(new MemoryCache(new MemoryCacheOptions()));
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             var accessToken = container.GetAccessToken();
-            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
+            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller();
             Console.WriteLine(menuInterfaceCaller.GetMenu(accessToken));
         }
 
@@ -83,11 +83,11 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             ICache cache = new InMemoryCache(new MemoryCache(new MemoryCacheOptions()));
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             var accessToken = container.GetAccessToken();
-            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
+            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller();
             IConditionalMenu conditionalMenu = new ConditionalMenu();
             conditionalMenu.button.Add(new SingleClickButton("Man")
             {
@@ -109,11 +109,11 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             ICache cache = new InMemoryCache(new MemoryCache(new MemoryCacheOptions()));
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             var accessToken = container.GetAccessToken();
-            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
+            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller();
             Console.WriteLine(menuInterfaceCaller.TryMatchConditionalMenu(accessToken, "oGV7Kv0bgXvAUabe8sDopmKlzPNE"));
         }
 
@@ -125,11 +125,11 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             ICache cache = new InMemoryCache(new MemoryCache(new MemoryCacheOptions()));
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             var accessToken = container.GetAccessToken();
-            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller(new RestClient());
+            MenuInterfaceCaller menuInterfaceCaller = new MenuInterfaceCaller();
             var menuId = new MenuId()
             {
                 menuid = "415822427"

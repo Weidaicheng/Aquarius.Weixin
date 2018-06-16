@@ -6,11 +6,6 @@
     public interface IAquariusWeixinBuilder
     {
         /// <summary>
-        /// 添加RestSharp
-        /// </summary>
-        void AddRestSharp();
-
-        /// <summary>
         /// 添加接口调用
         /// </summary>
         void AddInterfaceCallers();

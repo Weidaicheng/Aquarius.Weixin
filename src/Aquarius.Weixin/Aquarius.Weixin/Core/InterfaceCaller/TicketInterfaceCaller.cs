@@ -21,10 +21,9 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         private const string WeixinUri = "https://api.weixin.qq.com";
         #endregion
 
-        public TicketInterfaceCaller(IRestClient restClient)
+        public TicketInterfaceCaller()
         {
-            _restClient = restClient;
-            _restClient.BaseUrl = new Uri(WeixinUri);
+            _restClient = new RestClient(WeixinUri);
         }
         #endregion
 

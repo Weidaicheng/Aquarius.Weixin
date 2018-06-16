@@ -22,10 +22,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             Console.WriteLine(tagManageInterfaceCaller.CreateTag(accessToken, "Tag1"));
         }
 
@@ -38,10 +38,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             var tags = tagManageInterfaceCaller.GetTags(accessToken);
             Console.WriteLine(JsonConvert.SerializeObject(tags));
         }
@@ -55,10 +55,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             Console.WriteLine(tagManageInterfaceCaller.UpdateTag(accessToken, 100, "新名字"));
         }
 
@@ -71,10 +71,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             Console.WriteLine(tagManageInterfaceCaller.Tagging(accessToken, 2, "oGV7Kv0bgXvAUabe8sDopmKlzPNE", "oGV7Kv5pT6m1P5zHDU3sHg4FT1JA"));
         }
 
@@ -87,10 +87,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             Console.WriteLine(tagManageInterfaceCaller.UnTagging(accessToken, 100, "oGV7Kv5pT6m1P5zHDU3sHg4FT1JA"));
         }
 
@@ -103,10 +103,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             var tagFans = tagManageInterfaceCaller.GetTagFans(accessToken, 101);
             Console.WriteLine(JsonConvert.SerializeObject(tagFans));
         }
@@ -120,10 +120,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             var tags = tagManageInterfaceCaller.GetUserTags(accessToken, "oGV7Kv0bgXvAUabe8sDopmKlzPNE");
             Console.WriteLine(JsonConvert.SerializeObject(tags));
         }
@@ -137,10 +137,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             Console.WriteLine(tagManageInterfaceCaller.DeleteTag(accessToken, 100));
         }
 
@@ -153,10 +153,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             var userList = tagManageInterfaceCaller.GetUserList(accessToken);
             Console.WriteLine(JsonConvert.SerializeObject(userList));
         }
@@ -170,10 +170,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             Console.WriteLine(tagManageInterfaceCaller.Remark(accessToken, "oGV7Kv0bgXvAUabe8sDopmKlzPNE", "备注"));
         }
 
@@ -186,10 +186,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             var userInfo = tagManageInterfaceCaller.GetUserInfo(accessToken, "oGV7Kv0bgXvAUabe8sDopmKlzPNE", Entity.Enums.Language.zh_CN);
             Console.WriteLine(JsonConvert.SerializeObject(userInfo));
         }
@@ -203,10 +203,10 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             AccessTokenContainer container = new AccessTokenContainer(cache, oAuthInterface);
             string accessToken = container.GetAccessToken();
-            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller(new RestClient());
+            UserTagManageInterfaceCaller tagManageInterfaceCaller = new UserTagManageInterfaceCaller();
             var blackList = tagManageInterfaceCaller.GetBlackList(accessToken);
             Console.WriteLine(JsonConvert.SerializeObject(blackList));
         }
