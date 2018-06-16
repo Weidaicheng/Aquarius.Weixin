@@ -15,7 +15,7 @@ namespace Aquarius.Weixin.Test
         [TestMethod]
         public void QueryOrderTest()
         {
-            WxPayInterfaceCaller interfaceCaller = new WxPayInterfaceCaller(new RestClient(), new BaseSettings());
+            WxPayInterfaceCaller interfaceCaller = new WxPayInterfaceCaller(new BaseSettings());
             var orderQuery = new OrderQuery()
             {
                 appid = "wx2421b1c4370ec43b",

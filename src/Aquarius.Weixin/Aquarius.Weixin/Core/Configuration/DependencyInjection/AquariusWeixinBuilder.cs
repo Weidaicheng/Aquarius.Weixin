@@ -35,11 +35,6 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
             _options = _provider.GetRequiredService<IOptions<AquariusWeixinOptions>>().Value;//resolve an instance of AquariusWeixinOptions
         }
 
-        public void AddRestSharp()
-        {
-            _services.AddScoped<IRestClient, RestClient>();
-        }
-
         public void AddInterfaceCallers()
         {
             _services.AddScoped<DisposableMessageInterfaceCaller, DisposableMessageInterfaceCaller>();

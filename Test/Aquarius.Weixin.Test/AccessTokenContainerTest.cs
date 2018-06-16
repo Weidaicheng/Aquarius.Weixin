@@ -25,7 +25,7 @@ namespace Aquarius.Weixin.Test
                 AppId = "wx6eff55d0d76e210f",
                 AppSecret = "60ab768429e8fc6b86abaa9cfd1c6565"
             };
-            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(new RestClient(), weixinSetting);
+            OAuthInterfaceCaller oAuthInterface = new OAuthInterfaceCaller(weixinSetting);
             var container = new AccessTokenContainer(cache, oAuthInterface);
             List<string> tokens = new List<string>();
             for(int i = 0; i < 10; i++)

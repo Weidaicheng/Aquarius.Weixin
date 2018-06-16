@@ -19,7 +19,6 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
         {
             IAquariusWeixinBuilder builder = new AquariusWeixinBuilder(services);
 
-            builder.AddRestSharp();
             builder.AddInterfaceCallers();
             builder.AddContainers();
             builder.AddSignGenerAndVerifyer();

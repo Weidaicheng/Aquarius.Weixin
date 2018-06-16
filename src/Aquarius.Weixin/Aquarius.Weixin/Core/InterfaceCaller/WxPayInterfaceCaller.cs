@@ -33,10 +33,9 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         private const string Y = "Y";
         #endregion
 
-        public WxPayInterfaceCaller(IRestClient restClient, BaseSettings baseSettings)
+        public WxPayInterfaceCaller(BaseSettings baseSettings)
         {
-            _restClient = restClient;
-            _restClient.BaseUrl = new Uri(WeixinUri);
+            _restClient = new RestClient(WeixinUri);
             _baseSettings = baseSettings;
         }
         #endregion
