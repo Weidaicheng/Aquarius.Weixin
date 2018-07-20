@@ -68,6 +68,24 @@ var options = new ConfigurationBuilder()
 services.AddAquariusWeixin(options);
 ```
 
+或者直接在 `ConfigurationServices` 中添加：
+```
+services.AddAquariusWeixin(opt =>
+{
+    opt.BaseSetting = new BaseSettings()
+    {
+        Debug = true,
+        IsRepetValid = false,
+        AppId = "your appid",
+        AppSecret = "your appsecret",
+        Token = "token",
+		//其他配置
+    };
+    opt.CacheType = CacheType.InMemory;
+    opt.MsgMiddlewareType = MessageMiddlewareType.Plain;
+});
+```
+
 快速使用可以指设置 BaseSetting 中的 `Debug(建议为true)`、`IsRepetValid(建议为false)`、`AppId`、`AppSecret`、`Token` 以及 `CacheType` 设置为 `InMemory`，`MsgMiddlewareType` 设置为 `Plain`，其他不进行配置或配置为空
 
 4、使用示例 [WeixinController.cs](https://github.com/Weidaicheng/Aquarius.Weixin/blob/master/src/Web/Aquarius.Weixin.Web/Controllers/WeixinController.cs)
@@ -140,7 +158,7 @@ public async Task<IActionResult> Index(string signature, string timestamp, strin
 		if(!string.IsNullOrEmpty(echostr))
 		{
 			//服务器认证
-			if (_verifyer.VerifySignature(signature, timestamp, nonce, _configuration["Token"]))
+			if (_verifyer.VerifySignature(signature, timestamp, nonce, _baseSettings.Token))
 			{
 				return Content(echostr);
 			}
@@ -187,30 +205,29 @@ public async Task<IActionResult> Index(string signature, string timestamp, strin
 新建 `ClickEventReplyTextHandler` 类，代码如下：
 
 ```
-public class ClickEventReplyTextHandler : ClickEvtMessageHandlerBase
+public class ClickEventReplyTextHandler : IClickEvtMessageHandler
 {
-	private readonly IMessageReply<TextMessage> _messageReply;
+    private readonly IMessageReply<TextMessage> _messageReply;
 
-	public ClickEventReplyTextHandler(IMessageReply<TextMessage> messageReply)
-	{
-		_messageReply = messageReply;
-	}
+    public ClickEventReplyTextHandler(IMessageReply<TextMessage> messageReply)
+    {
+        _messageReply = messageReply;
+    }
 
-	public override string ClickEventHandler(ClickEvtMessage message)
-	{
-		//组装文本消息
-		var textMessage = new TextMessage(message)
-		{
-			CreateTime = UtilityHelper.GetTimeStamp(),
-			Content = $"你点击了{message.EventKey}按钮"
-		};
+    public string Handle(ClickEvtMessage message)
+    {
+        var textMessage = new TextMessage(message)
+        {
+            CreateTime = UtilityHelper.GetTimeStamp(),
+            Content = $"你点击了{message.EventKey}按钮"
+        };
 
- 		return _messageReply.CreateXml(textMessage);
-	}
+        return _messageReply.CreateXml(textMessage);
+    }
 }
 ```
 
-① `ClickEventReplyTextHandler` 类所继承的类即为要处理的接收到的消息类型，该示例为点击事件消息处理(ClickEvtMessageHandlerBase)
+① `ClickEventReplyTextHandler` 所实现的接口 `IClickEvtMessageHandler` 即为要重写的消息类型处理接口，本例为点击事件消息处理。
 
 ② `_messageReplay` 字段的类型为泛型 `IMessageReply<T>` 类型，类型 `T` 即为要返回的消息类型，该示例返回文本消息(TextMessage)
 
@@ -219,7 +236,7 @@ public class ClickEventReplyTextHandler : ClickEvtMessageHandlerBase
 最后在 `ConfigureServices` 方法中的 `AddAquariusWeixin` 之后添加
 
 ```
-services.AddScoped<ClickEvtMessageHandlerBase, ClickEventReplyTextHandler>();
+services.AddScoped<IClickEvtMessageHandler, ClickEventReplyTextHandler>();
 ```
 
 即完成点击按钮返回文本消息
