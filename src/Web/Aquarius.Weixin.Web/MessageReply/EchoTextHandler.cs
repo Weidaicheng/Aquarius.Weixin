@@ -8,7 +8,7 @@ namespace Aquarius.Weixin.Web.MessageReply
     /// <summary>
     /// 文本消息Echo
     /// </summary>
-    public class EchoTextHandler : TextMessageHandlerBase
+    public class EchoTextHandler : ITextMessageHandler
     {
         private readonly IMessageReply<TextMessage> _messageReply;
 
@@ -17,7 +17,7 @@ namespace Aquarius.Weixin.Web.MessageReply
             _messageReply = messageReply;
         }
 
-        public override string TextMessageHandler(TextMessage message)
+        public string Handle(TextMessage message)
         {
             var textMessage = new TextMessage(message)
             {

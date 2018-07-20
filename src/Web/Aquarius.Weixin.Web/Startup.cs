@@ -38,7 +38,7 @@ namespace Aquarius.Weixin.Web
                 opt.MsgMiddlewareType = MessageMiddlewareType.Plain;
             });
 
-            services.AddScoped<ClickEvtMessageHandlerBase, ClickEventReplyTextHandler>();
+            services.AddScoped<IClickEvtMessageHandler, ClickEventReplyTextHandler>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

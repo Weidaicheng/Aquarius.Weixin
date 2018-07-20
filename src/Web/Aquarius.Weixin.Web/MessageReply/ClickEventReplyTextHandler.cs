@@ -8,7 +8,7 @@ namespace Aquarius.Weixin.Web.MessageReply
     /// <summary>
     /// 点击回复文本消息扩展
     /// </summary>
-    public class ClickEventReplyTextHandler : ClickEvtMessageHandlerBase
+    public class ClickEventReplyTextHandler : IClickEvtMessageHandler
     {
         private readonly IMessageReply<TextMessage> _messageReply;
 
@@ -17,7 +17,7 @@ namespace Aquarius.Weixin.Web.MessageReply
             _messageReply = messageReply;
         }
 
-        public override string ClickEventHandler(ClickEvtMessage message)
+        public string Handle(ClickEvtMessage message)
         {
             var textMessage = new TextMessage(message)
             {

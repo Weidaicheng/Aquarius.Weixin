@@ -17,6 +17,7 @@ using Aquarius.Weixin.Entity.WeixinMenu;
 using Aquarius.Weixin.Entity.WeixinMenu.Button;
 using Aquarius.Weixin.Core.InterfaceCaller;
 using Aquarius.Weixin.Entity.Enums;
+using Aquarius.Weixin.Entity.Configuration;
 
 namespace Aquarius.Weixin.Web.Controllers
 {
@@ -34,11 +35,12 @@ namespace Aquarius.Weixin.Web.Controllers
         private readonly AuthorizationContainer _authorizationContainer;
         private readonly AccessTokenContainer _accessTokenContainer;
         private readonly MenuInterfaceCaller _menuInterfaceCaller;
+        private readonly BaseSettings _baseSettings;
 
         public WeixinController(IConfiguration configuration, ILogger<WeixinController> logger,
             MessageProcesser processer, IMessageMiddleware messageMiddleware, Verifyer verifyer,
             AuthorizationContainer authorizationContainer, AccessTokenContainer accessTokenContainer,
-            MenuInterfaceCaller menuInterfaceCaller)
+            MenuInterfaceCaller menuInterfaceCaller, BaseSettings baseSettings)
         {
             _configuration = configuration;
             _logger = logger;
@@ -48,6 +50,7 @@ namespace Aquarius.Weixin.Web.Controllers
             _authorizationContainer = authorizationContainer;
             _accessTokenContainer = accessTokenContainer;
             _menuInterfaceCaller = menuInterfaceCaller;
+            _baseSettings = baseSettings;
         }
         #endregion
 
@@ -68,7 +71,7 @@ namespace Aquarius.Weixin.Web.Controllers
                 if(!string.IsNullOrEmpty(echostr))
                 {
                     //服务器认证
-                    if (_verifyer.VerifySignature(signature, timestamp, nonce, "token"))
+                    if (_verifyer.VerifySignature(signature, timestamp, nonce, _baseSettings.Token))
                     {
                         return Content(echostr);
                     }
