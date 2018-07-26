@@ -8,6 +8,7 @@ using IndustryEnum = Aquarius.Weixin.Entity.Enums.Industry;
 using IndustryClass = Aquarius.Weixin.Entity.TemplateMessage.Industry;
 using Aquarius.Weixin.Entity.TemplateMessage;
 using Aquarius.Weixin.Entity.Argument;
+using Aquarius.Weixin.Entity.Enums;
 
 namespace Aquarius.Weixin.Core.InterfaceCaller
 {
@@ -19,13 +20,9 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         #region .ctor
         private readonly IRestClient _restClient;
 
-        #region const
-        private const string WeixinUri = "https://api.weixin.qq.com";
-        #endregion
-
         public TemplateMessageInterfaceCaller()
         {
-            _restClient = new RestClient(WeixinUri);
+            _restClient = new RestClient(Uris.WxUri);
         }
         #endregion
 

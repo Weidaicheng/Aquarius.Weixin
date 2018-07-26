@@ -28,14 +28,13 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         private readonly BaseSettings _baseSettings;
 
         #region const
-        private const string WeixinUri = "https://api.mch.weixin.qq.com";
         private const string SUCCESS = "SUCCESS";
         private const string Y = "Y";
         #endregion
 
         public WxPayInterfaceCaller(BaseSettings baseSettings)
         {
-            _restClient = new RestClient(WeixinUri);
+            _restClient = new RestClient(Uris.WxPayUri);
             _baseSettings = baseSettings;
         }
         #endregion

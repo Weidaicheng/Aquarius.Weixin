@@ -18,13 +18,9 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         private readonly IRestClient _restClient;
         private readonly BaseSettings _weixinSetting;
 
-        #region const
-        private const string WeixinUri = "https://api.weixin.qq.com";
-        #endregion
-
         public OAuthInterfaceCaller(BaseSettings weixinSetting)
         {
-            _restClient = new RestClient(WeixinUri);
+            _restClient = new RestClient(Uris.WxUri);
             _weixinSetting = weixinSetting;
         }
         #endregion

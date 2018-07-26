@@ -4,6 +4,7 @@ using System;
 using Aquarius.Weixin.Core.Exceptions;
 using Aquarius.Weixin.Entity;
 using Aquarius.Weixin.Entity.WeixinMenu;
+using Aquarius.Weixin.Entity.Enums;
 
 namespace Aquarius.Weixin.Core.InterfaceCaller
 {
@@ -12,13 +13,9 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         #region .ctor
         private readonly IRestClient _restClient;
 
-        #region const
-        private const string WeixinUri = "https://api.weixin.qq.com";
-        #endregion
-
         public MenuInterfaceCaller()
         {
-            _restClient = new RestClient(WeixinUri);
+            _restClient = new RestClient(Uris.WxUri);
         }
         #endregion
 
