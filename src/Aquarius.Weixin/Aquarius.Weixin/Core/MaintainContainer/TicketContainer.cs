@@ -30,15 +30,15 @@ namespace Aquarius.Weixin.Core.MaintainContainer
         public string GetJsApiTicket(string accessToken)
         {
             string token = _cache.Get("JSSDKTicket");
-            lock(locker)
+            if (string.IsNullOrEmpty(token))
             {
-                if (string.IsNullOrEmpty(token))
+                lock (locker)
                 {
-                    lock(locker)
+                    if (string.IsNullOrEmpty(token))
                     {
                         var ticket = _ticketInterfaceCaller.GetJsApiTicket(accessToken);
                         _cache.Set("JSSDKTicket", ticket.ticket, TimeSpan.FromSeconds(ticket.expires_in));
-                        token = ticket.ticket;
+                        token = ticket.ticket; 
                     }
                 }
             }

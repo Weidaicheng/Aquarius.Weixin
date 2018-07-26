@@ -29,15 +29,15 @@ namespace Aquarius.Weixin.Core.MaintainContainer
         public string GetAccessToken()
         {
             string token = _cache.Get("AccessToken");
-            lock(locker)
+            if (string.IsNullOrEmpty(token))
             {
-                if (string.IsNullOrEmpty(token))
+                lock (locker)
                 {
-                    lock(locker)
+                    if (string.IsNullOrEmpty(token))
                     {
                         var accessToken = _oAuthInterfaceCaller.GetAccessToken();
                         _cache.Set("AccessToken", accessToken.access_token, TimeSpan.FromSeconds(accessToken.expires_in));
-                        token = accessToken.access_token;
+                        token = accessToken.access_token; 
                     }
                 }
             }
