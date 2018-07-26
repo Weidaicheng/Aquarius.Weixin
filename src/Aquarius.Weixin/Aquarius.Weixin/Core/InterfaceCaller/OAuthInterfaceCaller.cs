@@ -6,6 +6,7 @@ using Aquarius.Weixin.Entity;
 using Aquarius.Weixin.Entity.Configuration;
 using Aquarius.Weixin.Entity.Enums;
 using Aquarius.Weixin.Entity.OAuth;
+using System.Threading.Tasks;
 
 namespace Aquarius.Weixin.Core.InterfaceCaller
 {
@@ -48,6 +49,15 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 获取普通AccessToken-异步
+        /// </summary>
+        /// <returns></returns>
+        public async Task<AccessToken> GetAccessTokenAsync()
+        {
+            return await Task.FromResult(GetAccessToken());
+        }
+
+        /// <summary>
         /// 通过Code获取OpenId
         /// </summary>
         /// <param name="code"></param>
@@ -77,6 +87,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 通过Code获取OpenId异步
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public async Task<OpenId> GetOpenIdAsync(string code)
+        {
+            return await Task.FromResult(GetOpenId(code));
+        }
+
+        /// <summary>
         /// 刷新网页授权access_token
         /// </summary>
         /// <param name="refreshToken"></param>
@@ -102,6 +122,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return JsonConvert.DeserializeObject<OpenId>(response.Content);
+        }
+
+        /// <summary>
+        /// 刷新网页授权access_token-异步
+        /// </summary>
+        /// <param name="refreshToken"></param>
+        /// <returns></returns>
+        public async Task<OpenId> RefreshTokenAsync(string refreshToken)
+        {
+            return await Task.FromResult(RefreshToken(refreshToken));
         }
 
         /// <summary>
@@ -139,6 +169,21 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 获取用户信息-异步
+        /// </summary>
+        /// <param name="accessToken">网页授权Token</param>
+        /// <param name="openId"></param>
+        /// <param name="lang">语言</param>
+        /// <returns></returns>
+        public async Task<UserInfo> GetUserInfoAsync(string accessToken, string openId, Language lang)
+        {
+            return await Task.FromResult(GetUserInfo(
+                accessToken,
+                openId,
+                lang));
+        }
+
+        /// <summary>
         /// 检查网页授权AccessToken是否有效
         /// </summary>
         /// <param name="accessToken"></param>
@@ -172,6 +217,18 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// 检查网页授权AccessToken是否有效-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <returns>检查结果，错误消息<see cref="Tuple{Boolean, String}"/></returns>
+        public async Task<(bool, string)> CheckTokenAsync(string accessToken, string openId)
+        {
+            var result = await Task.FromResult(CheckToken(accessToken, openId, out string errMsg));
+            return (result, errMsg);
         }
     }
 }

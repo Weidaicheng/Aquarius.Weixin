@@ -9,6 +9,7 @@ using IndustryClass = Aquarius.Weixin.Entity.TemplateMessage.Industry;
 using Aquarius.Weixin.Entity.TemplateMessage;
 using Aquarius.Weixin.Entity.Argument;
 using Aquarius.Weixin.Entity.Enums;
+using System.Threading.Tasks;
 
 namespace Aquarius.Weixin.Core.InterfaceCaller
 {
@@ -61,6 +62,20 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 设置所属行业-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="industry1"></param>
+        /// <param name="industry2"></param>
+        /// <returns></returns>
+        public async Task<string> SetIndustryAsync(string accessToken, IndustryEnum industry1, IndustryEnum industry2)
+        {
+            return await Task.FromResult(SetIndustry(
+                accessToken, industry1,
+                industry2));
+        }
+
+        /// <summary>
         /// 获取设置的行业信息
         /// </summary>
         /// <param name="accessToken"></param>
@@ -85,6 +100,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
 
             IndustryClass industry = JsonConvert.DeserializeObject<IndustryClass>(response.Content);
             return industry;
+        }
+
+        /// <summary>
+        /// 获取设置的行业信息-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public async Task<IndustryClass> GetIndustryAsync(string accessToken)
+        {
+            return await Task.FromResult(GetIndustry(accessToken));
         }
         #endregion
 
@@ -126,6 +151,19 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 获得模板Id-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="shortTemplateId"></param>
+        /// <returns></returns>
+        public async Task<string> GetTemplateIdAsync(string accessToken, string shortTemplateId)
+        {
+            return await Task.FromResult(GetTemplateId(
+                accessToken,
+                shortTemplateId));
+        }
+
+        /// <summary>
         /// 获取所有模板
         /// </summary>
         /// <param name="accessToken"></param>
@@ -150,6 +188,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
 
             TemplateList templates = JsonConvert.DeserializeObject<TemplateList>(response.Content);
             return templates.template_list;
+        }
+
+        /// <summary>
+        /// 获取所有模板-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<Template>> GetAllTemplateAsync(string accessToken)
+        {
+            return await Task.FromResult(GetAllTemplate(accessToken));
         }
 
         /// <summary>
@@ -185,6 +233,19 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return err.errmsg;
+        }
+
+        /// <summary>
+        /// 删除模板-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="templateId"></param>
+        /// <returns></returns>
+        public async Task<string> DeleteTemplateAsync(string accessToken, string templateId)
+        {
+            return await Task.FromResult(DeleteTemplate(
+                accessToken,
+                templateId));
         }
         #endregion
 
@@ -284,6 +345,27 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
 
             TMessageId tMessageId = JsonConvert.DeserializeObject<TMessageId>(response.Content);
             return tMessageId.msgid;
+        }
+
+        /// <summary>
+        /// 发送模板消息-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="data"></param>
+        /// <param name="url"></param>
+        /// <param name="miniProgram"></param>
+        /// <returns></returns>
+        public async Task<long> SendTMessageAsync(string accessToken, string openId, string templateId, Dictionary<string, TemplateData> data, string url = null, MiniProgram miniProgram = null)
+        {
+            return await Task.FromResult(SendTMessage(
+                accessToken,
+                openId,
+                templateId,
+                data,
+                url,
+                miniProgram));
         }
         #endregion
     }

@@ -5,6 +5,7 @@ using Aquarius.Weixin.Core.Exceptions;
 using Aquarius.Weixin.Entity;
 using Aquarius.Weixin.Entity.WeixinMenu;
 using Aquarius.Weixin.Entity.Enums;
+using System.Threading.Tasks;
 
 namespace Aquarius.Weixin.Core.InterfaceCaller
 {
@@ -53,6 +54,17 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 创建菜单-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="menuJson"></param>
+        /// <returns></returns>
+        public async Task<string> CreateMenuAsync(string accessToken, string menuJson)
+        {
+            return await Task.FromResult(CreateMenu(accessToken, menuJson));
+        }
+
+        /// <summary>
         /// 查询菜单
         /// </summary>
         /// <param name="accessToken"></param>
@@ -70,6 +82,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             IRestResponse response = _restClient.Execute(request);
 
             return response.Content;
+        }
+
+        /// <summary>
+        /// 查询菜单-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public async Task<string> GetMenuAsync(string accessToken)
+        {
+            return await Task.FromResult(GetMenu(accessToken));
         }
 
         /// <summary>
@@ -96,6 +118,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return err.errmsg;
+        }
+
+        /// <summary>
+        /// 删除菜单-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public async Task<string> DeleteMenuAsync(string accessToken)
+        {
+            return await Task.FromResult(DeleteMenu(accessToken));
         }
         #endregion
 
@@ -136,6 +168,17 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 创建个性菜单-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="menuJson"></param>
+        /// <returns></returns>
+        public async Task<MenuId> CreateConditionalMenuAsync(string accessToken, string menuJson)
+        {
+            return await Task.FromResult(CreateConditionalMenu(accessToken, menuJson));
+        }
+
+        /// <summary>
         /// 删除个性化菜单
         /// </summary>
         /// <param name="accessToken"></param>
@@ -161,6 +204,17 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return err.errmsg;
+        }
+
+        /// <summary>
+        /// 删除个性化菜单-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="menuId"></param>
+        /// <returns></returns>
+        public async Task<string> DeleteConditionalMenuAsync(string accessToken, MenuId menuId)
+        {
+            return await Task.FromResult(DeleteConditionalMenu(accessToken, menuId));
         }
 
         /// <summary>
@@ -191,6 +245,17 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return response.Content;
+        }
+
+        /// <summary>
+        /// 测试个性化菜单匹配结果-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public async Task<string> TryMatchConditionalMenuAsync(string accessToken, string userId)
+        {
+            return await Task.FromResult(TryMatchConditionalMenu(accessToken, userId));
         }
         #endregion
     }

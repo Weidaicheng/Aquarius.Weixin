@@ -5,6 +5,7 @@ using Aquarius.Weixin.Core.Exceptions;
 using Aquarius.Weixin.Entity;
 using Aquarius.Weixin.Entity.Argument;
 using Aquarius.Weixin.Entity.Enums;
+using System.Threading.Tasks;
 
 namespace Aquarius.Weixin.Core.InterfaceCaller
 {
@@ -98,6 +99,33 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return err.errmsg;
+        }
+
+        /// <summary>
+        /// 发送一次性订阅消息异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <param name="templateId"></param>
+        /// <param name="scene"></param>
+        /// <param name="title"></param>
+        /// <param name="value"></param>
+        /// <param name="color"></param>
+        /// <param name="url"></param>
+        /// <param name="miniProgram"></param>
+        /// <returns></returns>
+        public async Task<string> SendDisposableMessageAsync(string accessToken, string openId, string templateId, int scene, string title, string value, string color = null, string url = null, MiniProgram miniProgram = null)
+        {
+            return await Task.FromResult(SendDisposableMessage(
+                accessToken, 
+                openId, 
+                templateId, 
+                scene, 
+                title, 
+                value, 
+                color, 
+                url, 
+                miniProgram));
         }
         #endregion
     }

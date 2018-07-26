@@ -5,6 +5,7 @@ using Aquarius.Weixin.Core.Exceptions;
 using Aquarius.Weixin.Entity;
 using Aquarius.Weixin.Entity.Ticket;
 using Aquarius.Weixin.Entity.Enums;
+using System.Threading.Tasks;
 
 namespace Aquarius.Weixin.Core.InterfaceCaller
 {
@@ -48,6 +49,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return JsonConvert.DeserializeObject<Ticket>(response.Content);
+        }
+
+        /// <summary>
+        /// 获取JS-SDK票据-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public async Task<Ticket> GetJsApiTicketAsync(string accessToken)
+        {
+            return await Task.FromResult(GetJsApiTicket(accessToken));
         }
         #endregion
     }

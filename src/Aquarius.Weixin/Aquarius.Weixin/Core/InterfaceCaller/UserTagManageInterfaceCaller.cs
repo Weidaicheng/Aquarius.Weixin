@@ -7,6 +7,7 @@ using Aquarius.Weixin.Entity.UserManage;
 using Aquarius.Weixin.Entity;
 using Aquarius.Weixin.Entity.Enums;
 using Aquarius.Weixin.Entity.Argument;
+using System.Threading.Tasks;
 
 namespace Aquarius.Weixin.Core.InterfaceCaller
 {
@@ -65,6 +66,19 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 创建标签-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="tagName"></param>
+        /// <returns></returns>
+        public async Task<int> CreateTagAsync(string accessToken, string tagName)
+        {
+            return await Task.FromResult(CreateTag(
+                accessToken,
+                tagName));
+        }
+
+        /// <summary>
         /// 获取公众号已创建的标签
         /// </summary>
         /// <param name="accessToken"></param>
@@ -88,6 +102,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return JsonConvert.DeserializeObject<Tags>(response.Content);
+        }
+
+        /// <summary>
+        /// 获取公众号已创建的标签-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <returns></returns>
+        public async Task<Tags> GetTagsAsync(string accessToken)
+        {
+            return await Task.FromResult(GetTags(accessToken));
         }
 
         /// <summary>
@@ -131,6 +155,21 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 编辑标签-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="tagId"></param>
+        /// <param name="newTagName"></param>
+        /// <returns></returns>
+        public async Task<string> UpdateTagAsync(string accessToken, int tagId, string newTagName)
+        {
+            return await Task.FromResult(UpdateTag(
+                accessToken,
+                tagId,
+                newTagName));
+        }
+
+        /// <summary>
         /// 删除标签
         /// </summary>
         /// <param name="accessToken"></param>
@@ -165,6 +204,19 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 删除标签-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="tagId"></param>
+        /// <returns></returns>
+        public async Task<string> DeleteTagAsync(string accessToken, int tagId)
+        {
+            return await Task.FromResult(DeleteTag(
+                accessToken,
+                tagId));
+        }
+
+        /// <summary>
         /// 获取标签下粉丝
         /// </summary>
         /// <param name="accessToken"></param>
@@ -195,6 +247,21 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return JsonConvert.DeserializeObject<UserList>(response.Content);
+        }
+
+        /// <summary>
+        /// 获取标签下粉丝-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="tagId"></param>
+        /// <param name="nextOpenId"></param>
+        /// <returns></returns>
+        public async Task<UserList> GetTagFansAsync(string accessToken, int tagId, string nextOpenId = null)
+        {
+            return await Task.FromResult(GetTagFans(
+                accessToken,
+                tagId,
+                nextOpenId));
         }
         #endregion
 
@@ -233,6 +300,21 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 给用户打标签-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="tagId"></param>
+        /// <param name="openIds"></param>
+        /// <returns></returns>
+        public async Task<string> TaggingAsync(string accessToken, int tagId, params string[] openIds)
+        {
+            return await Task.FromResult(Tagging(
+                accessToken,
+                tagId,
+                openIds));
+        }
+
+        /// <summary>
         /// 为用户取消标签
         /// </summary>
         /// <param name="accessToken"></param>
@@ -263,6 +345,21 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return err.errmsg;
+        }
+
+        /// <summary>
+        /// 为用户取消标签-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="tagId"></param>
+        /// <param name="openIds"></param>
+        /// <returns></returns>
+        public async Task<string> UnTaggingAsync(string accessToken, int tagId, params string[] openIds)
+        {
+            return await Task.FromResult(UnTagging(
+                accessToken,
+                tagId,
+                openIds));
         }
 
         /// <summary>
@@ -301,6 +398,19 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 获取用户身上的标签列表-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <returns></returns>
+        public async Task<IEnumerable<int>> GetUserTagsAsync(string accessToken, string openId)
+        {
+            return await Task.FromResult(GetUserTags(
+                accessToken,
+                openId));
+        }
+
+        /// <summary>
         /// 获取已关注用户列表
         /// </summary>
         /// <param name="accessToken"></param>
@@ -329,6 +439,19 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return JsonConvert.DeserializeObject<UserList>(response.Content);
+        }
+
+        /// <summary>
+        /// 获取已关注用户列表-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="nextOpenId"></param>
+        /// <returns></returns>
+        public async Task<UserList> GetUserListAsync(string accessToken, string nextOpenId = null)
+        {
+            return await Task.FromResult(GetUserList(
+                accessToken,
+                nextOpenId));
         }
 
         /// <summary>
@@ -373,6 +496,21 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 设置用户备注-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <param name="remark"></param>
+        /// <returns></returns>
+        public async Task<string> RemarkAsync(string accessToken, string openId, string remark)
+        {
+            return await Task.FromResult(Remark(
+                accessToken,
+                openId,
+                remark));
+        }
+
+        /// <summary>
         /// 获取用户信息
         /// </summary>
         /// <param name="accessToken"></param>
@@ -407,6 +545,21 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 获取用户信息-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openId"></param>
+        /// <param name="lang"></param>
+        /// <returns></returns>
+        public async Task<UserInfo> GetUserInfoAsync(string accessToken, string openId, Language lang)
+        {
+            return await Task.FromResult(GetUserInfo(
+                accessToken,
+                openId,
+                lang));
+        }
+
+        /// <summary>
         /// 批量获取用户信息
         /// </summary>
         /// <param name="accessToken"></param>
@@ -435,6 +588,19 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return JsonConvert.DeserializeObject<UserInfoList>(response.Content);
+        }
+
+        /// <summary>
+        /// 批量获取用户信息-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="userList"></param>
+        /// <returns></returns>
+        public async Task<UserInfoList> BatchGetUserInfoAsync(string accessToken, BatchGetUserInfoArg[] userList)
+        {
+            return await Task.FromResult(BatchGetUserInfo(
+                accessToken,
+                userList));
         }
         #endregion
 
@@ -471,6 +637,19 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 获取黑名单-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="beginOpenId"></param>
+        /// <returns></returns>
+        public async Task<BlackList> GetBlackListAsync(string accessToken, string beginOpenId = null)
+        {
+            return await Task.FromResult(GetBlackList(
+                accessToken,
+                beginOpenId));
+        }
+
+        /// <summary>
         /// 拉黑用户
         /// </summary>
         /// <param name="accessToken"></param>
@@ -502,6 +681,18 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 拉黑用户-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openIds"></param>
+        /// <returns></returns>
+        public async Task<string> BlackUserAsync(string accessToken, params string[] openIds)
+        {
+            return await Task.FromResult(BlackUser(
+                accessToken, openIds));
+        }
+
+        /// <summary>
         /// 取消拉黑用户
         /// </summary>
         /// <param name="accessToken"></param>
@@ -530,6 +721,19 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             }
 
             return err.errmsg;
+        }
+
+        /// <summary>
+        /// 取消拉黑用户-异步
+        /// </summary>
+        /// <param name="accessToken"></param>
+        /// <param name="openIds"></param>
+        /// <returns></returns>
+        public async Task<string> UnBlackUserAsync(string accessToken, params string[] openIds)
+        {
+            return await Task.FromResult(UnBlackUser(
+                accessToken,
+                openIds));
         }
         #endregion
     }

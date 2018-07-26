@@ -15,6 +15,7 @@ using Aquarius.Weixin.Entity.Enums;
 using Aquarius.Weixin.Entity.Pay;
 using Aquarius.Weixin.Utility;
 using WxPayError = Aquarius.Weixin.Entity.Pay.Error;
+using System.Threading.Tasks;
 
 namespace Aquarius.Weixin.Core.InterfaceCaller
 {
@@ -78,6 +79,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 统一下单-异步
+        /// </summary>
+        /// <param name="unifiedOrder"></param>
+        /// <returns></returns>
+        public async Task<UnifiedOrderResult> UnifiedOrderAsync(UnifiedOrder unifiedOrder)
+        {
+            return await Task.FromResult(UnifiedOrder(unifiedOrder));
         }
 
         /// <summary>
@@ -164,6 +175,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 查询订单-异步
+        /// </summary>
+        /// <param name="orderQuery"></param>
+        /// <returns></returns>
+        public async Task<OrderQueryResult> QueryOrderAsync(OrderQuery orderQuery)
+        {
+            return await Task.FromResult(QueryOrder(orderQuery));
+        }
+
+        /// <summary>
         /// 关闭订单
         /// </summary>
         /// <param name="closeOrder"></param>
@@ -202,6 +223,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 关闭订单-异步
+        /// </summary>
+        /// <param name="closeOrder"></param>
+        /// <returns></returns>
+        public async Task<CloseOrderResult> CloseOrderAsync(CloseOrder closeOrder)
+        {
+            return await Task.FromResult(CloseOrder(closeOrder));
         }
 
         /// <summary>
@@ -289,6 +320,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 申请退款-异步
+        /// </summary>
+        /// <param name="refund"></param>
+        /// <returns></returns>
+        public async Task<RefundResult> RefundAsync(Refund refund)
+        {
+            return await Task.FromResult(Refund(refund));
         }
 
         /// <summary>
@@ -440,6 +481,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// 查询退款-异步
+        /// </summary>
+        /// <param name="orderQuery"></param>
+        /// <returns></returns>
+        public async Task<RefundQueryResult> QueryRefundAsync(RefundQuery orderQuery)
+        {
+            return await Task.FromResult(QueryRefund(orderQuery));
         }
 
         /// <summary>
@@ -883,6 +934,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         }
 
         /// <summary>
+        /// 下载对账单-异步
+        /// </summary>
+        /// <param name="downloadBill"></param>
+        /// <returns></returns>
+        public async Task<DownloadBillResult> DownloadBillAsync(DownloadBill downloadBill)
+        {
+            return await Task.FromResult(DownloadBill(downloadBill));
+        }
+
+        /// <summary>
         /// 拉取评论
         /// </summary>
         /// <param name="commentQuery"></param>
@@ -980,6 +1041,16 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
 
                 return commentQueryResult;
             }
+        }
+
+        /// <summary>
+        /// 拉取评论-异步
+        /// </summary>
+        /// <param name="commentQuery"></param>
+        /// <returns></returns>
+        public async Task<CommentQueryResult> QueryCommentAsync(CommentQuery commentQuery)
+        {
+            return await Task.FromResult(QueryComment(commentQuery));
         }
     }
 }
