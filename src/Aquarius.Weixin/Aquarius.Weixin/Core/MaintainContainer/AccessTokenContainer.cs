@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
 using Aquarius.Weixin.Cache;
+using Aquarius.Weixin.Concurrency;
 using Aquarius.Weixin.Core.InterfaceCaller;
 
 namespace Aquarius.Weixin.Core.MaintainContainer
@@ -26,6 +29,7 @@ namespace Aquarius.Weixin.Core.MaintainContainer
         /// 获取AccessToken
         /// </summary>
         /// <returns></returns>
+        [Obsolete("推荐使用异步方法")]
         public string GetAccessToken()
         {
             string token = _cache.Get("AccessToken");
@@ -39,6 +43,29 @@ namespace Aquarius.Weixin.Core.MaintainContainer
                         _cache.Set("AccessToken", accessToken.access_token, TimeSpan.FromSeconds(accessToken.expires_in));
                         token = accessToken.access_token; 
                     }
+                }
+            }
+
+            return token;
+        }
+
+        /// <summary>
+        /// 获取AccessToken-异步
+        /// </summary>
+        /// <returns></returns>
+        public async Task<string> GetAccessTokenAsync()
+        {
+            string token = _cache.Get("AccessToken");
+            if (string.IsNullOrEmpty(token))
+            {
+                using (var asyncLock = new AsyncLock())
+                {
+                    if (string.IsNullOrEmpty(token))
+                    {
+                        var accessToken = await _oAuthInterfaceCaller.GetAccessTokenAsync();
+                        _cache.Set("AccessToken", accessToken.access_token, TimeSpan.FromSeconds(accessToken.expires_in));
+                        token = accessToken.access_token;
+                    } 
                 }
             }
 
