@@ -16,6 +16,7 @@ using Aquarius.Weixin.Entity.Pay;
 using Aquarius.Weixin.Utility;
 using WxPayError = Aquarius.Weixin.Entity.Pay.Error;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Aquarius.Weixin.Core.InterfaceCaller
 {
@@ -514,12 +515,12 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             {
                 //失败
                 var content = response.Content.Replace("<xml>", $"<{typeof(WxPayError).Name}>").Replace("</xml>", $"</{typeof(WxPayError).Name}>");
-                using (StreamReader r = new StreamReader(content))
+                using (var reader = new StringReader(content))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(WxPayError));
-                    var result = serializer.Deserialize(r) as WxPayError;
+                    var result = serializer.Deserialize(reader) as WxPayError;
 
-                    throw new WeixinInterfaceException(result.return_msg); 
+                    throw new WeixinInterfaceException(result.return_msg);
                 }
             }
             else
@@ -531,11 +532,11 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
                     DownloadBillResultStatistics = new DownloadBillResultStatistics()
                 };
 
-                using (StringReader r = new StringReader(response.Content))
+                using (StringReader reader = new StringReader(response.Content))
                 {
                     var lines = new List<string>();
                     string line;
-                    while((line = r.ReadLine()) != null)
+                    while((line = reader.ReadLine()) != null)
                     {
                         lines.Add(line);
                     }
@@ -977,7 +978,7 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             {
                 //失败
                 var content = response.Content.Replace("<xml>", $"<{typeof(WxPayError).Name}>").Replace("</xml>", $"</{typeof(WxPayError).Name}>");
-                using (StreamReader r = new StreamReader(content))
+                using (var r = new StringReader(content))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(WxPayError));
                     var result = serializer.Deserialize(r) as WxPayError;

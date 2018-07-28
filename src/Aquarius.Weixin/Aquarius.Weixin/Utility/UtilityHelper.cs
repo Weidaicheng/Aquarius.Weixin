@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+#if NETCOREAPP1_0 || NETCOREAPP1_1
+using System.Reflection;
+#endif
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
@@ -183,7 +186,11 @@ namespace Aquarius.Weixin.Utility
             SHA1 sha;
             ASCIIEncoding enc;
             string hash = "";
+#if NETCOREAPP1_0 || NETCOREAPP1_1
+            sha = SHA1.Create();
+#else
             sha = new SHA1CryptoServiceProvider();
+#endif
             enc = new ASCIIEncoding();
             byte[] dataToHash = enc.GetBytes(source);
             byte[] dataHashed = sha.ComputeHash(dataToHash);

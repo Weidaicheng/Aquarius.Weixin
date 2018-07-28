@@ -225,10 +225,18 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
         /// <param name="accessToken"></param>
         /// <param name="openId"></param>
         /// <returns>检查结果，错误消息<see cref="Tuple{Boolean, String}"/></returns>
+#if NETCOREAPP1_0 || NETCOREAPP1_1
+        public async Task<Tuple<bool, string>> CheckTokenAsync(string accessToken, string openId)
+#else
         public async Task<(bool, string)> CheckTokenAsync(string accessToken, string openId)
+#endif
         {
             var result = await Task.FromResult(CheckToken(accessToken, openId, out string errMsg));
+#if NETCOREAPP1_0 || NETCOREAPP1_1
+            return new Tuple<bool, string>(result, errMsg);
+#else
             return (result, errMsg);
+#endif
         }
     }
 }

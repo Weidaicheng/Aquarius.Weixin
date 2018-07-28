@@ -107,7 +107,7 @@ namespace Aquarius.Weixin.Utility
 
         private static String AES_encrypt(String Input, byte[] Iv, byte[] Key)
         {
-            var aes = new RijndaelManaged();
+            var aes = Aes.Create();
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -135,7 +135,7 @@ namespace Aquarius.Weixin.Utility
 
         private static String AES_encrypt(byte[] Input, byte[] Iv, byte[] Key)
         {
-            var aes = new RijndaelManaged();
+            var aes = Aes.Create();
             //秘钥的大小，以位为单位
             aes.KeySize = 256;
             //支持的块大小
@@ -206,7 +206,7 @@ namespace Aquarius.Weixin.Utility
         }
         private static byte[] AES_decrypt(String Input, byte[] Iv, byte[] Key)
         {
-            RijndaelManaged aes = new RijndaelManaged();
+            var aes = Aes.Create();
             aes.KeySize = 256;
             aes.BlockSize = 128;
             aes.Mode = CipherMode.CBC;

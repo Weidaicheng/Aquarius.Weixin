@@ -8,7 +8,11 @@ using Aquarius.Weixin.Utility;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+#if NETCOREAPP1_0 || NETCOREAPP1_1
+using System.Net;
+#else
 using System.Web;
+#endif
 
 namespace Aquarius.Weixin.Core.Pay
 {
@@ -184,7 +188,11 @@ namespace Aquarius.Weixin.Core.Pay
 
             var mWebUrl = unifiedOrderResult.mweb_url;
             if (!string.IsNullOrEmpty(info.RedirectUrl))
+#if NETCOREAPP1_0 || NETCOREAPP1_1
+                mWebUrl += $"&redirect_url={WebUtility.UrlEncode(info.RedirectUrl)}";
+#else
                 mWebUrl += $"&redirect_url={HttpUtility.UrlEncode(info.RedirectUrl)}";
+#endif
 
             return mWebUrl;
         }
@@ -227,7 +235,11 @@ namespace Aquarius.Weixin.Core.Pay
 
             var mWebUrl = unifiedOrderResult.mweb_url;
             if (!string.IsNullOrEmpty(info.RedirectUrl))
+#if NETCOREAPP1_0 || NETCOREAPP1_1
+                mWebUrl += $"&redirect_url={WebUtility.UrlEncode(info.RedirectUrl)}";
+#else
                 mWebUrl += $"&redirect_url={HttpUtility.UrlEncode(info.RedirectUrl)}";
+#endif
 
             return mWebUrl;
         }
