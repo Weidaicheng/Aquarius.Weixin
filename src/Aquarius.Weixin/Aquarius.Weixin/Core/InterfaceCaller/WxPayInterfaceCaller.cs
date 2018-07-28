@@ -514,10 +514,10 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             {
                 //失败
                 var content = response.Content.Replace("<xml>", $"<{typeof(WxPayError).Name}>").Replace("</xml>", $"</{typeof(WxPayError).Name}>");
-                using (StreamReader r = new StreamReader(content))
+                using (var reader = new StringReader(content))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(WxPayError));
-                    var result = serializer.Deserialize(r) as WxPayError;
+                    var result = serializer.Deserialize(reader) as WxPayError;
 
                     throw new WeixinInterfaceException(result.return_msg); 
                 }
@@ -977,10 +977,10 @@ namespace Aquarius.Weixin.Core.InterfaceCaller
             {
                 //失败
                 var content = response.Content.Replace("<xml>", $"<{typeof(WxPayError).Name}>").Replace("</xml>", $"</{typeof(WxPayError).Name}>");
-                using (StreamReader r = new StreamReader(content))
+                using (var reader = new StringReader(content))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(WxPayError));
-                    var result = serializer.Deserialize(r) as WxPayError;
+                    var result = serializer.Deserialize(reader) as WxPayError;
 
                     if(result.return_code != SUCCESS)
                     {
