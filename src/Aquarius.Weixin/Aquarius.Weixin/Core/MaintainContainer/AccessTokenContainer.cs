@@ -2,7 +2,6 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Aquarius.Weixin.Cache;
-using Aquarius.Weixin.Concurrency;
 using Aquarius.Weixin.Core.InterfaceCaller;
 
 namespace Aquarius.Weixin.Core.MaintainContainer
@@ -58,14 +57,19 @@ namespace Aquarius.Weixin.Core.MaintainContainer
             string token = _cache.Get("AccessToken");
             if (string.IsNullOrEmpty(token))
             {
-                using (var asyncLock = new AsyncLock())
+                Monitor.Enter(locker);
+                try
                 {
                     if (string.IsNullOrEmpty(token))
                     {
                         var accessToken = await _oAuthInterfaceCaller.GetAccessTokenAsync();
                         _cache.Set("AccessToken", accessToken.access_token, TimeSpan.FromSeconds(accessToken.expires_in));
                         token = accessToken.access_token;
-                    } 
+                    }
+                }
+                finally
+                {
+                    Monitor.Exit(locker); 
                 }
             }
 
