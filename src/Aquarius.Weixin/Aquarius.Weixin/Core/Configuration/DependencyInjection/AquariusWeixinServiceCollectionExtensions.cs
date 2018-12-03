@@ -27,6 +27,7 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
             builder.AddMsgProcesser();
             builder.AddMsgHandler();
             builder.AddMsgReply();
+            builder.AddMsgFacade();
             builder.AddJsApi();
             builder.AddBaseSetting();
             builder.AddCache();

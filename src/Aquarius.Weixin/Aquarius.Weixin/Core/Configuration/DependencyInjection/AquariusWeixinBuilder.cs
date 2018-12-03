@@ -157,5 +157,10 @@ namespace Aquarius.Weixin.Core.Configuration.DependencyInjection
         {
             _services.AddScoped<WxPayService, WxPayService>();
         }
+
+        public void AddMsgFacade()
+        {
+            _services.AddScoped<MessageFacade, MessageFacade>();
+        }
     }
 }

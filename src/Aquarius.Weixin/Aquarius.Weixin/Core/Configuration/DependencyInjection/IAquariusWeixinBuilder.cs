@@ -46,6 +46,11 @@
         void AddMsgReply();
 
         /// <summary>
+        /// 添加消息处理机
+        /// </summary>
+        void AddMsgFacade();
+
+        /// <summary>
         /// 添加Js-Api
         /// </summary>
         void AddJsApi();
